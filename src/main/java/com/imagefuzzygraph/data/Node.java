@@ -1,8 +1,5 @@
 package com.imagefuzzygraph.data;
 
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-
 /**
  * Class representing a node.
  *
