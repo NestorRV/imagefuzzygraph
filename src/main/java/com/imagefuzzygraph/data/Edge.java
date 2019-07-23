@@ -1,7 +1,5 @@
 package com.imagefuzzygraph.data;
 
-import java.util.ArrayList;
-
 /**
  * Class representing an edge.
  *
@@ -10,18 +8,18 @@ import java.util.ArrayList;
 public class Edge {
     private String startNodeId;
     private String endNodeId;
-    private ArrayList<FuzzyProperty> spatialRelationshipFuzzyDescriptor;
+    private FuzzyDescriptor spatialRelationshipFuzzyDescriptor;
     private String label;
 
     /**
      * Constructs an edge.
      *
-     * @param startNodeId                              startNodeId node of the edge.
-     * @param endNodeId                                endNodeId node of the edge.
+     * @param startNodeId                        startNodeId node of the edge.
+     * @param endNodeId                          endNodeId node of the edge.
      * @param spatialRelationshipFuzzyDescriptor spatial relationship fuzzy descriptor between the nodes of the edge.
      * @param label                              label of the edge.
      */
-    public Edge(String startNodeId, String endNodeId, ArrayList<FuzzyProperty> spatialRelationshipFuzzyDescriptor, String label) {
+    public Edge(String startNodeId, String endNodeId, FuzzyDescriptor spatialRelationshipFuzzyDescriptor, String label) {
         this.startNodeId = startNodeId;
         this.endNodeId = endNodeId;
         this.spatialRelationshipFuzzyDescriptor = spatialRelationshipFuzzyDescriptor;

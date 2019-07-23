@@ -18,7 +18,7 @@ public class Node {
     /**
      * Color fuzzy descriptor of the node.
      */
-    private ArrayList<FuzzyProperty> colorFuzzyDescriptor;
+    private FuzzyDescriptor colorFuzzyDescriptor;
 
     /**
      * Label of the node.
@@ -32,7 +32,7 @@ public class Node {
      * @param colorFuzzyDescriptor color fuzzy descriptor of the node.
      * @param label                label of the node.
      */
-    public Node(String id, ArrayList<FuzzyProperty> colorFuzzyDescriptor, String label) {
+    public Node(String id, FuzzyDescriptor colorFuzzyDescriptor, String label) {
         this.id = id;
         this.colorFuzzyDescriptor = colorFuzzyDescriptor;
         this.label = label;
