@@ -3,9 +3,6 @@ package com.imagefuzzygraph.data;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.counting;
-import static java.util.stream.Collectors.groupingBy;
-
 /**
  * Class representing a data.
  *
@@ -58,12 +55,7 @@ public class Graph implements Iterable<Node> {
      * @return the number of edges.
      */
     public int getNumberOfEdges() {
-        Collection<Edge> edges = this.getEdges();
-        Map<Edge.DIRECTION, Long> counter = edges.stream().collect(groupingBy(Edge::getDirection, counting()));
-
-        return Math.toIntExact(counter.getOrDefault(Edge.DIRECTION.START_TO_END, 0L) +
-                counter.getOrDefault(Edge.DIRECTION.END_TO_START, 0L) +
-                counter.getOrDefault(Edge.DIRECTION.BIDIRECTIONAL, 0L) / 2);
+        return this.getEdges().size();
     }
 
     /**
@@ -92,14 +84,7 @@ public class Graph implements Iterable<Node> {
      * @param edge new edge to be added.
      */
     public void addEdge(Edge edge) {
-        if (edge.getDirection().equals(Edge.DIRECTION.START_TO_END)) {
-            this.adjacencyList.computeIfAbsent(edge.getStart(), k -> new LinkedHashSet<>()).add(edge);
-        } else if (edge.getDirection().equals(Edge.DIRECTION.END_TO_START)) {
-            this.adjacencyList.computeIfAbsent(edge.getEnd(), k -> new LinkedHashSet<>()).add(edge);
-        } else if (edge.getDirection().equals(Edge.DIRECTION.BIDIRECTIONAL)) {
-            this.adjacencyList.computeIfAbsent(edge.getStart(), k -> new LinkedHashSet<>()).add(edge);
-            this.adjacencyList.computeIfAbsent(edge.getEnd(), k -> new LinkedHashSet<>()).add(edge);
-        }
+        this.adjacencyList.computeIfAbsent(edge.getStart(), k -> new LinkedHashSet<>()).add(edge);
     }
 
     /**
@@ -131,13 +116,7 @@ public class Graph implements Iterable<Node> {
         Collection<Node> nodes = null;
         Collection<Edge> edges = this.getAdjacent(node);
         if (edges != null) {
-            nodes = edges.stream().map(edge -> {
-                if (edge.getDirection().equals(Edge.DIRECTION.END_TO_START)) {
-                    return edge.getStart();
-                } else {
-                    return edge.getEnd();
-                }
-            }).collect(Collectors.toCollection(LinkedHashSet::new));
+            nodes = edges.stream().map(Edge::getStart).collect(Collectors.toCollection(LinkedHashSet::new));
         }
         return nodes;
     }
