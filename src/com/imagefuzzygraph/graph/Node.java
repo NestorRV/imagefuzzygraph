@@ -22,7 +22,7 @@ public class Node {
     /**
      * Constructs a node.
      *
-     * @param colorProperties colorProperties of the node.
+     * @param colorProperties color properties of the node.
      * @param label           label of the node.
      */
     public Node(ArrayList<FuzzyValue> colorProperties, String label) {
