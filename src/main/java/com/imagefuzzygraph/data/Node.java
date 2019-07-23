@@ -1,6 +1,7 @@
 package com.imagefuzzygraph.data;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Class representing a node.
@@ -8,6 +9,11 @@ import java.util.ArrayList;
  * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es)
  */
 public class Node {
+
+    /**
+     * Id of the node.
+     */
+    private String id;
 
     /**
      * Color fuzzy descriptor of the node.
@@ -22,11 +28,22 @@ public class Node {
     /**
      * Constructs a node.
      *
+     * @param id                   id of the node.
      * @param colorFuzzyDescriptor color fuzzy descriptor of the node.
      * @param label                label of the node.
      */
-    public Node(ArrayList<FuzzyProperty> colorFuzzyDescriptor, String label) {
+    public Node(String id, ArrayList<FuzzyProperty> colorFuzzyDescriptor, String label) {
+        this.id = id;
         this.colorFuzzyDescriptor = colorFuzzyDescriptor;
         this.label = label;
+    }
+
+    /**
+     * Returns the id of the node.
+     *
+     * @return the id of the node.
+     */
+    public String getId() {
+        return id;
     }
 }

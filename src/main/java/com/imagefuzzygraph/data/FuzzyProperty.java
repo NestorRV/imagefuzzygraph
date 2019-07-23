@@ -61,14 +61,4 @@ public class FuzzyProperty {
     public void setDegree(double degree) {
         this.degree = degree;
     }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * @return a string representation of the object.
-     */
-    @Override
-    public String toString() {
-        return degree + "/" + label;
-    }
 }

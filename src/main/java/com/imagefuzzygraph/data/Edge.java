@@ -8,60 +8,60 @@ import java.util.ArrayList;
  * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es)
  */
 public class Edge {
-    private Node start;
-    private Node end;
+    private String startNodeId;
+    private String endNodeId;
     private ArrayList<FuzzyProperty> spatialRelationshipFuzzyDescriptor;
     private String label;
 
     /**
      * Constructs an edge.
      *
-     * @param start                              start node of the edge.
-     * @param end                                end node of the edge.
+     * @param startNodeId                              startNodeId node of the edge.
+     * @param endNodeId                                endNodeId node of the edge.
      * @param spatialRelationshipFuzzyDescriptor spatial relationship fuzzy descriptor between the nodes of the edge.
      * @param label                              label of the edge.
      */
-    public Edge(Node start, Node end, ArrayList<FuzzyProperty> spatialRelationshipFuzzyDescriptor, String label) {
-        this.start = start;
-        this.end = end;
+    public Edge(String startNodeId, String endNodeId, ArrayList<FuzzyProperty> spatialRelationshipFuzzyDescriptor, String label) {
+        this.startNodeId = startNodeId;
+        this.endNodeId = endNodeId;
         this.spatialRelationshipFuzzyDescriptor = spatialRelationshipFuzzyDescriptor;
         this.label = label;
     }
 
     /**
-     * Returns the start node.
+     * Returns the id of the start node.
      *
-     * @return the start node.
+     * @return the id of the start node.
      */
-    public Node getStart() {
-        return start;
+    public String getStartNodeId() {
+        return startNodeId;
     }
 
     /**
-     * Set the start node.
+     * Set the id of the start node.
      *
-     * @param start new start node.
+     * @param startNodeId new id of the start node.
      */
-    public void setStart(Node start) {
-        this.start = start;
+    public void setStartNodeId(String startNodeId) {
+        this.startNodeId = startNodeId;
     }
 
     /**
-     * Returns the end node.
+     * Returns the id of the end node.
      *
-     * @return the end node.
+     * @return the id of the end node.
      */
-    public Node getEnd() {
-        return end;
+    public String getEndNodeId() {
+        return endNodeId;
     }
 
     /**
-     * Set the end node.
+     * Set the id of the end node.
      *
-     * @param end new end node.
+     * @param endNodeId new id of the end node.
      */
-    public void setEnd(Node end) {
-        this.end = end;
+    public void setEndNodeId(String endNodeId) {
+        this.endNodeId = endNodeId;
     }
 
     /**
