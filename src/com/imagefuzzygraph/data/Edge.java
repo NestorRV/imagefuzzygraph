@@ -11,23 +11,24 @@ public class Edge {
     private Node start;
     private Node end;
     private DIRECTION direction;
-    private ArrayList<FuzzyProperty> properties;
+    private ArrayList<FuzzyProperty> spatialRelationshipFuzzyDescriptor;
     private String label;
 
     /**
      * Constructs an edge.
      *
-     * @param start      start node of the edge.
-     * @param end        end node of the edge.
-     * @param direction  direction of the edge.
-     * @param properties properties of the edge.
-     * @param label      label of the edge.
+     * @param start                              start node of the edge.
+     * @param end                                end node of the edge.
+     * @param direction                          direction of the edge.
+     * @param spatialRelationshipFuzzyDescriptor spatial relationship fuzzy descriptor between the nodes of the edge.
+     * @param label                              label of the edge.
      */
-    public Edge(Node start, Node end, DIRECTION direction, ArrayList<FuzzyProperty> properties, String label) {
+    public Edge(Node start, Node end, DIRECTION direction, ArrayList<FuzzyProperty> spatialRelationshipFuzzyDescriptor,
+                String label) {
         this.start = start;
         this.end = end;
         this.direction = direction;
-        this.properties = properties;
+        this.spatialRelationshipFuzzyDescriptor = spatialRelationshipFuzzyDescriptor;
         this.label = label;
     }
 
@@ -109,7 +110,8 @@ public class Edge {
      * @return reversed edge.
      */
     public Edge reverse() {
-        return new Edge(this.end, this.start, DIRECTION.reverseDirection(this.direction), this.properties, this.label);
+        return new Edge(this.end, this.start, DIRECTION.reverseDirection(this.direction),
+                this.spatialRelationshipFuzzyDescriptor, this.label);
     }
 
     /**
