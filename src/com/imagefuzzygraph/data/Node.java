@@ -1,4 +1,4 @@
-package com.imagefuzzygraph.graph;
+package com.imagefuzzygraph.data;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public class Node {
     /**
      * Color properties of the node.
      */
-    private ArrayList<FuzzyValue> colorProperties;
+    private ArrayList<Property> colorProperties;
 
     /**
      * Label of the node.
@@ -25,7 +25,7 @@ public class Node {
      * @param colorProperties color properties of the node.
      * @param label           label of the node.
      */
-    public Node(ArrayList<FuzzyValue> colorProperties, String label) {
+    public Node(ArrayList<Property> colorProperties, String label) {
         this.colorProperties = colorProperties;
         this.label = label;
     }

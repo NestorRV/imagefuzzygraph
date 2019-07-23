@@ -1,4 +1,4 @@
-package com.imagefuzzygraph.graph;
+package com.imagefuzzygraph.data;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -7,26 +7,26 @@ import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 
 /**
- * Class representing a graph.
+ * Class representing a data.
  *
  * @author Néstor Rodríguez Vico (nrv23@correo.ugr.es)
  */
 public class Graph implements Iterable<Node> {
 
     /**
-     * Adjacency list to represent graph's structure.
+     * Adjacency list to represent data's structure.
      */
     private final LinkedHashMap<Node, LinkedHashSet<Edge>> adjacencyList;
 
     /**
-     * Constructs an empty graph.
+     * Constructs an empty data.
      */
     public Graph() {
         this(new LinkedHashSet<>(), new LinkedHashSet<>());
     }
 
     /**
-     * Constructs a graph.
+     * Constructs a data.
      *
      * @param nodes list of nodes.
      * @param edges list of edges.
@@ -67,7 +67,7 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Adds a node to the graph. If the node is already in the graph, it will not be added.
+     * Adds a node to the data. If the node is already in the data, it will not be added.
      *
      * @param node new node to be added.
      */
@@ -76,7 +76,7 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Deletes a node from the graph and all the edges with the origin or destination node equals to the node to be
+     * Deletes a node from the data and all the edges with the origin or destination node equals to the node to be
      * deleted.
      *
      * @param node node to be deleted.
@@ -87,7 +87,7 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Adds an edge to the graph.
+     * Adds an edge to the data.
      *
      * @param edge new edge to be added.
      */
@@ -143,18 +143,18 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Return nodes of the graph.
+     * Return nodes of the data.
      *
-     * @return nodes of the graph.
+     * @return nodes of the data.
      */
     public Collection<Node> getNodes() {
         return this.adjacencyList.keySet();
     }
 
     /**
-     * Return edges of the graph.
+     * Return edges of the data.
      *
-     * @return edges of the graph.
+     * @return edges of the data.
      */
     public Collection<Edge> getEdges() {
         Collection<Edge> edges = new ArrayList<>();
@@ -165,13 +165,13 @@ public class Graph implements Iterable<Node> {
     /**
      * Starting at root node, explores vertices as deeper as possible before exploring nodes at the same level.
      *
-     * @param root root of the graph.
+     * @param root root of the data.
      * @return nodes in depth-first order.
-     * @throws NoSuchElementException Exception thrown when the specified node as root is not present in the graph.
+     * @throws NoSuchElementException Exception thrown when the specified node as root is not present in the data.
      */
     public Collection<Node> depthFirstSearch(Node root) throws NoSuchElementException {
         if (!this.adjacencyList.containsKey(root)) {
-            throw new NoSuchElementException("The specified node as root is not present in the graph.");
+            throw new NoSuchElementException("The specified node as root is not present in the data.");
         }
 
         Collection<Node> visited = new ArrayList<>();
@@ -188,15 +188,15 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Starting at root node, explores all neighboring vertices at the same level before going deeper in the graph.
+     * Starting at root node, explores all neighboring vertices at the same level before going deeper in the data.
      *
-     * @param root root of the graph.
+     * @param root root of the data.
      * @return nodes in breadth-first order.
-     * @throws NoSuchElementException Exception thrown when the specified node as root is not present in the graph.
+     * @throws NoSuchElementException Exception thrown when the specified node as root is not present in the data.
      */
     public Collection<Node> breadthFirstSearch(Node root) throws NoSuchElementException {
         if (!this.adjacencyList.containsKey(root)) {
-            throw new NoSuchElementException("The specified node as root is not present in the graph.");
+            throw new NoSuchElementException("The specified node as root is not present in the data.");
         }
 
         Collection<Node> visited = new ArrayList<>(Collections.singletonList(root));

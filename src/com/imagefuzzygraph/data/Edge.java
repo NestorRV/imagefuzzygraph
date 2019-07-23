@@ -1,4 +1,4 @@
-package com.imagefuzzygraph.graph;
+package com.imagefuzzygraph.data;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ public class Edge {
     private Node start;
     private Node end;
     private DIRECTION direction;
-    private ArrayList<FuzzyValue> properties;
+    private ArrayList<Property> properties;
     private String label;
 
     /**
@@ -23,7 +23,7 @@ public class Edge {
      * @param properties properties of the edge.
      * @param label      label of the edge.
      */
-    public Edge(Node start, Node end, DIRECTION direction, ArrayList<FuzzyValue> properties, String label) {
+    public Edge(Node start, Node end, DIRECTION direction, ArrayList<Property> properties, String label) {
         this.start = start;
         this.end = end;
         this.direction = direction;
