@@ -18,21 +18,14 @@ public class Node {
     private FuzzyDescriptor colorFuzzyDescriptor;
 
     /**
-     * Label of the node.
-     */
-    private String label;
-
-    /**
      * Constructs a node.
      *
      * @param id                   id of the node.
      * @param colorFuzzyDescriptor color fuzzy descriptor of the node.
-     * @param label                label of the node.
      */
-    public Node(String id, FuzzyDescriptor colorFuzzyDescriptor, String label) {
+    public Node(String id, FuzzyDescriptor colorFuzzyDescriptor) {
         this.id = id;
         this.colorFuzzyDescriptor = colorFuzzyDescriptor;
-        this.label = label;
     }
 
     /**
