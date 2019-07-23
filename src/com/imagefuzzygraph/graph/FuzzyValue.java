@@ -7,21 +7,21 @@ package com.imagefuzzygraph.graph;
  */
 public class FuzzyValue {
     /**
-     * Label associated to the fuzzy set associated to the FuzzyValue.
-     */
-    private String label;
-    /**
      * Membership degree of the element to the fuzzy set associated to the FuzzyValue.
      */
     private double degree;
+    /**
+     * Label associated to the fuzzy set associated to the FuzzyValue.
+     */
+    private String label;
 
     /**
      * Construct a FuzzyValue
      *
-     * @param label  label associated to the fuzzy set associated to the FuzzyValue.
      * @param degree membership degree of the element to the fuzzy set associated to the FuzzyValue.
+     * @param label  label associated to the fuzzy set associated to the FuzzyValue.
      */
-    public FuzzyValue(String label, double degree) {
+    public FuzzyValue(double degree, String label) {
         this.label = label;
         this.degree = degree;
     }
@@ -60,5 +60,15 @@ public class FuzzyValue {
      */
     public void setDegree(double degree) {
         this.degree = degree;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return a string representation of the object.
+     */
+    @Override
+    public String toString() {
+        return degree + "/" + label;
     }
 }
