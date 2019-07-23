@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public class Node {
 
     /**
-     * Properties of the node.
+     * Color properties of the node.
      */
-    private ArrayList<FuzzyValue> properties;
+    private ArrayList<FuzzyValue> colorProperties;
 
     /**
      * Label of the node.
@@ -22,11 +22,11 @@ public class Node {
     /**
      * Constructs a node.
      *
-     * @param properties properties of the node.
-     * @param label      label of the node.
+     * @param colorProperties colorProperties of the node.
+     * @param label           label of the node.
      */
-    public Node(ArrayList<FuzzyValue> properties, String label) {
-        this.properties = properties;
+    public Node(ArrayList<FuzzyValue> colorProperties, String label) {
+        this.colorProperties = colorProperties;
         this.label = label;
     }
 }
