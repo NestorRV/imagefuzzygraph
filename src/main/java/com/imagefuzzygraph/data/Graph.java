@@ -14,7 +14,15 @@ import java.util.Iterator;
  */
 public class Graph implements Iterable<Node> {
 
+    /**
+     * Nodes of the graph.
+     */
     private final HashMap<String, Node> nodes = new HashMap<>();
+
+    /**
+     * Edges of the graph.
+     */
+    private final ArrayList<Edge> edges = new ArrayList<>();
 
     /**
      * Adjacency list to represent graph's structure.
@@ -32,7 +40,6 @@ public class Graph implements Iterable<Node> {
             this.nodes.put(node.getId(), node);
         }
 
-
         for (Edge edge : edges) {
             this.addEdge(edge);
         }
@@ -45,6 +52,7 @@ public class Graph implements Iterable<Node> {
      */
     private void addEdge(Edge edge) {
         this.adjacencyList.computeIfAbsent(edge.getStartNodeId(), k -> new ArrayList<>()).add(edge);
+        this.edges.add(edge);
     }
 
     /**
