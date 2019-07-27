@@ -13,12 +13,12 @@ public class Edge {
     private String id;
 
     /**
-     * Id of the start edge
+     * Id of the start node
      */
     private String startNodeId;
 
     /**
-     * Id of the start edge
+     * Id of the start node
      */
     private String endNodeId;
 
