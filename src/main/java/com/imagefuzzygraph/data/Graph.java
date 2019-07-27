@@ -56,6 +56,24 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
+     * Edges getter
+     *
+     * @return edges of the graph.
+     */
+    public ArrayList<Edge> getEdges() {
+        return edges;
+    }
+
+    /**
+     * Nodes getter
+     *
+     * @return nodes of the graph.
+     */
+    public HashMap<String, Node> getNodes() {
+        return nodes;
+    }
+
+    /**
      * Returns iterator to iterate through nodes.
      *
      * @return iterator to iterate through nodes.
