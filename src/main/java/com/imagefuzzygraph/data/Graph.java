@@ -4,7 +4,6 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -17,17 +16,12 @@ public class Graph implements Iterable<Node> {
     /**
      * Nodes of the graph.
      */
-    private final HashMap<String, Node> nodes = new HashMap<>();
+    private final ArrayList<Node> nodes = new ArrayList<>();
 
     /**
      * Edges of the graph.
      */
     private final ArrayList<Edge> edges = new ArrayList<>();
-
-    /**
-     * Adjacency list to represent graph's structure.
-     */
-    private final HashMap<String, ArrayList<Edge>> adjacencyList = new HashMap<>();
 
     /**
      * Constructs a graph.
@@ -36,23 +30,8 @@ public class Graph implements Iterable<Node> {
      * @param edges list of edges.
      */
     public Graph(Collection<Node> nodes, Collection<Edge> edges) {
-        for (Node node : nodes) {
-            this.nodes.put(node.getId(), node);
-        }
-
-        for (Edge edge : edges) {
-            this.addEdge(edge);
-        }
-    }
-
-    /**
-     * Adds an edge to the graph.
-     *
-     * @param edge new edge to be added.
-     */
-    private void addEdge(Edge edge) {
-        this.adjacencyList.computeIfAbsent(edge.getStartNodeId(), k -> new ArrayList<>()).add(edge);
-        this.edges.add(edge);
+        this.nodes.addAll(nodes);
+        this.edges.addAll(edges);
     }
 
     /**
@@ -69,7 +48,7 @@ public class Graph implements Iterable<Node> {
      *
      * @return nodes of the graph.
      */
-    public HashMap<String, Node> getNodes() {
+    public ArrayList<Node> getNodes() {
         return nodes;
     }
 
@@ -80,7 +59,7 @@ public class Graph implements Iterable<Node> {
      */
     @Override
     public Iterator<Node> iterator() {
-        return nodes.values().iterator();
+        return nodes.iterator();
     }
 
     /**
