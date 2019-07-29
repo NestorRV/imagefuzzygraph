@@ -36,4 +36,13 @@ public class Node {
     public String getId() {
         return id;
     }
+
+    /**
+     * Returns the color fuzzy descriptor of the node
+     *
+     * @return the color fuzzy descriptor of the node
+     */
+    public FuzzyDescriptor getColorFuzzyDescriptor() {
+        return colorFuzzyDescriptor;
+    }
 }
