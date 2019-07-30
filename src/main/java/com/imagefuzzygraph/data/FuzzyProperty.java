@@ -8,22 +8,22 @@ package com.imagefuzzygraph.data;
 public class FuzzyProperty {
 
     /**
-     * Membership degree of the element to the fuzzy set associated to the FuzzyProperty
-     */
-    private double degree;
-
-    /**
      * Label associated to the fuzzy set associated to the FuzzyProperty
      */
     private String label;
 
     /**
+     * Membership degree of the element to the fuzzy set associated to the FuzzyProperty
+     */
+    private double degree;
+
+    /**
      * Construct a FuzzyProperty
      *
-     * @param degree membership degree of the element to the fuzzy set associated to the FuzzyProperty
      * @param label  label associated to the fuzzy set associated to the FuzzyProperty
+     * @param degree membership degree of the element to the fuzzy set associated to the FuzzyProperty
      */
-    public FuzzyProperty(double degree, String label) {
+    public FuzzyProperty(String label, double degree) {
         this.label = label;
         this.degree = degree;
     }
