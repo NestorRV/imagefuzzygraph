@@ -10,22 +10,22 @@ public class Edge {
     /**
      * Id of the edge.
      */
-    private String id;
+    private final String id;
 
     /**
      * Id of the start node.
      */
-    private String startNodeId;
+    private final String startNodeId;
 
     /**
      * Id of the start node.
      */
-    private String endNodeId;
+    private final String endNodeId;
 
     /**
      * Spatial relationship fuzzy descriptor of the edge.
      */
-    private FuzzyDescriptor spatialRelationshipFuzzyDescriptor;
+    private final FuzzyDescriptor spatialRelationshipFuzzyDescriptor;
 
     /**
      * Constructs an edge
