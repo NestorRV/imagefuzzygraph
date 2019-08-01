@@ -70,12 +70,12 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Returns the adjacent of a node.
+     * Returns the adjacent edges of a node.
      *
      * @param nodeId id of node to get the adjacent from.
      * @return the adjacent of a node.
      */
-    public Collection<Edge> getAdjacent(String nodeId) {
+    public Collection<Edge> getAdjacentEdges(String nodeId) {
         return this.adjacencyList.get(nodeId);
     }
 
@@ -87,7 +87,7 @@ public class Graph implements Iterable<Node> {
      */
     public Collection<String> getAdjacentNodes(String nodeId) {
         Collection<String> nodes = new ArrayList<>();
-        Collection<Edge> edges = this.getAdjacent(nodeId);
+        Collection<Edge> edges = this.getAdjacentEdges(nodeId);
         if (edges != null) {
             nodes = edges.stream().map(Edge::getStartNodeId).collect(Collectors.toList());
         }
