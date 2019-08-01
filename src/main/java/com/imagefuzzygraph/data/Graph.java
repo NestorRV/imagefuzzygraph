@@ -36,7 +36,7 @@ public class Graph implements Iterable<Node> {
     public Graph(Collection<Node> nodes, Collection<Edge> edges) {
         this.adjacencyList = new LinkedHashMap<>();
         this.nodes.addAll(nodes);
-        edges.stream().forEach(this::addEdge);
+        edges.forEach(this::addEdge);
     }
 
     /**
@@ -53,11 +53,12 @@ public class Graph implements Iterable<Node> {
      * Deletes a node from the graph and all the edges with the origin or destination node equals to the node to be
      * deleted.
      *
-     * @param node node to be deleted.
+     * @param nodeId id of the node to be deleted.
      */
-    public void deleteNode(Node node) {
-        this.adjacencyList.remove(node);
-        this.adjacencyList.forEach((k, v) -> v.removeIf(edge -> edge.getStartNodeId().equals(node) || edge.getEndNodeId().equals(node)));
+    public void deleteNode(String nodeId) {
+        this.adjacencyList.remove(nodeId);
+        this.adjacencyList.forEach((k, v) -> v.removeIf(edge -> edge.getStartNodeId().equals(nodeId) ||
+                edge.getEndNodeId().equals(nodeId)));
     }
 
     /**
