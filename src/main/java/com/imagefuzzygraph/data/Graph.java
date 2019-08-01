@@ -89,7 +89,7 @@ public class Graph implements Iterable<Node> {
         Collection<String> nodes = new ArrayList<>();
         Collection<Edge> edges = this.getAdjacent(nodeId);
         if (edges != null) {
-            nodes = edges.stream().map(Edge::getStartNodeId).collect(Collectors.toCollection(LinkedHashSet::new));
+            nodes = edges.stream().map(Edge::getStartNodeId).collect(Collectors.toList());
         }
         return nodes;
     }
