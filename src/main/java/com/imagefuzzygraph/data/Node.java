@@ -10,12 +10,12 @@ public class Node {
     /**
      * Id of the node.
      */
-    private String id;
+    private final String id;
 
     /**
      * Color fuzzy descriptor of the node.
      */
-    private FuzzyDescriptor colorFuzzyDescriptor;
+    private final FuzzyDescriptor colorFuzzyDescriptor;
 
     /**
      * Constructs a node.
