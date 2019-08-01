@@ -1,39 +1,39 @@
 package com.imagefuzzygraph.data;
 
 /**
- * Class representing an edge
+ * Class representing an edge.
  *
- * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es)
+ * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
 public class Edge {
 
     /**
-     * Id of the edge
+     * Id of the edge.
      */
     private String id;
 
     /**
-     * Id of the start node
+     * Id of the start node.
      */
     private String startNodeId;
 
     /**
-     * Id of the start node
+     * Id of the start node.
      */
     private String endNodeId;
 
     /**
-     * Spatial relationship fuzzy descriptor of the edge
+     * Spatial relationship fuzzy descriptor of the edge.
      */
     private FuzzyDescriptor spatialRelationshipFuzzyDescriptor;
 
     /**
      * Constructs an edge
      *
-     * @param id                                 id of the edge
-     * @param startNodeId                        startNodeId node of the edge
-     * @param endNodeId                          endNodeId node of the edge
-     * @param spatialRelationshipFuzzyDescriptor spatial relationship fuzzy descriptor between the nodes of the edge
+     * @param id                                 id of the edge.
+     * @param startNodeId                        startNodeId node of the edge.
+     * @param endNodeId                          endNodeId node of the edge.
+     * @param spatialRelationshipFuzzyDescriptor spatial relationship fuzzy descriptor between the nodes of the edge.
      */
     public Edge(String id, String startNodeId, String endNodeId, FuzzyDescriptor spatialRelationshipFuzzyDescriptor) {
         this.id = id;
@@ -43,36 +43,36 @@ public class Edge {
     }
 
     /**
-     * Returns the id of the edge
+     * Returns the id of the edge.
      *
-     * @return the id of the edge
+     * @return the id of the edge.
      */
     public String getId() {
         return id;
     }
 
     /**
-     * Returns the id of the start node
+     * Returns the id of the start node.
      *
-     * @return the id of the start node
+     * @return the id of the start node.
      */
     public String getStartNodeId() {
         return startNodeId;
     }
 
     /**
-     * Returns the id of the end node
+     * Returns the id of the end node.
      *
-     * @return the id of the end node
+     * @return the id of the end node.
      */
     public String getEndNodeId() {
         return endNodeId;
     }
 
     /**
-     * Returns the spatial relationship fuzzy descriptor of the edge
+     * Returns the spatial relationship fuzzy descriptor of the edge.
      *
-     * @return the spatial relationship fuzzy descriptor of the edge
+     * @return the spatial relationship fuzzy descriptor of the edge.
      */
     public FuzzyDescriptor getSpatialRelationshipFuzzyDescriptor() {
         return spatialRelationshipFuzzyDescriptor;
