@@ -3,7 +3,6 @@ package com.imagefuzzygraph.data;
 import com.google.gson.GsonBuilder;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Class representing a graph.
@@ -62,15 +61,6 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Deletes an edge.
-     *
-     * @param edge edge to be deleted.
-     */
-    public void deleteEdge(Edge edge) {
-        this.adjacencyList.forEach((k, v) -> v.removeIf(actualEdge -> actualEdge.equals(edge)));
-    }
-
-    /**
      * Returns the adjacent edges of a node.
      *
      * @param nodeId id of node to get the adjacent from.
@@ -78,30 +68,6 @@ public class Graph implements Iterable<Node> {
      */
     public Collection<Edge> getAdjacentEdges(String nodeId) {
         return this.adjacencyList.get(nodeId);
-    }
-
-    /**
-     * Returns the adjacent nodes of a node.
-     *
-     * @param nodeId id of the node to get the adjacent from.
-     * @return the adjacent nodes of a node.
-     */
-    public Collection<String> getAdjacentNodes(String nodeId) {
-        Collection<String> nodes = new ArrayList<>();
-        Collection<Edge> edges = this.getAdjacentEdges(nodeId);
-        if (edges != null) {
-            nodes = edges.stream().map(Edge::getStartNodeId).collect(Collectors.toList());
-        }
-        return nodes;
-    }
-
-    /**
-     * Returns the edges of the graph.
-     *
-     * @return the edges of the graph.
-     */
-    public ArrayList<Edge> getEdges() {
-        return edges;
     }
 
     /**
