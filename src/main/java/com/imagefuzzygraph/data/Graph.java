@@ -71,6 +71,15 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
+     * Returns the edges of the graph.
+     *
+     * @return the edges of the graph.
+     */
+    public ArrayList<Edge> getEdges() {
+        return edges;
+    }
+
+    /**
      * Returns the nodes of the graph.
      *
      * @return the nodes of the graph.
