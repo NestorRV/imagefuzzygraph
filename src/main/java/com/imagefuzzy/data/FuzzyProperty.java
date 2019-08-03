@@ -1,4 +1,4 @@
-package com.imagefuzzygraph.data;
+package com.imagefuzzy.data;
 
 /**
  * Class representing a fuzzy property.

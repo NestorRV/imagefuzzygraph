@@ -1,4 +1,6 @@
-package com.imagefuzzygraph.data;
+package com.imagefuzzy.graph;
+
+import com.imagefuzzy.data.FuzzyDescriptor;
 
 /**
  * Class representing a node.
