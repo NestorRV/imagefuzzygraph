@@ -38,29 +38,11 @@ public class FuzzyProperty {
     }
 
     /**
-     * Set the label of the FuzzyProperty.
-     *
-     * @param label new label of the FuzzyProperty.
-     */
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    /**
      * Returns membership degree of the element to the fuzzy set associated to the FuzzyProperty.
      *
      * @return membership degree of the element to the fuzzy set associated to the FuzzyProperty.
      */
     public double getDegree() {
         return degree;
-    }
-
-    /**
-     * Set the membership degree of the element to the fuzzy set associated to the FuzzyProperty.
-     *
-     * @param degree membership degree of the element to the fuzzy set associated to the FuzzyProperty.
-     */
-    public void setDegree(double degree) {
-        this.degree = degree;
     }
 }
