@@ -228,9 +228,19 @@ public class FuzzyGraphMatching {
      *
      * @param a first value.
      * @param b second value.
-     * @return t-norm of those values. Min is used as the t-norm.
+     * @return t-norm of the two values. Min is used as the t-norm.
      */
     private double tNorm(double a, double b) {
         return Math.min(a, b);
+    }
+
+    /**
+     * Perform a t-norm between N values.
+     *
+     * @param values values to be processed.
+     * @return t-norm of values. Min is used as the t-norm.
+     */
+    private double tNorm(Collection<Double> values) {
+        return Collections.min(values);
     }
 }
