@@ -81,12 +81,19 @@ public class BuildGraph {
     }
 
     /**
-     * Build a fuzzy spatial relationship descriptor for a color.
+     * Build a fuzzy spatial relationship descriptor for two points.
      *
-     * @param angle angle to be processed.
-     * @return fuzzy spatial relationship descriptor for a color.
+     * @param x1 x coordinate of the first point.
+     * @param y1 y coordinate of the first point.
+     * @param x2 x coordinate of the second point.
+     * @param y2 y coordinate of the second point.
+     * @return fuzzy spatial relationship descriptor for two points.
      */
-    public FuzzyDescriptor buildFuzzySpatialRelationshipDescriptor(double angle) {
+    public FuzzyDescriptor buildFuzzySpatialRelationshipDescriptor(double x1, double y1, double x2, double y2) {
+        double angle = Math.toDegrees(Math.atan2(y2 - y1, x2 - x1));
+        // Keep angle between 0 and 360
+        angle = angle + Math.ceil(-angle / 360) * 360;
+
         FunctionBasedFuzzySet<Double> rightFirstPart = new FunctionBasedFuzzySet<>("right", new TrapezoidalFunction<>(0.0, 0.0, 20.0, 70.0));
         FunctionBasedFuzzySet<Double> up = new FunctionBasedFuzzySet<>("up", new TrapezoidalFunction<>(20.0, 70.0, 110.0, 160.0));
         FunctionBasedFuzzySet<Double> left = new FunctionBasedFuzzySet<>("left", new TrapezoidalFunction<>(110.0, 160.0, 200.0, 250.0));
