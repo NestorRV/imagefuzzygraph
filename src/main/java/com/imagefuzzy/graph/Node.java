@@ -20,14 +20,21 @@ public class Node {
     private final FuzzyDescriptor fuzzyColorDescriptor;
 
     /**
+     * Label descriptor of the node.
+     */
+    private final FuzzyDescriptor labelDescriptor;
+
+    /**
      * Construct a node.
      *
      * @param id                   id of the node.
      * @param fuzzyColorDescriptor fuzzy color descriptor of the node.
+     * @param labelDescriptor      label descriptor of the node.
      */
-    public Node(String id, FuzzyDescriptor fuzzyColorDescriptor) {
+    public Node(String id, FuzzyDescriptor fuzzyColorDescriptor, FuzzyDescriptor labelDescriptor) {
         this.id = id;
         this.fuzzyColorDescriptor = fuzzyColorDescriptor;
+        this.labelDescriptor = labelDescriptor;
     }
 
     /**
@@ -46,5 +53,14 @@ public class Node {
      */
     public FuzzyDescriptor getFuzzyColorDescriptor() {
         return fuzzyColorDescriptor;
+    }
+
+    /**
+     * Return the label descriptor of the node.
+     *
+     * @return the label descriptor of the node.
+     */
+    public FuzzyDescriptor getLabelDescriptor() {
+        return labelDescriptor;
     }
 }
