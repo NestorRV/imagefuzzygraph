@@ -113,10 +113,11 @@ public class FuzzyGraphMatching {
      * @param sourceEdges  source edges.
      * @param queryEdges   query edges.
      * @param similarities similarities of the nodes.
-     * @return tuple with both edges. The first element is the source edge and the second element query edge.
+     * @return tuple with both edges and the similarity of the triplet. The first element the pair of edges, where the
+     * first element is the source edge and the second element query edge.
      */
-    private Tuple<Edge, Edge> getBestPairOfEdges(Collection<Edge> sourceEdges, Collection<Edge> queryEdges,
-                                                 Map<String, Map<String, Double>> similarities) {
+    private Tuple<Tuple<Edge, Edge>, Double> getBestPairOfEdges(Collection<Edge> sourceEdges, Collection<Edge> queryEdges,
+                                                                Map<String, Map<String, Double>> similarities) {
         double bestTripletSimilarity = Double.NEGATIVE_INFINITY;
         Edge bestSourceEdge = null;
         Edge bestQueryEdge = null;
@@ -134,7 +135,7 @@ public class FuzzyGraphMatching {
             }
         }
 
-        return new Tuple<>(bestSourceEdge, bestQueryEdge);
+        return new Tuple<>(new Tuple<>(bestSourceEdge, bestQueryEdge), bestTripletSimilarity);
     }
 
     /**
@@ -196,21 +197,19 @@ public class FuzzyGraphMatching {
             boolean shouldContinue = iterationSimilarity > threshold;
 
             while (!queryAdjacentEdges.isEmpty() && shouldContinue) {
-                Tuple<Edge, Edge> bestTriplet = getBestPairOfEdges(sourceAdjacentEdges, queryAdjacentEdges, similarities);
+                Tuple<Tuple<Edge, Edge>, Double> bestTriplet = this.getBestPairOfEdges(sourceAdjacentEdges, queryAdjacentEdges, similarities);
+                Tuple<Edge, Edge> pairOfEdges = bestTriplet.getFirst();
 
-                sourceGraph.deleteNode(bestTriplet.getFirst().getStartNodeId());
-                queryGraph.deleteNode(bestTriplet.getSecond().getStartNodeId());
+                sourceGraph.deleteNode(pairOfEdges.getFirst().getStartNodeId());
+                queryGraph.deleteNode(pairOfEdges.getSecond().getStartNodeId());
 
-                sourceAdjacentEdges = sourceGraph.getAdjacentEdges(bestTriplet.getFirst().getEndNodeId());
-                queryAdjacentEdges = queryGraph.getAdjacentEdges(bestTriplet.getSecond().getEndNodeId());
+                sourceAdjacentEdges = sourceGraph.getAdjacentEdges(pairOfEdges.getFirst().getEndNodeId());
+                queryAdjacentEdges = queryGraph.getAdjacentEdges(pairOfEdges.getSecond().getEndNodeId());
 
-                nodesMatching.add(new Tuple<>(bestTriplet.getFirst().getEndNodeId(), bestTriplet.getFirst().getEndNodeId()));
-                edgesMatching.add(new Tuple<>(bestTriplet.getFirst().getId(), bestTriplet.getFirst().getId()));
+                nodesMatching.add(new Tuple<>(pairOfEdges.getFirst().getEndNodeId(), pairOfEdges.getFirst().getEndNodeId()));
+                edgesMatching.add(new Tuple<>(pairOfEdges.getFirst().getId(), pairOfEdges.getFirst().getId()));
 
-                 /*
-                TODO Compute new iterationSimilarity
-                 */
-
+                iterationSimilarity = bestTriplet.getSecond();
                 shouldContinue = iterationSimilarity > threshold;
             }
         }
