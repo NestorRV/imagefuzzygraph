@@ -182,19 +182,18 @@ public class FuzzyGraphMatching {
         Map<String, Edge> queryEdgesMap = queryGraph.getEdges().stream().collect(Collectors.toMap(Edge::getId, s -> s));
          */
 
-        boolean shouldContinue;
-        ArrayList<Tuple<String, String>> nodesMatching = new ArrayList<>();
-        ArrayList<Tuple<String, String>> edgesMatching = new ArrayList<>();
-
         Map<String, Map<String, Double>> similarities = this.computeSimilarities(sourceGraph.getNodes(), queryGraph.getNodes());
         Tuple<String, String> bestPair = this.getBestPairOfNodes(similarities);
 
         if (bestPair != null) {
+            ArrayList<Tuple<String, String>> nodesMatching = new ArrayList<>();
+            ArrayList<Tuple<String, String>> edgesMatching = new ArrayList<>();
+
             nodesMatching.add(new Tuple<>(bestPair.getFirst(), bestPair.getSecond()));
             Collection<Edge> sourceAdjacentEdges = sourceGraph.getAdjacentEdges(bestPair.getFirst());
             Collection<Edge> queryAdjacentEdges = queryGraph.getAdjacentEdges(bestPair.getSecond());
             double iterationSimilarity = similarities.get(bestPair.getFirst()).get(bestPair.getSecond());
-            shouldContinue = iterationSimilarity > threshold;
+            boolean shouldContinue = iterationSimilarity > threshold;
 
             while (!queryAdjacentEdges.isEmpty() && shouldContinue) {
                 Tuple<Edge, Edge> bestTriplet = getBestPairOfEdges(sourceAdjacentEdges, queryAdjacentEdges, similarities);
