@@ -55,7 +55,7 @@ public class FuzzyGraphMatching {
                 TODO how to handle J
                  */
                 double J = fpi.getDegree() + fpj.getDegree();
-                double theta = Math.min(S, J);
+                double theta = this.tNorm(S, J);
                 values.add(theta);
             }
             finalValues.add(values);
@@ -104,7 +104,7 @@ public class FuzzyGraphMatching {
         double colorInclusion = this.fuzzyInclusionRandom(sourceFuzzyColorDescriptor, queryFuzzyColorDescriptor);
         double labelInclusion = this.fuzzyInclusionRandom(sourceLabelDescriptor, queryLabelDescriptor);
 
-        return Math.min(colorInclusion, labelInclusion);
+        return this.tNorm(colorInclusion, labelInclusion);
     }
 
     /**
@@ -221,5 +221,16 @@ public class FuzzyGraphMatching {
         }
 
         return 0.0;
+    }
+
+    /**
+     * Perform a t-norm between two values.
+     *
+     * @param a first value.
+     * @param b second value.
+     * @return t-norm of those values. Min is used as the t-norm.
+     */
+    private double tNorm(double a, double b) {
+        return Math.min(a, b);
     }
 }
