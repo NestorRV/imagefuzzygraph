@@ -231,7 +231,7 @@ public class FuzzyGraphMatching {
     }
 
     /**
-     * Perform a t-norm between N values.
+     * Perform a t-norm among N values.
      *
      * @param values values to be processed.
      * @return t-norm of values. Min is used as the t-norm.
