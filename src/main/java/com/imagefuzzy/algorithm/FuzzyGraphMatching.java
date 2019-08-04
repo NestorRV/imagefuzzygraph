@@ -125,11 +125,7 @@ public class FuzzyGraphMatching {
                 double startNodesSimilarity = similarities.get(sourceEdge.getStartNodeId()).get(queryEdge.getStartNodeId());
                 double endNodesSimilarity = similarities.get(sourceEdge.getEndNodeId()).get(queryEdge.getEndNodeId());
                 double edgesSimilarity = this.fuzzyEdgeInclusion(sourceEdge, queryEdge);
-                /*
-                TODO How to combine startNodesSimilarity + endNodesSimilarity + edgesSimilarity
-                 */
-                double finalSimilarity = startNodesSimilarity + endNodesSimilarity + edgesSimilarity;
-
+                double finalSimilarity = this.tNorm(Arrays.asList(startNodesSimilarity, endNodesSimilarity, edgesSimilarity));
                 if (finalSimilarity >= bestTripletSimilarity) {
                     bestSourceEdge = sourceEdge;
                     bestQueryEdge = queryEdge;
