@@ -27,7 +27,7 @@ public class Graph implements Iterable<Node> {
     private final LinkedHashMap<String, LinkedHashSet<Edge>> adjacencyList;
 
     /**
-     * Constructs a graph.
+     * Construct a graph.
      *
      * @param nodes list of nodes.
      * @param edges list of edges.
@@ -39,7 +39,7 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Adds an edge to the graph.
+     * Add an edge to the graph.
      *
      * @param edge new edge to be added.
      */
@@ -49,7 +49,7 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Deletes a node from the graph and all the edges with the origin or destination node equals to the node to be
+     * Delete a node from the graph and all the edges with the origin or destination node equals to the node to be
      * deleted.
      *
      * @param nodeId id of the node to be deleted.
@@ -61,7 +61,7 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Returns the adjacent edges of a node.
+     * Return the adjacent edges of a node.
      *
      * @param nodeId id of node to get the adjacent from.
      * @return the adjacent of a node.
@@ -71,7 +71,7 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Returns the edges of the graph.
+     * Return the edges of the graph.
      *
      * @return the edges of the graph.
      */
@@ -80,7 +80,7 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Returns the nodes of the graph.
+     * Return the nodes of the graph.
      *
      * @return the nodes of the graph.
      */
@@ -89,7 +89,7 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Returns an iterator to iterate through the nodes of the graph.
+     * Return an iterator to iterate through the nodes of the graph.
      *
      * @return an iterator to iterate through the nodes of the graph.
      */
@@ -99,7 +99,7 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
-     * Returns a string representation of the object.
+     * Return a string representation of the object.
      *
      * @return a string representation of the object.
      */

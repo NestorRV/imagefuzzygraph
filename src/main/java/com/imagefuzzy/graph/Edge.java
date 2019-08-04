@@ -30,7 +30,7 @@ public class Edge {
     private final FuzzyDescriptor spatialRelationshipFuzzyDescriptor;
 
     /**
-     * Constructs an edge
+     * Construct an edge
      *
      * @param id                                 id of the edge.
      * @param startNodeId                        startNodeId node of the edge.
@@ -45,7 +45,7 @@ public class Edge {
     }
 
     /**
-     * Returns the id of the edge.
+     * Return the id of the edge.
      *
      * @return the id of the edge.
      */
@@ -54,7 +54,7 @@ public class Edge {
     }
 
     /**
-     * Returns the id of the start node.
+     * Return the id of the start node.
      *
      * @return the id of the start node.
      */
@@ -63,7 +63,7 @@ public class Edge {
     }
 
     /**
-     * Returns the id of the end node.
+     * Return the id of the end node.
      *
      * @return the id of the end node.
      */
@@ -72,7 +72,7 @@ public class Edge {
     }
 
     /**
-     * Returns the spatial relationship fuzzy descriptor of the edge.
+     * Return the spatial relationship fuzzy descriptor of the edge.
      *
      * @return the spatial relationship fuzzy descriptor of the edge.
      */

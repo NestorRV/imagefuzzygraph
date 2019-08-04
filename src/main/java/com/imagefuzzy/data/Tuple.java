@@ -35,7 +35,7 @@ public class Tuple<T, S> {
     }
 
     /**
-     * Returns the first element of the tuple.
+     * Return the first element of the tuple.
      *
      * @return the first element of the tuple.
      */
@@ -44,7 +44,7 @@ public class Tuple<T, S> {
     }
 
     /**
-     * Returns the second element of the tuple.
+     * Return the second element of the tuple.
      *
      * @return the second element of the tuple.
      */

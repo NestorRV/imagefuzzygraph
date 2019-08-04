@@ -29,7 +29,7 @@ public class FuzzyProperty {
     }
 
     /**
-     * Returns the label of the FuzzyProperty.
+     * Return the label of the FuzzyProperty.
      *
      * @return the label of the FuzzyProperty.
      */
@@ -38,7 +38,7 @@ public class FuzzyProperty {
     }
 
     /**
-     * Returns membership degree of the element to the fuzzy set associated to the FuzzyProperty.
+     * Return membership degree of the element to the fuzzy set associated to the FuzzyProperty.
      *
      * @return membership degree of the element to the fuzzy set associated to the FuzzyProperty.
      */

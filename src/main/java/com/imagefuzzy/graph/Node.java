@@ -20,7 +20,7 @@ public class Node {
     private final FuzzyDescriptor fuzzyColorDescriptor;
 
     /**
-     * Constructs a node.
+     * Construct a node.
      *
      * @param id                   id of the node.
      * @param fuzzyColorDescriptor fuzzy color descriptor of the node.
@@ -31,7 +31,7 @@ public class Node {
     }
 
     /**
-     * Returns the id of the node.
+     * Return the id of the node.
      *
      * @return the id of the node.
      */
@@ -40,7 +40,7 @@ public class Node {
     }
 
     /**
-     * Returns the fuzzy color descriptor of the node.
+     * Return the fuzzy color descriptor of the node.
      *
      * @return the fuzzy color descriptor of the node.
      */
