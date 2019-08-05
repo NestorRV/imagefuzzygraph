@@ -39,7 +39,22 @@ public class FuzzyGraphMatching {
     }
 
     /**
-     * Compute the inclusion degree of the fuzzy descriptor FDi in the fuzzy descriptor FDj.
+     * Compute the inclusion degree of the fuzzy descriptor FDi in the fuzzy descriptor FDj. The implication operator
+     * used is the following one:
+     *
+     * <pre>
+     *          | 1, x ≤ y
+     * I(x,y) = |
+     *          | y/x, otherwise
+     * </pre>
+     * <br><br>
+     * The resemblance relation used is the following one:
+     * <br><br>
+     * <pre>
+     *          | 1, x = y
+     * S(x,y) = |
+     *          | 0, otherwise
+     * </pre>
      *
      * @param FDi fuzzy descriptor i.
      * @param FDj fuzzy descriptor j.
@@ -51,11 +66,8 @@ public class FuzzyGraphMatching {
             ArrayList<Double> values = new ArrayList<>();
             for (FuzzyProperty fpj : FDj) {
                 double S = fpi.getLabel().equals(fpj.getLabel()) ? 1.0 : 0.0;
-                /*
-                TODO how to handle J
-                 */
-                double J = fpi.getDegree() + fpj.getDegree();
-                double theta = this.tNorm(S, J);
+                double I = fpi.getDegree() <= fpj.getDegree() ? 1.0 : fpi.getDegree() / fpj.getDegree();
+                double theta = this.tNorm(S, I);
                 values.add(theta);
             }
             finalValues.add(values);
