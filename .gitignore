@@ -1,0 +1,6 @@
+deps/
+image-fuzzy-graph.iml
+out/
+.idea/
+target/
+doc/
