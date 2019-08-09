@@ -158,7 +158,7 @@ public class BuildGraph {
     /**
      * Build a graph for a list regions and information about labels of those regions.
      *
-     * @param regions    regions of an image. Tuple with the sub-image and a tuple representing the location of the region.
+     * @param regions    regions of an image.
      * @param labelsInfo information about the labels.
      * @return graph for a list regions and information about labels of those regions.
      */
