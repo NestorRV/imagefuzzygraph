@@ -2,6 +2,7 @@ package com.imagefuzzy.algorithm;
 
 import com.imagefuzzy.data.Descriptor;
 import com.imagefuzzy.data.PropertyWithDegree;
+import com.imagefuzzy.data.Region;
 import com.imagefuzzy.data.Tuple;
 import com.imagefuzzy.graph.Edge;
 import com.imagefuzzy.graph.Graph;
@@ -161,12 +162,12 @@ public class BuildGraph {
      * @param labelsInfo information about the labels.
      * @return graph for a list regions and information about labels of those regions.
      */
-    public Graph buildGraph(ArrayList<Tuple<BufferedImage, Tuple<Double, Double>>> regions, ArrayList<String> labelsInfo) {
+    public Graph buildGraph(ArrayList<Region> regions, ArrayList<String> labelsInfo) {
         ArrayList<Node> nodes = new ArrayList<>();
         ArrayList<Edge> edges = new ArrayList<>();
 
         for (int i = 0; i < regions.size(); i++) {
-            BufferedImage image = regions.get(i).getFirst();
+            BufferedImage image = regions.get(i).getImage();
             Descriptor color = this.buildDominantColorFuzzyDescriptor(image);
             String startNodeId = this.buildNodeId(i);
             nodes.add(new Node(this.buildNodeId(i), color, this.buildLabelDescriptor(labelsInfo.get(i))));
@@ -175,8 +176,8 @@ public class BuildGraph {
                 // Do not create auto-edges.
                 if (i != j) {
                     String endNodeId = this.buildNodeId(j);
-                    Tuple<Double, Double> firstPoint = regions.get(i).getSecond();
-                    Tuple<Double, Double> secondPoint = regions.get(j).getSecond();
+                    Tuple<Double, Double> firstPoint = regions.get(i).getLocation();
+                    Tuple<Double, Double> secondPoint = regions.get(j).getLocation();
                     Descriptor location = this.buildSpatialRelationshipFuzzyDescriptor(firstPoint.getFirst(),
                             firstPoint.getSecond(), secondPoint.getFirst(), secondPoint.getSecond());
 
