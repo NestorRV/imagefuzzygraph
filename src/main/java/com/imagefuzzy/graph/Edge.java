@@ -1,6 +1,6 @@
 package com.imagefuzzy.graph;
 
-import com.imagefuzzy.data.FuzzyDescriptor;
+import com.imagefuzzy.data.Descriptor;
 
 /**
  * Class representing an edge.
@@ -27,7 +27,7 @@ public class Edge {
     /**
      * Spatial relationship fuzzy descriptor of the edge.
      */
-    private final FuzzyDescriptor spatialRelationshipFuzzyDescriptor;
+    private final Descriptor spatialRelationshipFuzzyDescriptor;
 
     /**
      * Construct an edge
@@ -37,7 +37,7 @@ public class Edge {
      * @param endNodeId                          endNodeId node of the edge.
      * @param spatialRelationshipFuzzyDescriptor spatial relationship fuzzy descriptor between the nodes of the edge.
      */
-    public Edge(String id, String startNodeId, String endNodeId, FuzzyDescriptor spatialRelationshipFuzzyDescriptor) {
+    public Edge(String id, String startNodeId, String endNodeId, Descriptor spatialRelationshipFuzzyDescriptor) {
         this.id = id;
         this.startNodeId = startNodeId;
         this.endNodeId = endNodeId;
@@ -76,7 +76,7 @@ public class Edge {
      *
      * @return the spatial relationship fuzzy descriptor of the edge.
      */
-    public FuzzyDescriptor getSpatialRelationshipFuzzyDescriptor() {
+    public Descriptor getSpatialRelationshipFuzzyDescriptor() {
         return spatialRelationshipFuzzyDescriptor;
     }
 }

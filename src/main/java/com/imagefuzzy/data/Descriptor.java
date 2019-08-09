@@ -7,6 +7,6 @@ import java.util.ArrayList;
  *
  * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
-public class FuzzyDescriptor extends ArrayList<FuzzyProperty> {
+public class Descriptor extends ArrayList<PropertyWithDegree> {
 
 }

@@ -1,7 +1,7 @@
 package com.imagefuzzy.algorithm;
 
-import com.imagefuzzy.data.FuzzyDescriptor;
-import com.imagefuzzy.data.FuzzyProperty;
+import com.imagefuzzy.data.Descriptor;
+import com.imagefuzzy.data.PropertyWithDegree;
 import jfi.color.ISCCColorMap;
 import jfi.color.fuzzy.FuzzyColor;
 import jfi.color.fuzzy.FuzzyColorSpace;
@@ -30,14 +30,14 @@ public class BuildGraph {
      * @param color color to be processed.
      * @return fuzzy descriptor of the color.
      */
-    private FuzzyDescriptor buildColorFuzzyDescriptor(Point3D color) {
-        FuzzyDescriptor colorFuzzyDescriptor = new FuzzyDescriptor();
+    private Descriptor buildColorFuzzyDescriptor(Point3D color) {
+        Descriptor colorDescriptor = new Descriptor();
         FuzzyColorSpace<Point3D> fcs = FuzzyColorSpace.Factory.createFuzzyCMeansFCS(new ISCCColorMap(ISCCColorMap.TYPE_BASIC));
         ArrayList<FuzzySetCollection<FuzzyColor<Point3D>, Point3D>.PossibilityDistributionItem> pd = fcs.getPossibilityDistribution(color);
         for (FuzzySetCollection<FuzzyColor<Point3D>, Point3D>.PossibilityDistributionItem possibilityDistributionItem : pd) {
-            colorFuzzyDescriptor.add(new FuzzyProperty(possibilityDistributionItem.fuzzySet.getLabel(), possibilityDistributionItem.degree));
+            colorDescriptor.add(new PropertyWithDegree(possibilityDistributionItem.fuzzySet.getLabel(), possibilityDistributionItem.degree));
         }
-        return colorFuzzyDescriptor;
+        return colorDescriptor;
     }
 
     /**
@@ -46,50 +46,49 @@ public class BuildGraph {
      * @param img image to be processed.
      * @return fuzzy descriptor for the dominant color of the given image.
      */
-    public FuzzyDescriptor buildDominantColorFuzzyDescriptor(BufferedImage img) {
-        ArrayList<FuzzyDescriptor> colorFuzzyDescriptors = new ArrayList<>();
+    private Descriptor buildDominantColorFuzzyDescriptor(BufferedImage img) {
+        ArrayList<Descriptor> colorDescriptors = new ArrayList<>();
         MPEG7DominantColors dcd = new MPEG7DominantColors(img);
         ArrayList<MPEG7DominantColors.MPEG7SingleDominatColor> dominantColors = dcd.getDominantColors();
         for (MPEG7DominantColors.MPEG7SingleDominatColor dominantColor : dominantColors) {
             Color colorData = dominantColor.getColorData();
             Point3D color = new Point3D(colorData.getRed(), colorData.getGreen(), colorData.getBlue());
-            colorFuzzyDescriptors.add(this.buildColorFuzzyDescriptor(color));
+            colorDescriptors.add(this.buildColorFuzzyDescriptor(color));
         }
-        return this.mergeFuzzyDescriptors(colorFuzzyDescriptors);
+        return this.mergeDescriptors(colorDescriptors);
     }
 
     /**
-     * Merge multiple fuzzy descriptors into one.
+     * Build a edge identifier.
      *
-     * @param fuzzyDescriptors fuzzy descriptors to be merged.
-     * @return merged fuzzy descriptor.
+     * @param startNodeId id of the start node.
+     * @param endNodeId   id of the end node.
+     * @return edge identifier.
      */
-    private FuzzyDescriptor mergeFuzzyDescriptors(ArrayList<FuzzyDescriptor> fuzzyDescriptors) {
-        HashMap<String, Double> fuzzyProperties = new HashMap<>();
-        for (FuzzyDescriptor fuzzyDescriptor : fuzzyDescriptors) {
-            for (FuzzyProperty fuzzyProperty : fuzzyDescriptor) {
-                double degree = fuzzyProperties.getOrDefault(fuzzyProperty.getLabel(), Double.NEGATIVE_INFINITY);
-                if (fuzzyProperty.getDegree() > degree) {
-                    fuzzyProperties.put(fuzzyProperty.getLabel(), fuzzyProperty.getDegree());
-                }
-            }
-        }
-
-        FuzzyDescriptor finalFuzzyDescriptor = new FuzzyDescriptor();
-        fuzzyProperties.forEach((label, degree) -> finalFuzzyDescriptor.add(new FuzzyProperty(label, degree)));
-        return finalFuzzyDescriptor;
+    private String buildEdgeId(String startNodeId, String endNodeId) {
+        return "edge_" + startNodeId + "_" + endNodeId;
     }
 
     /**
-     * Build a fuzzy spatial relationship descriptor for two points.
+     * Build a node identifier.
+     *
+     * @param i index of the node.
+     * @return node identifier.
+     */
+    private String buildNodeId(int i) {
+        return "node_" + i;
+    }
+
+    /**
+     * Build the fuzzy descriptor of the spatial relationship for two points.
      *
      * @param x1 x coordinate of the first point.
      * @param y1 y coordinate of the first point.
      * @param x2 x coordinate of the second point.
      * @param y2 y coordinate of the second point.
-     * @return fuzzy spatial relationship descriptor for two points.
+     * @return fuzzy descriptor of the spatial relationship for two points.
      */
-    public FuzzyDescriptor buildFuzzySpatialRelationshipDescriptor(double x1, double y1, double x2, double y2) {
+    private Descriptor buildSpatialRelationshipFuzzyDescriptor(double x1, double y1, double x2, double y2) {
         double angle = Math.toDegrees(Math.atan2(y2 - y1, x2 - x1));
         // Keep angle between 0 and 360
         angle = angle + Math.ceil(-angle / 360) * 360;
@@ -100,12 +99,34 @@ public class BuildGraph {
         FunctionBasedFuzzySet<Double> down = new FunctionBasedFuzzySet<>("down", new TrapezoidalFunction<>(200.0, 250.0, 290.0, 340.0));
         FunctionBasedFuzzySet<Double> rightSecondPart = new FunctionBasedFuzzySet<>("right", new TrapezoidalFunction<>(290.0, 340.0, 360.0, 360.0));
 
-        FuzzyDescriptor fuzzySpatialRelationshipDescriptor = new FuzzyDescriptor();
+        Descriptor fuzzySpatialRelationshipDescriptor = new Descriptor();
         FuzzySetCollection<FunctionBasedFuzzySet<Double>, Double> fsc = new FuzzySetCollection<>(Arrays.asList(rightFirstPart, up, left, down, rightSecondPart));
         ArrayList<FuzzySetCollection<FunctionBasedFuzzySet<Double>, Double>.PossibilityDistributionItem> pd = fsc.getPossibilityDistribution(angle);
         for (FuzzySetCollection<FunctionBasedFuzzySet<Double>, Double>.PossibilityDistributionItem pdItem : pd) {
-            fuzzySpatialRelationshipDescriptor.add(new FuzzyProperty(pdItem.fuzzySet.getLabel(), pdItem.degree));
+            fuzzySpatialRelationshipDescriptor.add(new PropertyWithDegree(pdItem.fuzzySet.getLabel(), pdItem.degree));
         }
         return fuzzySpatialRelationshipDescriptor;
+    }
+
+    /**
+     * Merge multiple fuzzy descriptors into one.
+     *
+     * @param descriptors fuzzy descriptors to be merged.
+     * @return merged fuzzy descriptor.
+     */
+    private Descriptor mergeDescriptors(ArrayList<Descriptor> descriptors) {
+        HashMap<String, Double> fuzzyProperties = new HashMap<>();
+        for (Descriptor descriptor : descriptors) {
+            for (PropertyWithDegree fuzzyProperty : descriptor) {
+                double degree = fuzzyProperties.getOrDefault(fuzzyProperty.getLabel(), Double.NEGATIVE_INFINITY);
+                if (fuzzyProperty.getDegree() > degree) {
+                    fuzzyProperties.put(fuzzyProperty.getLabel(), fuzzyProperty.getDegree());
+                }
+            }
+        }
+
+        Descriptor finalDescriptor = new Descriptor();
+        fuzzyProperties.forEach((label, degree) -> finalDescriptor.add(new PropertyWithDegree(label, degree)));
+        return finalDescriptor;
     }
 }

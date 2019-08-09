@@ -1,7 +1,7 @@
 package com.imagefuzzy.algorithm;
 
-import com.imagefuzzy.data.FuzzyDescriptor;
-import com.imagefuzzy.data.FuzzyProperty;
+import com.imagefuzzy.data.Descriptor;
+import com.imagefuzzy.data.PropertyWithDegree;
 import com.imagefuzzy.data.Tuple;
 import com.imagefuzzy.graph.Edge;
 import com.imagefuzzy.graph.Graph;
@@ -60,11 +60,11 @@ public class FuzzyGraphMatching {
      * @param FDj fuzzy descriptor j.
      * @return the inclusion degree of the fuzzy descriptor FDi in the fuzzy descriptor FDj.
      */
-    private double fuzzyInclusion(FuzzyDescriptor FDi, FuzzyDescriptor FDj) {
+    private double fuzzyInclusion(Descriptor FDi, Descriptor FDj) {
         ArrayList<ArrayList<Double>> finalValues = new ArrayList<>();
-        for (FuzzyProperty fpi : FDi) {
+        for (PropertyWithDegree fpi : FDi) {
             ArrayList<Double> values = new ArrayList<>();
-            for (FuzzyProperty fpj : FDj) {
+            for (PropertyWithDegree fpj : FDj) {
                 double S = fpi.getLabel().equals(fpj.getLabel()) ? 1.0 : 0.0;
                 double I = fpi.getDegree() <= fpj.getDegree() ? 1.0 : fpi.getDegree() / fpj.getDegree();
                 double theta = this.tNorm(S, I);
@@ -76,16 +76,6 @@ public class FuzzyGraphMatching {
         return Collections.min(finalValues.stream().map(Collections::max).collect(Collectors.toList()));
     }
 
-    private double fuzzyInclusionRandom(FuzzyDescriptor source, FuzzyDescriptor query) {
-        double difference = 0.0;
-
-        for (FuzzyProperty fuzzyProperty : query) {
-            difference += Math.abs(fuzzyProperty.getDegree() - source.get(0).getDegree());
-        }
-
-        return 1 - difference;
-    }
-
     /**
      * Compute the inclusion degree of the source edge in the query edge.
      *
@@ -94,9 +84,9 @@ public class FuzzyGraphMatching {
      * @return the inclusion degree of the source edge in the query edge.
      */
     private double fuzzyEdgeInclusion(Edge source, Edge query) {
-        FuzzyDescriptor sourceFuzzyDescriptor = source.getSpatialRelationshipFuzzyDescriptor();
-        FuzzyDescriptor queryFuzzyDescriptor = query.getSpatialRelationshipFuzzyDescriptor();
-        return this.fuzzyInclusionRandom(sourceFuzzyDescriptor, queryFuzzyDescriptor);
+        Descriptor sourceDescriptor = source.getSpatialRelationshipFuzzyDescriptor();
+        Descriptor queryDescriptor = query.getSpatialRelationshipFuzzyDescriptor();
+        return this.fuzzyInclusion(sourceDescriptor, queryDescriptor);
     }
 
     /**
@@ -107,14 +97,14 @@ public class FuzzyGraphMatching {
      * @return the inclusion degree of the source node in the query node.
      */
     private double fuzzyNodeInclusion(Node source, Node query) {
-        FuzzyDescriptor sourceColorFuzzyDescriptor = source.getColorFuzzyDescriptor();
-        FuzzyDescriptor queryColorFuzzyDescriptor = query.getColorFuzzyDescriptor();
+        Descriptor sourceColorFuzzyDescriptor = source.getColorFuzzyDescriptor();
+        Descriptor queryColorFuzzyDescriptor = query.getColorFuzzyDescriptor();
 
-        FuzzyDescriptor sourceLabelDescriptor = source.getLabelDescriptor();
-        FuzzyDescriptor queryLabelDescriptor = query.getLabelDescriptor();
+        Descriptor sourceLabelDescriptor = source.getLabelDescriptor();
+        Descriptor queryLabelDescriptor = query.getLabelDescriptor();
 
-        double colorInclusion = this.fuzzyInclusionRandom(sourceColorFuzzyDescriptor, queryColorFuzzyDescriptor);
-        double labelInclusion = this.fuzzyInclusionRandom(sourceLabelDescriptor, queryLabelDescriptor);
+        double colorInclusion = this.fuzzyInclusion(sourceColorFuzzyDescriptor, queryColorFuzzyDescriptor);
+        double labelInclusion = this.fuzzyInclusion(sourceLabelDescriptor, queryLabelDescriptor);
 
         return this.tNorm(colorInclusion, labelInclusion);
     }

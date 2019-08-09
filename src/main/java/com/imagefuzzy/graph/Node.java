@@ -1,6 +1,6 @@
 package com.imagefuzzy.graph;
 
-import com.imagefuzzy.data.FuzzyDescriptor;
+import com.imagefuzzy.data.Descriptor;
 
 /**
  * Class representing a node.
@@ -17,12 +17,12 @@ public class Node {
     /**
      * Color fuzzy descriptor of the node.
      */
-    private final FuzzyDescriptor colorFuzzyDescriptor;
+    private final Descriptor colorFuzzyDescriptor;
 
     /**
      * Label descriptor of the node.
      */
-    private final FuzzyDescriptor labelDescriptor;
+    private final Descriptor labelDescriptor;
 
     /**
      * Construct a node.
@@ -31,7 +31,7 @@ public class Node {
      * @param colorFuzzyDescriptor color fuzzy descriptor of the node.
      * @param labelDescriptor      label descriptor of the node.
      */
-    public Node(String id, FuzzyDescriptor colorFuzzyDescriptor, FuzzyDescriptor labelDescriptor) {
+    public Node(String id, Descriptor colorFuzzyDescriptor, Descriptor labelDescriptor) {
         this.id = id;
         this.colorFuzzyDescriptor = colorFuzzyDescriptor;
         this.labelDescriptor = labelDescriptor;
@@ -51,7 +51,7 @@ public class Node {
      *
      * @return the color fuzzy descriptor of the node.
      */
-    public FuzzyDescriptor getColorFuzzyDescriptor() {
+    public Descriptor getColorFuzzyDescriptor() {
         return colorFuzzyDescriptor;
     }
 
@@ -60,7 +60,7 @@ public class Node {
      *
      * @return the label descriptor of the node.
      */
-    public FuzzyDescriptor getLabelDescriptor() {
+    public Descriptor getLabelDescriptor() {
         return labelDescriptor;
     }
 }
