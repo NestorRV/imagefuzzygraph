@@ -67,7 +67,7 @@ public class Graph implements Iterable<Node> {
      * @return the adjacent of a node.
      */
     public Collection<Edge> getAdjacentEdges(String nodeId) {
-        return this.adjacencyList.get(nodeId);
+        return this.adjacencyList.getOrDefault(nodeId, new LinkedHashSet<>());
     }
 
     /**
