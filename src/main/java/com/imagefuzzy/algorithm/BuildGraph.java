@@ -25,37 +25,37 @@ import java.util.HashMap;
 public class BuildGraph {
 
     /**
-     * Build a fuzzy color descriptor for a color.
+     * Build the fuzzy descriptor of the color.
      *
      * @param color color to be processed.
-     * @return fuzzy color descriptor of the a color.
+     * @return fuzzy descriptor of the color.
      */
-    private FuzzyDescriptor buildFuzzyColorDescriptor(Point3D color) {
-        FuzzyDescriptor fuzzyColorDescriptor = new FuzzyDescriptor();
+    private FuzzyDescriptor buildColorFuzzyDescriptor(Point3D color) {
+        FuzzyDescriptor colorFuzzyDescriptor = new FuzzyDescriptor();
         FuzzyColorSpace<Point3D> fcs = FuzzyColorSpace.Factory.createFuzzyCMeansFCS(new ISCCColorMap(ISCCColorMap.TYPE_BASIC));
         ArrayList<FuzzySetCollection<FuzzyColor<Point3D>, Point3D>.PossibilityDistributionItem> pd = fcs.getPossibilityDistribution(color);
         for (FuzzySetCollection<FuzzyColor<Point3D>, Point3D>.PossibilityDistributionItem possibilityDistributionItem : pd) {
-            fuzzyColorDescriptor.add(new FuzzyProperty(possibilityDistributionItem.fuzzySet.getLabel(), possibilityDistributionItem.degree));
+            colorFuzzyDescriptor.add(new FuzzyProperty(possibilityDistributionItem.fuzzySet.getLabel(), possibilityDistributionItem.degree));
         }
-        return fuzzyColorDescriptor;
+        return colorFuzzyDescriptor;
     }
 
     /**
-     * Generate a fuzzy color descriptor for the given image.
+     * Generate a fuzzy descriptor for the dominant color of the given image.
      *
      * @param img image to be processed.
-     * @return fuzzy color descriptor of the image.
+     * @return fuzzy descriptor for the dominant color of the given image.
      */
-    public FuzzyDescriptor buildDominantFuzzyColorDescriptor(BufferedImage img) {
-        ArrayList<FuzzyDescriptor> fuzzyColorDescriptors = new ArrayList<>();
+    public FuzzyDescriptor buildDominantColorFuzzyDescriptor(BufferedImage img) {
+        ArrayList<FuzzyDescriptor> colorFuzzyDescriptors = new ArrayList<>();
         MPEG7DominantColors dcd = new MPEG7DominantColors(img);
         ArrayList<MPEG7DominantColors.MPEG7SingleDominatColor> dominantColors = dcd.getDominantColors();
         for (MPEG7DominantColors.MPEG7SingleDominatColor dominantColor : dominantColors) {
             Color colorData = dominantColor.getColorData();
             Point3D color = new Point3D(colorData.getRed(), colorData.getGreen(), colorData.getBlue());
-            fuzzyColorDescriptors.add(this.buildFuzzyColorDescriptor(color));
+            colorFuzzyDescriptors.add(this.buildColorFuzzyDescriptor(color));
         }
-        return this.mergeFuzzyDescriptors(fuzzyColorDescriptors);
+        return this.mergeFuzzyDescriptors(colorFuzzyDescriptors);
     }
 
     /**

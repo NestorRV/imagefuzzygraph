@@ -107,13 +107,13 @@ public class FuzzyGraphMatching {
      * @return the inclusion degree of the source node in the query node.
      */
     private double fuzzyNodeInclusion(Node source, Node query) {
-        FuzzyDescriptor sourceFuzzyColorDescriptor = source.getFuzzyColorDescriptor();
-        FuzzyDescriptor queryFuzzyColorDescriptor = query.getFuzzyColorDescriptor();
+        FuzzyDescriptor sourceColorFuzzyDescriptor = source.getColorFuzzyDescriptor();
+        FuzzyDescriptor queryColorFuzzyDescriptor = query.getColorFuzzyDescriptor();
 
         FuzzyDescriptor sourceLabelDescriptor = source.getLabelDescriptor();
         FuzzyDescriptor queryLabelDescriptor = query.getLabelDescriptor();
 
-        double colorInclusion = this.fuzzyInclusionRandom(sourceFuzzyColorDescriptor, queryFuzzyColorDescriptor);
+        double colorInclusion = this.fuzzyInclusionRandom(sourceColorFuzzyDescriptor, queryColorFuzzyDescriptor);
         double labelInclusion = this.fuzzyInclusionRandom(sourceLabelDescriptor, queryLabelDescriptor);
 
         return this.tNorm(colorInclusion, labelInclusion);
