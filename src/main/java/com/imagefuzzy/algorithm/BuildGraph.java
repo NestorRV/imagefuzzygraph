@@ -2,6 +2,10 @@ package com.imagefuzzy.algorithm;
 
 import com.imagefuzzy.data.Descriptor;
 import com.imagefuzzy.data.PropertyWithDegree;
+import com.imagefuzzy.data.Tuple;
+import com.imagefuzzy.graph.Edge;
+import com.imagefuzzy.graph.Graph;
+import com.imagefuzzy.graph.Node;
 import jfi.color.ISCCColorMap;
 import jfi.color.fuzzy.FuzzyColor;
 import jfi.color.fuzzy.FuzzyColorSpace;
@@ -128,5 +132,59 @@ public class BuildGraph {
         Descriptor finalDescriptor = new Descriptor();
         fuzzyProperties.forEach((label, degree) -> finalDescriptor.add(new PropertyWithDegree(label, degree)));
         return finalDescriptor;
+    }
+
+    /**
+     * Build a label descriptor using the information of a string.
+     *
+     * @param info information about the label.
+     * @return label descriptor using the information of a string.
+     */
+    private Descriptor buildLabelDescriptor(String info) {
+        /*
+        TODO generate label in an automated way
+         */
+
+        Descriptor labelDescriptor = new Descriptor();
+        String[] parts = info.split("_");
+        for (int i = 0; i < parts.length; i += 2) {
+            labelDescriptor.add(new PropertyWithDegree(parts[i], Double.parseDouble((parts[i + 1]))));
+        }
+
+        return labelDescriptor;
+    }
+
+    /**
+     * Build a graph for a list regions and information about labels of those regions.
+     *
+     * @param regions    regions of an image. Tuple with the sub-image and a tuple representing the location of the region.
+     * @param labelsInfo information about the labels.
+     * @return graph for a list regions and information about labels of those regions.
+     */
+    public Graph buildGraph(ArrayList<Tuple<BufferedImage, Tuple<Double, Double>>> regions, ArrayList<String> labelsInfo) {
+        ArrayList<Node> nodes = new ArrayList<>();
+        ArrayList<Edge> edges = new ArrayList<>();
+
+        for (int i = 0; i < regions.size(); i++) {
+            BufferedImage image = regions.get(i).getFirst();
+            Descriptor color = this.buildDominantColorFuzzyDescriptor(image);
+            String startNodeId = this.buildNodeId(i);
+            nodes.add(new Node(this.buildNodeId(i), color, this.buildLabelDescriptor(labelsInfo.get(i))));
+
+            for (int j = 0; j < regions.size(); j++) {
+                // Do not create auto-edges.
+                if (i != j) {
+                    String endNodeId = this.buildNodeId(j);
+                    Tuple<Double, Double> firstPoint = regions.get(i).getSecond();
+                    Tuple<Double, Double> secondPoint = regions.get(j).getSecond();
+                    Descriptor location = this.buildSpatialRelationshipFuzzyDescriptor(firstPoint.getFirst(),
+                            firstPoint.getSecond(), secondPoint.getFirst(), secondPoint.getSecond());
+
+                    edges.add(new Edge(this.buildEdgeId(startNodeId, endNodeId), startNodeId, endNodeId, location));
+                }
+            }
+        }
+
+        return new Graph(nodes, edges);
     }
 }
