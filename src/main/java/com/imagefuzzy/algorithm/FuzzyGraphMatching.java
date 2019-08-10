@@ -187,6 +187,7 @@ public class FuzzyGraphMatching {
 
         Map<String, Map<String, Double>> similarities = this.computeSimilarities(sourceGraph.getNodes(), queryGraph.getNodes());
         Tuple<String, String> bestPair = this.getBestPairOfNodes(similarities);
+        double inclusion = 0.0;
 
         if (bestPair != null) {
             ArrayList<Tuple<String, String>> nodesMatching = new ArrayList<>();
@@ -216,7 +217,7 @@ public class FuzzyGraphMatching {
             }
         }
 
-        return 0.0;
+        return inclusion;
     }
 
     /**
