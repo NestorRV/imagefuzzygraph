@@ -66,7 +66,7 @@ public class FuzzyGraphMatching {
             ArrayList<Double> values = new ArrayList<>();
             for (PropertyWithDegree fpj : FDj) {
                 double S = fpi.getLabel().equals(fpj.getLabel()) ? 1.0 : 0.0;
-                double I = fpi.getDegree() <= fpj.getDegree() ? 1.0 : fpi.getDegree() / fpj.getDegree();
+                double I = fpi.getDegree() <= fpj.getDegree() ? 1.0 : fpj.getDegree() / fpi.getDegree();
                 double theta = this.tNorm(S, I);
                 values.add(theta);
             }
