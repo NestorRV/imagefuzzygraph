@@ -1,6 +1,7 @@
 package com.imagefuzzy.algorithm;
 
 import com.imagefuzzy.data.Descriptor;
+import com.imagefuzzy.data.ListOfMatches;
 import com.imagefuzzy.data.PropertyWithDegree;
 import com.imagefuzzy.data.Tuple;
 import com.imagefuzzy.graph.Edge;
@@ -90,6 +91,21 @@ public class FuzzyGraphMatching {
     }
 
     /**
+     * Compute the inclusion degree of the source edge in the query edge considering the nodes similarity.
+     *
+     * @param source       source edge.
+     * @param query        query  edge.
+     * @param similarities similarities of the nodes.
+     * @return the inclusion degree of the source edge in the query edge.
+     */
+    private double fuzzyEdgeInclusionConsideringNodes(Edge source, Edge query, Map<String, Map<String, Double>> similarities) {
+        double startNodesSimilarity = similarities.get(source.getStartNodeId()).get(query.getStartNodeId());
+        double endNodesSimilarity = similarities.get(source.getEndNodeId()).get(query.getEndNodeId());
+        double edgesSimilarity = this.fuzzyEdgeInclusion(source, query);
+        return this.tNorm(Arrays.asList(startNodesSimilarity, endNodesSimilarity, edgesSimilarity));
+    }
+
+    /**
      * Compute the inclusion degree of the source node in the query node.
      *
      * @param source source node.
@@ -99,7 +115,6 @@ public class FuzzyGraphMatching {
     private double fuzzyNodeInclusion(Node source, Node query) {
         Descriptor sourceColorFuzzyDescriptor = source.getColorFuzzyDescriptor();
         Descriptor queryColorFuzzyDescriptor = query.getColorFuzzyDescriptor();
-
         Descriptor sourceLabelDescriptor = source.getLabelDescriptor();
         Descriptor queryLabelDescriptor = query.getLabelDescriptor();
 
@@ -125,14 +140,11 @@ public class FuzzyGraphMatching {
         Edge bestQueryEdge = null;
         for (Edge sourceEdge : sourceEdges) {
             for (Edge queryEdge : queryEdges) {
-                double startNodesSimilarity = similarities.get(sourceEdge.getStartNodeId()).get(queryEdge.getStartNodeId());
-                double endNodesSimilarity = similarities.get(sourceEdge.getEndNodeId()).get(queryEdge.getEndNodeId());
-                double edgesSimilarity = this.fuzzyEdgeInclusion(sourceEdge, queryEdge);
-                double finalSimilarity = this.tNorm(Arrays.asList(startNodesSimilarity, endNodesSimilarity, edgesSimilarity));
-                if (finalSimilarity >= bestTripletSimilarity) {
+                double tripletSimilarity = this.fuzzyEdgeInclusionConsideringNodes(sourceEdge, queryEdge, similarities);
+                if (tripletSimilarity >= bestTripletSimilarity) {
                     bestSourceEdge = sourceEdge;
                     bestQueryEdge = queryEdge;
-                    bestTripletSimilarity = finalSimilarity;
+                    bestTripletSimilarity = tripletSimilarity;
                 }
             }
         }
@@ -166,58 +178,98 @@ public class FuzzyGraphMatching {
     }
 
     /**
-     * Compute the inclusion degree of the graph queryGraph in the graph sourceGraph.
+     * Compute the inclusion degree of the graph query in the graph source.
      *
-     * @param sourceGraph source graph.
-     * @param queryGraph  query graph.
-     * @param threshold   stop the algorithm if the similarity degree obtained in an iteration is lower than the threshold.
-     * @return the inclusion degree of the graph queryGraph in the graph sourceGraph.
+     * @param source source graph.
+     * @param query  query graph.
+     * @return the inclusion degree of the graph query in the graph source.
      */
-    public double greedyInclusion(Graph sourceGraph, Graph queryGraph, double threshold) {
-        /*
-        TODO how to compute the final matching
-         */
+    public double greedyInclusion(Graph source, Graph query) {
+        return this.greedyInclusion(source, query, 0.0);
+    }
 
-        /*
-        Map<String, Node> sourceNodesMap = sourceGraph.getNodes().stream().collect(Collectors.toMap(Node::getId, s -> s));
-        Map<String, Node> queryNodesMap = queryGraph.getNodes().stream().collect(Collectors.toMap(Node::getId, s -> s));
-        Map<String, Edge> sourceEdgesMap = sourceGraph.getEdges().stream().collect(Collectors.toMap(Edge::getId, s -> s));
-        Map<String, Edge> queryEdgesMap = queryGraph.getEdges().stream().collect(Collectors.toMap(Edge::getId, s -> s));
-         */
+    /**
+     * Compute the inclusion degree of the graph query in the graph source.
+     *
+     * @param source    source graph.
+     * @param query     query graph.
+     * @param threshold stop the algorithm if the similarity degree obtained in an iteration is lower than the threshold.
+     * @return the inclusion degree of the graph query in the graph source.
+     */
+    public double greedyInclusion(Graph source, Graph query, double threshold) {
+        Map<String, Map<String, Double>> similarities = this.computeSimilarities(source.getNodes(), query.getNodes());
+        Tuple<ListOfMatches, ListOfMatches> matchings = this.greedyMatching(source, query, threshold, similarities);
+        ListOfMatches nodesMatching = matchings.getFirst();
+        ListOfMatches edgesMatching = matchings.getSecond();
 
-        Map<String, Map<String, Double>> similarities = this.computeSimilarities(sourceGraph.getNodes(), queryGraph.getNodes());
+        ArrayList<Double> finalInclusions = new ArrayList<>();
+        if (edgesMatching.size() > 0) {
+            Map<String, Edge> sourceEdges = source.getEdges().stream().collect(Collectors.toMap(Edge::getId, s -> s));
+            Map<String, Edge> queryEdges = query.getEdges().stream().collect(Collectors.toMap(Edge::getId, s -> s));
+            for (Tuple<String, String> edgesMatch : edgesMatching) {
+                finalInclusions.add(this.fuzzyEdgeInclusionConsideringNodes(sourceEdges.get(edgesMatch.getFirst()), queryEdges.get(edgesMatch.getSecond()), similarities));
+            }
+        } else {
+            for (Tuple<String, String> nodesMatch : nodesMatching) {
+                finalInclusions.add(similarities.get(nodesMatch.getFirst()).get(nodesMatch.getSecond()));
+            }
+        }
+
+        return this.tNorm(finalInclusions);
+    }
+
+    /**
+     * Find a matching between the source graph and the query graph.
+     *
+     * @param source    source graph.
+     * @param query     query graph.
+     * @param threshold stop the algorithm if the similarity degree obtained in an iteration is lower than the threshold.
+     * @return tuple containing nodes matches and ege matches.
+     */
+    public Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query, double threshold) {
+        Map<String, Map<String, Double>> similarities = this.computeSimilarities(source.getNodes(), query.getNodes());
+        return this.greedyMatching(source, query, threshold, similarities);
+    }
+
+    /**
+     * Find a matching between the source graph and the query graph.
+     *
+     * @param source       source graph.
+     * @param query        query graph.
+     * @param threshold    stop the algorithm if the similarity degree obtained in an iteration is lower than the threshold.
+     * @param similarities similarities of the nodes.
+     * @return tuple containing nodes matches and ege matches.
+     */
+    private Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query, double threshold,
+                                                               Map<String, Map<String, Double>> similarities) {
+        ListOfMatches nodesMatching = new ListOfMatches();
+        ListOfMatches edgesMatching = new ListOfMatches();
         Tuple<String, String> bestPair = this.getBestPairOfNodes(similarities);
-        double inclusion = 0.0;
 
         if (bestPair != null) {
-            ArrayList<Tuple<String, String>> nodesMatching = new ArrayList<>();
-            ArrayList<Tuple<String, String>> edgesMatching = new ArrayList<>();
-
             nodesMatching.add(new Tuple<>(bestPair.getFirst(), bestPair.getSecond()));
-            Collection<Edge> sourceAdjacentEdges = sourceGraph.getAdjacentEdges(bestPair.getFirst());
-            Collection<Edge> queryAdjacentEdges = queryGraph.getAdjacentEdges(bestPair.getSecond());
+            Collection<Edge> sourceAdjacentEdges = source.getAdjacentEdges(bestPair.getFirst());
+            Collection<Edge> queryAdjacentEdges = query.getAdjacentEdges(bestPair.getSecond());
             double iterationSimilarity = similarities.get(bestPair.getFirst()).get(bestPair.getSecond());
-            boolean shouldContinue = iterationSimilarity > threshold;
 
-            while (!queryAdjacentEdges.isEmpty() && shouldContinue) {
+            while (!queryAdjacentEdges.isEmpty() && (iterationSimilarity > threshold)) {
                 Tuple<Tuple<Edge, Edge>, Double> bestTriplet = this.getBestPairOfEdges(sourceAdjacentEdges, queryAdjacentEdges, similarities);
                 Tuple<Edge, Edge> pairOfEdges = bestTriplet.getFirst();
 
-                sourceGraph.deleteNode(pairOfEdges.getFirst().getStartNodeId());
-                queryGraph.deleteNode(pairOfEdges.getSecond().getStartNodeId());
+                source.deleteNode(pairOfEdges.getFirst().getStartNodeId());
+                query.deleteNode(pairOfEdges.getSecond().getStartNodeId());
 
-                sourceAdjacentEdges = sourceGraph.getAdjacentEdges(pairOfEdges.getFirst().getEndNodeId());
-                queryAdjacentEdges = queryGraph.getAdjacentEdges(pairOfEdges.getSecond().getEndNodeId());
+                sourceAdjacentEdges = source.getAdjacentEdges(pairOfEdges.getFirst().getEndNodeId());
+                queryAdjacentEdges = query.getAdjacentEdges(pairOfEdges.getSecond().getEndNodeId());
 
                 nodesMatching.add(new Tuple<>(pairOfEdges.getFirst().getEndNodeId(), pairOfEdges.getFirst().getEndNodeId()));
                 edgesMatching.add(new Tuple<>(pairOfEdges.getFirst().getId(), pairOfEdges.getFirst().getId()));
 
                 iterationSimilarity = bestTriplet.getSecond();
-                shouldContinue = iterationSimilarity > threshold;
             }
         }
 
-        return inclusion;
+        return new Tuple<>(nodesMatching, edgesMatching);
     }
 
     /**
