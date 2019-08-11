@@ -1,6 +1,9 @@
 package com.imagefuzzy.graph;
 
 import com.imagefuzzy.data.Descriptor;
+import com.imagefuzzy.data.Tuple;
+
+import java.awt.image.BufferedImage;
 
 /**
  * Class representing a node.
@@ -25,16 +28,31 @@ public class Node {
     private final Descriptor labelDescriptor;
 
     /**
+     * Region of the full image represented by the node.
+     */
+    private transient BufferedImage image;
+
+    /**
+     * Location of the region.
+     */
+    private transient Tuple<Double, Double> location;
+
+    /**
      * Construct a node.
      *
      * @param id                   id of the node.
      * @param colorFuzzyDescriptor color fuzzy descriptor of the node.
      * @param labelDescriptor      label descriptor of the node.
+     * @param image                region of the full image represented by the node.
+     * @param location             location of the region.
      */
-    public Node(String id, Descriptor colorFuzzyDescriptor, Descriptor labelDescriptor) {
+    public Node(String id, Descriptor colorFuzzyDescriptor, Descriptor labelDescriptor, BufferedImage image,
+                Tuple<Double, Double> location) {
         this.id = id;
         this.colorFuzzyDescriptor = colorFuzzyDescriptor;
         this.labelDescriptor = labelDescriptor;
+        this.image = image;
+        this.location = location;
     }
 
     /**
@@ -62,5 +80,23 @@ public class Node {
      */
     public Descriptor getLabelDescriptor() {
         return labelDescriptor;
+    }
+
+    /**
+     * Return the region of the full image represented by the node.
+     *
+     * @return the region of the full image represented by the node.
+     */
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    /**
+     * Return the location of the region.
+     *
+     * @return the location of the region.
+     */
+    public Tuple<Double, Double> getLocation() {
+        return location;
     }
 }
