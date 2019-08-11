@@ -170,7 +170,8 @@ public class BuildGraph {
             BufferedImage image = regions.get(i).getImage();
             Descriptor colorFuzzyDescriptor = this.buildDominantColorFuzzyDescriptor(image);
             String startNodeId = this.buildNodeId(i);
-            nodes.add(new Node(this.buildNodeId(i), colorFuzzyDescriptor, this.buildLabelDescriptor(labelsInfo.get(i))));
+            nodes.add(new Node(this.buildNodeId(i), colorFuzzyDescriptor, this.buildLabelDescriptor(labelsInfo.get(i)),
+                    regions.get(i).getImage(), regions.get(i).getLocation()));
 
             for (int j = 0; j < regions.size(); j++) {
                 // Do not create auto-edges.
