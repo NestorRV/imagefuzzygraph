@@ -10,12 +10,12 @@ public class PropertyWithDegree {
     /**
      * Label associated to the property.
      */
-    private String label;
+    private final String label;
 
     /**
      * Degree associated to the property.
      */
-    private double degree;
+    private final double degree;
 
     /**
      * Construct a property with a degree.

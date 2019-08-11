@@ -19,7 +19,7 @@ public class Tuple<T, S> {
     /**
      * Construct an empty tuple.
      */
-    public Tuple() {
+    Tuple() {
         this(null, null);
     }
 
