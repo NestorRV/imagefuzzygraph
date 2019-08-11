@@ -168,9 +168,9 @@ public class BuildGraph {
 
         for (int i = 0; i < regions.size(); i++) {
             BufferedImage image = regions.get(i).getImage();
-            Descriptor color = this.buildDominantColorFuzzyDescriptor(image);
+            Descriptor colorFuzzyDescriptor = this.buildDominantColorFuzzyDescriptor(image);
             String startNodeId = this.buildNodeId(i);
-            nodes.add(new Node(this.buildNodeId(i), color, this.buildLabelDescriptor(labelsInfo.get(i))));
+            nodes.add(new Node(this.buildNodeId(i), colorFuzzyDescriptor, this.buildLabelDescriptor(labelsInfo.get(i))));
 
             for (int j = 0; j < regions.size(); j++) {
                 // Do not create auto-edges.
@@ -178,10 +178,10 @@ public class BuildGraph {
                     String endNodeId = this.buildNodeId(j);
                     Tuple<Double, Double> firstPoint = regions.get(i).getLocation();
                     Tuple<Double, Double> secondPoint = regions.get(j).getLocation();
-                    Descriptor location = this.buildSpatialRelationshipFuzzyDescriptor(firstPoint.getFirst(),
+                    Descriptor locationFuzzyDescriptor = this.buildSpatialRelationshipFuzzyDescriptor(firstPoint.getFirst(),
                             firstPoint.getSecond(), secondPoint.getFirst(), secondPoint.getSecond());
 
-                    edges.add(new Edge(this.buildEdgeId(startNodeId, endNodeId), startNodeId, endNodeId, location));
+                    edges.add(new Edge(this.buildEdgeId(startNodeId, endNodeId), startNodeId, endNodeId, locationFuzzyDescriptor));
                 }
             }
         }
