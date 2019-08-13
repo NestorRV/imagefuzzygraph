@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
  *
  * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
-public class Region extends Tuple<BufferedImage, Tuple<Double, Double>> {
+public class Region extends Tuple<BufferedImage, Tuple<Integer, Integer>> {
 
     /**
      * Construct a region.
@@ -15,7 +15,7 @@ public class Region extends Tuple<BufferedImage, Tuple<Double, Double>> {
      * @param image    image of the region.
      * @param location location of the region.
      */
-    public Region(BufferedImage image, Tuple<Double, Double> location) {
+    public Region(BufferedImage image, Tuple<Integer, Integer> location) {
         super(image, location);
     }
 
@@ -33,7 +33,7 @@ public class Region extends Tuple<BufferedImage, Tuple<Double, Double>> {
      *
      * @return the location of the region.
      */
-    public Tuple<Double, Double> getLocation() {
+    public Tuple<Integer, Integer> getLocation() {
         return this.getSecond();
     }
 }

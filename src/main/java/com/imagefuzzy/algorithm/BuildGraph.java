@@ -177,8 +177,8 @@ public class BuildGraph {
                 // Do not create auto-edges.
                 if (i != j) {
                     String endNodeId = this.buildNodeId(j);
-                    Tuple<Double, Double> firstPoint = regions.get(i).getLocation();
-                    Tuple<Double, Double> secondPoint = regions.get(j).getLocation();
+                    Tuple<Integer, Integer> firstPoint = regions.get(i).getLocation();
+                    Tuple<Integer, Integer> secondPoint = regions.get(j).getLocation();
                     Descriptor locationFuzzyDescriptor = this.buildSpatialRelationshipFuzzyDescriptor(firstPoint.getFirst(),
                             firstPoint.getSecond(), secondPoint.getFirst(), secondPoint.getSecond());
 
