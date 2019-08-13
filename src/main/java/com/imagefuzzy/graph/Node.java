@@ -35,7 +35,7 @@ public class Node {
     /**
      * Location of the region.
      */
-    private transient Tuple<Integer, Integer> location;
+    private transient Tuple<Double, Double> location;
 
     /**
      * Construct a node.
@@ -47,7 +47,7 @@ public class Node {
      * @param location             location of the region.
      */
     public Node(String id, Descriptor colorFuzzyDescriptor, Descriptor labelDescriptor, BufferedImage image,
-                Tuple<Integer, Integer> location) {
+                Tuple<Double, Double> location) {
         this.id = id;
         this.colorFuzzyDescriptor = colorFuzzyDescriptor;
         this.labelDescriptor = labelDescriptor;
@@ -96,7 +96,7 @@ public class Node {
      *
      * @return the location of the region.
      */
-    public Tuple<Integer, Integer> getLocation() {
+    public Tuple<Double, Double> getLocation() {
         return location;
     }
 }
