@@ -262,8 +262,8 @@ public class FuzzyGraphMatching {
                 sourceAdjacentEdges = source.getAdjacentEdges(pairOfEdges.getFirst().getEndNodeId());
                 queryAdjacentEdges = query.getAdjacentEdges(pairOfEdges.getSecond().getEndNodeId());
 
-                nodesMatching.add(new Tuple<>(pairOfEdges.getFirst().getEndNodeId(), pairOfEdges.getFirst().getEndNodeId()));
-                edgesMatching.add(new Tuple<>(pairOfEdges.getFirst().getId(), pairOfEdges.getFirst().getId()));
+                nodesMatching.add(new Tuple<>(pairOfEdges.getFirst().getEndNodeId(), pairOfEdges.getSecond().getEndNodeId()));
+                edgesMatching.add(new Tuple<>(pairOfEdges.getFirst().getId(), pairOfEdges.getSecond().getId()));
 
                 iterationSimilarity = bestTriplet.getSecond();
             }
