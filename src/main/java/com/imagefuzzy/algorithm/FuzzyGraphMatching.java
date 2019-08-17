@@ -198,19 +198,19 @@ public class FuzzyGraphMatching {
      */
     public double greedyInclusion(Graph source, Graph query, double threshold) {
         Map<String, Map<String, Double>> similarities = this.computeSimilarities(source.getNodes(), query.getNodes());
-        Tuple<ListOfMatches, ListOfMatches> matchings = this.greedyMatching(source, query, threshold, similarities);
-        ListOfMatches nodesMatching = matchings.getFirst();
-        ListOfMatches edgesMatching = matchings.getSecond();
+        Tuple<ListOfMatches, ListOfMatches> matches = this.greedyMatching(source, query, threshold, similarities);
+        ListOfMatches nodesMatches = matches.getFirst();
+        ListOfMatches edgesMatches = matches.getSecond();
 
         ArrayList<Double> finalInclusions = new ArrayList<>();
-        if (edgesMatching.size() > 0) {
+        if (edgesMatches.size() > 0) {
             Map<String, Edge> sourceEdges = source.getEdges().stream().collect(Collectors.toMap(Edge::getId, s -> s));
             Map<String, Edge> queryEdges = query.getEdges().stream().collect(Collectors.toMap(Edge::getId, s -> s));
-            for (Tuple<String, String> edgesMatch : edgesMatching) {
+            for (Tuple<String, String> edgesMatch : edgesMatches) {
                 finalInclusions.add(this.fuzzyEdgeInclusionConsideringNodes(sourceEdges.get(edgesMatch.getFirst()), queryEdges.get(edgesMatch.getSecond()), similarities));
             }
         } else {
-            for (Tuple<String, String> nodesMatch : nodesMatching) {
+            for (Tuple<String, String> nodesMatch : nodesMatches) {
                 finalInclusions.add(similarities.get(nodesMatch.getFirst()).get(nodesMatch.getSecond()));
             }
         }
@@ -242,12 +242,12 @@ public class FuzzyGraphMatching {
      */
     private Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query, double threshold,
                                                                Map<String, Map<String, Double>> similarities) {
-        ListOfMatches nodesMatching = new ListOfMatches();
-        ListOfMatches edgesMatching = new ListOfMatches();
+        ListOfMatches nodesMatches = new ListOfMatches();
+        ListOfMatches edgesMatches = new ListOfMatches();
         Tuple<String, String> bestPair = this.getBestPairOfNodes(similarities);
 
         if (bestPair != null) {
-            nodesMatching.add(new Tuple<>(bestPair.getFirst(), bestPair.getSecond()));
+            nodesMatches.add(new Tuple<>(bestPair.getFirst(), bestPair.getSecond()));
             Collection<Edge> sourceAdjacentEdges = source.getAdjacentEdges(bestPair.getFirst());
             Collection<Edge> queryAdjacentEdges = query.getAdjacentEdges(bestPair.getSecond());
             double iterationSimilarity = similarities.get(bestPair.getFirst()).get(bestPair.getSecond());
@@ -262,14 +262,14 @@ public class FuzzyGraphMatching {
                 sourceAdjacentEdges = source.getAdjacentEdges(pairOfEdges.getFirst().getEndNodeId());
                 queryAdjacentEdges = query.getAdjacentEdges(pairOfEdges.getSecond().getEndNodeId());
 
-                nodesMatching.add(new Tuple<>(pairOfEdges.getFirst().getEndNodeId(), pairOfEdges.getSecond().getEndNodeId()));
-                edgesMatching.add(new Tuple<>(pairOfEdges.getFirst().getId(), pairOfEdges.getSecond().getId()));
+                nodesMatches.add(new Tuple<>(pairOfEdges.getFirst().getEndNodeId(), pairOfEdges.getSecond().getEndNodeId()));
+                edgesMatches.add(new Tuple<>(pairOfEdges.getFirst().getId(), pairOfEdges.getSecond().getId()));
 
                 iterationSimilarity = bestTriplet.getSecond();
             }
         }
 
-        return new Tuple<>(nodesMatching, edgesMatching);
+        return new Tuple<>(nodesMatches, edgesMatches);
     }
 
     /**
