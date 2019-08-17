@@ -9,6 +9,7 @@ import com.imagefuzzy.graph.Graph;
 import com.imagefuzzy.graph.Node;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -185,18 +186,31 @@ public class FuzzyGraphMatching {
      * @return the inclusion degree of the graph query in the graph source.
      */
     public double greedyInclusion(Graph source, Graph query) {
-        return this.greedyInclusion(source, query, 0.0);
+        return this.greedyInclusion(source, query, 0.0, Collections::min);
     }
 
     /**
      * Compute the inclusion degree of the graph query in the graph source.
      *
-     * @param source    source graph.
-     * @param query     query graph.
-     * @param threshold stop the algorithm if the similarity degree obtained in an iteration is lower than the threshold.
+     * @param source              source graph.
+     * @param query               query graph.
+     * @param aggregationOperator {@link java.util.function.Function} that takes a list of inclusions a return a single value.
      * @return the inclusion degree of the graph query in the graph source.
      */
-    public double greedyInclusion(Graph source, Graph query, double threshold) {
+    public double greedyInclusion(Graph source, Graph query, Function<ArrayList<Double>, Double> aggregationOperator) {
+        return this.greedyInclusion(source, query, 0.0, aggregationOperator);
+    }
+
+    /**
+     * Compute the inclusion degree of the graph query in the graph source.
+     *
+     * @param source              source graph.
+     * @param query               query graph.
+     * @param threshold           stop the algorithm if the similarity degree obtained in an iteration is lower than the threshold.
+     * @param aggregationOperator {@link java.util.function.Function} that takes a list of inclusions a return a single value.
+     * @return the inclusion degree of the graph query in the graph source.
+     */
+    public double greedyInclusion(Graph source, Graph query, double threshold, Function<ArrayList<Double>, Double> aggregationOperator) {
         Map<String, Map<String, Double>> similarities = this.computeSimilarities(source.getNodes(), query.getNodes());
         Tuple<ListOfMatches, ListOfMatches> matches = this.greedyMatching(source, query, threshold, similarities);
         ListOfMatches nodesMatches = matches.getFirst();
@@ -215,7 +229,7 @@ public class FuzzyGraphMatching {
             }
         }
 
-        return this.tNorm(finalInclusions);
+        return aggregationOperator.apply(finalInclusions);
     }
 
     /**
