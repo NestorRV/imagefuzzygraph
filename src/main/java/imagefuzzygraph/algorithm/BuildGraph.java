@@ -1,12 +1,12 @@
-package com.imagefuzzy.algorithm;
+package imagefuzzygraph.algorithm;
 
-import com.imagefuzzy.data.Descriptor;
-import com.imagefuzzy.data.PropertyWithDegree;
-import com.imagefuzzy.data.Region;
-import com.imagefuzzy.data.Tuple;
-import com.imagefuzzy.graph.Edge;
-import com.imagefuzzy.graph.Graph;
-import com.imagefuzzy.graph.Node;
+import imagefuzzygraph.data.Descriptor;
+import imagefuzzygraph.data.PropertyWithDegree;
+import imagefuzzygraph.data.Region;
+import imagefuzzygraph.data.Tuple;
+import imagefuzzygraph.graph.Edge;
+import imagefuzzygraph.graph.Graph;
+import imagefuzzygraph.graph.Node;
 import jfi.color.ISCCColorMap;
 import jfi.color.fuzzy.FuzzyColor;
 import jfi.color.fuzzy.FuzzyColorSpace;

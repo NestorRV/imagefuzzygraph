@@ -1,9 +1,10 @@
-package com.imagefuzzy.algorithm;
+package imagefuzzygraph.algorithm;
 
 import com.imagefuzzy.data.*;
-import com.imagefuzzy.graph.Edge;
-import com.imagefuzzy.graph.Graph;
-import com.imagefuzzy.graph.Node;
+import imagefuzzygraph.data.*;
+import imagefuzzygraph.graph.Edge;
+import imagefuzzygraph.graph.Graph;
+import imagefuzzygraph.graph.Node;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -190,7 +191,7 @@ public class FuzzyGraphMatching {
      *
      * @param source              source graph.
      * @param query               query graph.
-     * @param aggregationOperator an {@link com.imagefuzzy.data.AggregationOperator}.
+     * @param aggregationOperator an {@link AggregationOperator}.
      * @return the inclusion degree of the graph query in the graph source.
      */
     public double greedyInclusion(Graph source, Graph query, AggregationOperator aggregationOperator) {
@@ -203,7 +204,7 @@ public class FuzzyGraphMatching {
      * @param source              source graph.
      * @param query               query graph.
      * @param threshold           stop the algorithm if the similarity degree obtained in an iteration is lower than the threshold.
-     * @param aggregationOperator an {@link com.imagefuzzy.data.AggregationOperator}.
+     * @param aggregationOperator an {@link AggregationOperator}.
      * @return the inclusion degree of the graph query in the graph source.
      */
     public double greedyInclusion(Graph source, Graph query, double threshold, AggregationOperator aggregationOperator) {

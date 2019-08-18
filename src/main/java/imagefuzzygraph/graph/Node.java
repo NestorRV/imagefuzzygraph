@@ -1,7 +1,7 @@
-package com.imagefuzzy.graph;
+package imagefuzzygraph.graph;
 
-import com.imagefuzzy.data.Descriptor;
-import com.imagefuzzy.data.Tuple;
+import imagefuzzygraph.data.Descriptor;
+import imagefuzzygraph.data.Tuple;
 
 /**
  * Class representing a node.

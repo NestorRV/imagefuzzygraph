@@ -1,11 +1,11 @@
-package com.imagefuzzy.data;
+package imagefuzzygraph.data;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Class to build multiples {@link com.imagefuzzy.data.AggregationOperator} objects.
+ * Class to build multiples {@link AggregationOperator} objects.
  *
  * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */

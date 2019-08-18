@@ -1,8 +1,8 @@
-package com.imagefuzzy.visualization;
+package imagefuzzygraph.visualization;
 
-import com.imagefuzzy.data.Tuple;
-import com.imagefuzzy.graph.Graph;
-import com.imagefuzzy.graph.Node;
+import imagefuzzygraph.data.Tuple;
+import imagefuzzygraph.graph.Graph;
+import imagefuzzygraph.graph.Node;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

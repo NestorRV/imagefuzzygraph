@@ -1,6 +1,6 @@
-package com.imagefuzzy.graph;
+package imagefuzzygraph.graph;
 
-import com.imagefuzzy.data.Descriptor;
+import imagefuzzygraph.data.Descriptor;
 
 /**
  * Class representing an edge.

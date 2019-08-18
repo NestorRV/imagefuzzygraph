@@ -1,10 +1,10 @@
-package com.imagefuzzy.graphdb;
+package imagefuzzygraph.graphdb;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import com.imagefuzzy.graph.Graph;
+import imagefuzzygraph.graph.Graph;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -22,7 +22,7 @@ import java.util.List;
 public class GraphDatabase extends ArrayList<Graph> {
 
     /**
-     * Build a DataBase querying all the methods in {@link com.imagefuzzy.graphdb.GraphExamples}.
+     * Build a DataBase querying all the methods in {@link GraphExamples}.
      *
      * @throws NoSuchMethodException     exception thrown if a method is not found.
      * @throws InvocationTargetException exception thrown if a method throws an exception.

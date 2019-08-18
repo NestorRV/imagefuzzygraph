@@ -1,4 +1,4 @@
-package com.imagefuzzy.data;
+package imagefuzzygraph.data;
 
 /**
  * Class representing a tuple.

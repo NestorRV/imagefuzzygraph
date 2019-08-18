@@ -1,4 +1,4 @@
-package com.imagefuzzy.graph;
+package imagefuzzygraph.graph;
 
 import com.google.gson.GsonBuilder;
 

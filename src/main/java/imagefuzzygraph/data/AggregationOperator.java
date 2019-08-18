@@ -1,4 +1,4 @@
-package com.imagefuzzy.data;
+package imagefuzzygraph.data;
 
 import java.util.ArrayList;
 import java.util.function.Function;

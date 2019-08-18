@@ -1,9 +1,9 @@
-package com.imagefuzzy.graphdb;
+package imagefuzzygraph.graphdb;
 
-import com.imagefuzzy.algorithm.BuildGraph;
-import com.imagefuzzy.data.Region;
-import com.imagefuzzy.data.Tuple;
-import com.imagefuzzy.graph.Graph;
+import imagefuzzygraph.algorithm.BuildGraph;
+import imagefuzzygraph.data.Region;
+import imagefuzzygraph.data.Tuple;
+import imagefuzzygraph.graph.Graph;
 
 import java.io.IOException;
 import java.util.ArrayList;
