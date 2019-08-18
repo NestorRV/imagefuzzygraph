@@ -34,7 +34,7 @@ public class GraphPlotter extends JComponent {
         JFrame frame = new JFrame();
         frame.add(this);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(500, 500);
+        frame.setSize(1000, 1000);
         frame.getContentPane().setBackground(Color.WHITE);
         frame.setVisible(true);
     }
