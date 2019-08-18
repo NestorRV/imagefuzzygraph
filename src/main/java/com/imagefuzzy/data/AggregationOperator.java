@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.function.Function;
 
 /**
- * Class representing an aggregation operator. An aggregation operator is a function that takes a list of values and
+ * Interface representing an aggregation operator. An aggregation operator is a function that takes a list of values and
  * return an aggregated value.
  *
  * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
