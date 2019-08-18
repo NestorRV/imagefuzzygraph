@@ -1,22 +1,20 @@
 package com.imagefuzzy.data;
 
-import java.awt.image.BufferedImage;
-
 /**
  * Class representing a region.
  *
  * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
-public class Region extends Tuple<BufferedImage, Tuple<Double, Double>> {
+public class Region extends Tuple<String, Tuple<Double, Double>> {
 
     /**
      * Construct a region.
      *
-     * @param image    image of the region.
-     * @param location location of the region.
+     * @param imagePath path to the image of the region.
+     * @param location  location of the region.
      */
-    public Region(BufferedImage image, Tuple<Double, Double> location) {
-        super(image, location);
+    public Region(String imagePath, Tuple<Double, Double> location) {
+        super(imagePath, location);
     }
 
     /**
@@ -24,7 +22,7 @@ public class Region extends Tuple<BufferedImage, Tuple<Double, Double>> {
      *
      * @return the image of the region.
      */
-    public BufferedImage getImage() {
+    public String getImagePath() {
         return this.getFirst();
     }
 

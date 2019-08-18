@@ -16,8 +16,11 @@ import jfi.fuzzy.membershipfunction.TrapezoidalFunction;
 import jfi.geometry.Point3D;
 import jmr.initial.descriptor.mpeg7.MPEG7DominantColors;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -158,16 +161,16 @@ public class BuildGraph {
      * @param labelsInfo information about the labels.
      * @return graph for a list regions and information about labels of those regions.
      */
-    public Graph buildGraph(ArrayList<Region> regions, ArrayList<String> labelsInfo) {
+    public Graph buildGraph(ArrayList<Region> regions, ArrayList<String> labelsInfo) throws IOException {
         ArrayList<Node> nodes = new ArrayList<>();
         ArrayList<Edge> edges = new ArrayList<>();
 
         for (int i = 0; i < regions.size(); i++) {
-            BufferedImage image = regions.get(i).getImage();
-            Descriptor colorFuzzyDescriptor = this.buildDominantColorFuzzyDescriptor(image);
+            String imagePath = regions.get(i).getImagePath();
+            Descriptor colorFuzzyDescriptor = this.buildDominantColorFuzzyDescriptor(ImageIO.read(new File(imagePath)));
             String startNodeId = this.buildNodeId(i);
             nodes.add(new Node(this.buildNodeId(i), colorFuzzyDescriptor, this.buildLabelDescriptor(labelsInfo.get(i)),
-                    regions.get(i).getImage(), regions.get(i).getLocation()));
+                    regions.get(i).getImagePath(), regions.get(i).getLocation()));
 
             for (int j = 0; j < regions.size(); j++) {
                 // Do not create auto-edges.
