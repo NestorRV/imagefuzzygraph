@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>nestor</groupId>
-    <artifactId>image-fuzzy-graph</artifactId>
+    <artifactId>imagefuzzygraph</artifactId>
     <version>1.0</version>
 
     <dependencies>
