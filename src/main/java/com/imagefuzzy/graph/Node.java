@@ -35,7 +35,7 @@ public class Node {
     /**
      * Location of the region.
      */
-    private transient Tuple<Double, Double> location;
+    private Tuple<Double, Double> location;
 
     /**
      * Construct a node.
