@@ -28,12 +28,12 @@ public class Node {
     /**
      * Path to the image of the region represented by the node.
      */
-    private String imagePath;
+    private final String imagePath;
 
     /**
      * Location of the region.
      */
-    private Tuple<Double, Double> location;
+    private final Tuple<Double, Double> location;
 
     /**
      * Construct a node.

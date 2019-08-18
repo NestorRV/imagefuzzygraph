@@ -17,7 +17,7 @@ import java.io.IOException;
  * @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
 public class GraphPlotter extends JComponent {
-    private Graph graph;
+    private final Graph graph;
 
     public GraphPlotter(Graph graph) {
         this.graph = graph;
