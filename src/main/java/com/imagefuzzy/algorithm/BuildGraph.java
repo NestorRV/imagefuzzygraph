@@ -142,10 +142,6 @@ public class BuildGraph {
      * @return label descriptor using the information of a string.
      */
     private Descriptor buildLabelDescriptor(String info) {
-        /*
-        TODO generate label in an automated way
-         */
-
         Descriptor labelDescriptor = new Descriptor();
         String[] parts = info.split("_");
         for (int i = 0; i < parts.length; i += 2) {
