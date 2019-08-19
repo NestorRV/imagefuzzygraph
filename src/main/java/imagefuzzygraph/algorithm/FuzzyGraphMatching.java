@@ -1,6 +1,5 @@
 package imagefuzzygraph.algorithm;
 
-import com.imagefuzzy.data.*;
 import imagefuzzygraph.data.*;
 import imagefuzzygraph.graph.Edge;
 import imagefuzzygraph.graph.Graph;
