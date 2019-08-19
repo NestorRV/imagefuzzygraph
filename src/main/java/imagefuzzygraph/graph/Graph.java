@@ -39,6 +39,17 @@ public class Graph implements Iterable<Node> {
     }
 
     /**
+     * Copy constructor.
+     *
+     * @param graph graph to copy.
+     */
+    public Graph(Graph graph) {
+        this.adjacencyList = new LinkedHashMap<>();
+        this.nodes.addAll(graph.getNodes());
+        graph.getEdges().forEach(this::addEdge);
+    }
+
+    /**
      * Add an edge to the graph.
      *
      * @param edge new edge to be added.
