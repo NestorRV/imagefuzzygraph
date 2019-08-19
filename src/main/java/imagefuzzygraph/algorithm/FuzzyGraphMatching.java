@@ -208,7 +208,7 @@ public class FuzzyGraphMatching {
      */
     public double greedyInclusion(Graph source, Graph query, double threshold, AggregationOperator aggregationOperator) {
         Map<String, Map<String, Double>> similarities = this.computeSimilarities(source.getNodes(), query.getNodes());
-        Tuple<ListOfMatches, ListOfMatches> matches = this.greedyMatching(source, query, threshold, similarities);
+        Tuple<ListOfMatches, ListOfMatches> matches = this.greedyMatching(new Graph(source), new Graph(query), threshold, similarities);
         ListOfMatches nodesMatches = matches.getFirst();
         ListOfMatches edgesMatches = matches.getSecond();
 
@@ -238,7 +238,7 @@ public class FuzzyGraphMatching {
      */
     public Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query, double threshold) {
         Map<String, Map<String, Double>> similarities = this.computeSimilarities(source.getNodes(), query.getNodes());
-        return this.greedyMatching(source, query, threshold, similarities);
+        return this.greedyMatching(new Graph(source), new Graph(query), threshold, similarities);
     }
 
     /**
