@@ -30,7 +30,7 @@ public class GraphPlotter extends JComponent {
             for (Node node : this.graph.getNodes()) {
                 Tuple<Double, Double> location = node.getLocation();
                 BufferedImage img = ImageIO.read(new File(node.getImagePath()));
-                g2d.drawImage(img, location.getFirst().intValue() / 2, location.getSecond().intValue() / 2, img.getWidth() / 2, img.getHeight() / 2, null);
+                g2d.drawImage(img, location.getFirst().intValue() / 3, location.getSecond().intValue() / 3, img.getWidth() / 3, img.getHeight() / 3, null);
             }
         } catch (IOException ignored) {
         }
@@ -40,7 +40,7 @@ public class GraphPlotter extends JComponent {
         JFrame frame = new JFrame();
         frame.add(this);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(1000, 1000);
+        frame.setSize(500, 500);
         frame.getContentPane().setBackground(Color.WHITE);
         frame.setVisible(true);
     }
