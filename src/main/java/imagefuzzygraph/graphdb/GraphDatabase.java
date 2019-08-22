@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import imagefuzzygraph.graph.Graph;
+import imagefuzzygraph.visualization.GraphPlotter;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -12,7 +13,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Class representing a database of graphs.
@@ -63,6 +67,28 @@ public class GraphDatabase extends ArrayList<Graph> {
     public void saveDatabase(String fileName) throws IOException {
         try (Writer writer = new FileWriter(fileName)) {
             new GsonBuilder().setPrettyPrinting().create().toJson(this, writer);
+        }
+    }
+
+    /**
+     * Plot all the graphs in the database.
+     */
+    public void plotDatabase() {
+        for (Graph graph : this) {
+            new GraphPlotter(graph).plot();
+        }
+    }
+
+    /**
+     * Plot random graphs of the database.
+     *
+     * @param nGraphs number of graphs to plot.
+     */
+    public void plotRandomGraphs(int nGraphs) {
+        List<Integer> integers = IntStream.range(0, this.size()).boxed().collect(Collectors.toList());
+        Collections.shuffle(integers);
+        for (int i = 0; i < nGraphs && i < this.size(); i++) {
+            new GraphPlotter(this.get(i)).plot();
         }
     }
 
