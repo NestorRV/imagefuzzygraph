@@ -1,4 +1,4 @@
-package imagefuzzygraph.visualization;
+package imagefuzzygraph.ui.elements;
 
 import imagefuzzygraph.data.Tuple;
 import imagefuzzygraph.graph.Graph;
@@ -17,15 +17,23 @@ import java.io.IOException;
  * @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
 public class GraphPlotter extends JComponent {
+
     private final Graph graph;
+    private final BufferedImage imageGraph;
 
-    public GraphPlotter(Graph graph) {
+    /**
+     * Construct a GraphPlotter
+     *
+     * @param graph graph to be plotted.
+     * @param w     width of the JComponent.
+     * @param h     height of the JComponent.
+     */
+    public GraphPlotter(Graph graph, int w, int h) {
+        super();
         this.graph = graph;
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
+        this.setSize(w, h);
+        this.imageGraph = new BufferedImage(w, h, BufferedImage.TYPE_4BYTE_ABGR);
+        Graphics2D g2d = (Graphics2D) this.imageGraph.getGraphics();
         try {
             for (Node node : this.graph.getNodes()) {
                 Tuple<Double, Double> location = node.getLocation();
@@ -36,6 +44,15 @@ public class GraphPlotter extends JComponent {
         }
     }
 
+    @Override
+    public void paint(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.drawImage(this.imageGraph, 0, 0, null);
+    }
+
+    /**
+     * Plot the graph.
+     */
     public void plot() {
         JFrame frame = new JFrame();
         frame.add(this);
@@ -43,5 +60,14 @@ public class GraphPlotter extends JComponent {
         frame.setSize(500, 500);
         frame.getContentPane().setBackground(Color.WHITE);
         frame.setVisible(true);
+    }
+
+    /**
+     * Return the graph contained in the GraphPlotter object.
+     *
+     * @return graph contained in the GraphPlotter object.
+     */
+    public Graph getGraph() {
+        return graph;
     }
 }
