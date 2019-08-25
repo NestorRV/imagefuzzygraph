@@ -3,7 +3,7 @@ package imagefuzzygraph.data;
 /**
  * Class representing a region.
  *
- * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
+ * @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
 public class Region extends Tuple<String, Tuple<Double, Double>> {
 

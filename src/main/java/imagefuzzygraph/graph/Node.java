@@ -6,7 +6,7 @@ import imagefuzzygraph.data.Tuple;
 /**
  * Class representing a node.
  *
- * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
+ * @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
 public class Node {
 

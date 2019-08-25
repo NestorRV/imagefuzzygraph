@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Class representing a database of graphs.
  *
- * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
+ * @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
 public class GraphDatabase extends ArrayList<Graph> {
 

@@ -12,7 +12,7 @@ import java.util.Arrays;
 /**
  * Class to build graph examples.
  *
- * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
+ * @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
 public class GraphExamples {
     private Region buildRegion(String folder, String file, double x, double y) {

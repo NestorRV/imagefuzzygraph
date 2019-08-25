@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 /**
  * Class to build multiples {@link AggregationOperator} objects.
  *
- * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
+ * @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
 public class AggregationOperators {
 

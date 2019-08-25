@@ -5,7 +5,7 @@ import imagefuzzygraph.data.Descriptor;
 /**
  * Class representing an edge.
  *
- * @author @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
+ * @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
 public class Edge {
 
