@@ -33,6 +33,7 @@ public class GraphDatabase extends ArrayList<Graph> {
      * @throws IllegalAccessException    exception thrown if a method is not accessible.
      */
     public void buildDatabase() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        this.clear();
         GraphExamples graphExamples = new GraphExamples();
         List<Method> methods = Arrays.asList(graphExamples.getClass().getDeclaredMethods());
         long nGraphsExamples = methods.stream().filter(m -> m.getName().startsWith("example")).count();
