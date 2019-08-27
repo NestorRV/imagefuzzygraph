@@ -48,7 +48,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>imagefuzzygraph.ui.application.MainApplication</mainClass>
+                            <mainClass>imagefuzzygraph.ui.application.ImageFuzzyGraphApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
