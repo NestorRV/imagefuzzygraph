@@ -34,6 +34,8 @@ public class GraphPlotter extends JComponent {
         this.setSize(w, h);
         this.imageGraph = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = (Graphics2D) this.imageGraph.getGraphics();
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, this.imageGraph.getWidth(), this.imageGraph.getHeight());
         try {
             for (Node node : this.graph.getNodes()) {
                 Tuple<Double, Double> location = node.getLocation();
@@ -42,6 +44,7 @@ public class GraphPlotter extends JComponent {
             }
         } catch (IOException ignored) {
         }
+        g2d.dispose();
     }
 
     @Override
