@@ -2,7 +2,11 @@ package imagefuzzygraph.graph;
 
 import com.google.gson.GsonBuilder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 
 /**
  * Class representing a graph.

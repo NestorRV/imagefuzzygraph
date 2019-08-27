@@ -60,7 +60,7 @@ public class MatchingAlgorithmPreferences {
      * Set the aggregation operator percentage of the algorithm.
      *
      * @param aggregationOperatorPercentage aggregation operator percentage of
-     * the algorithm.
+     *                                      the algorithm.
      */
     public static void setAggregationOperatorPercentage(double aggregationOperatorPercentage) {
         MatchingAlgorithmPreferences.aggregationOperatorPercentage = aggregationOperatorPercentage;

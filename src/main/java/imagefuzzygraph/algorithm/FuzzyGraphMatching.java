@@ -1,11 +1,20 @@
 package imagefuzzygraph.algorithm;
 
-import imagefuzzygraph.data.*;
+import imagefuzzygraph.data.AggregationOperator;
+import imagefuzzygraph.data.Descriptor;
+import imagefuzzygraph.data.ListOfMatches;
+import imagefuzzygraph.data.PropertyWithDegree;
+import imagefuzzygraph.data.Tuple;
 import imagefuzzygraph.graph.Edge;
 import imagefuzzygraph.graph.Graph;
 import imagefuzzygraph.graph.Node;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
