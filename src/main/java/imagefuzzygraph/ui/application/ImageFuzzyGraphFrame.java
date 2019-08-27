@@ -42,6 +42,8 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         this.saveDBButton.setEnabled(false);
         this.plotRandomGraphButton.setEnabled(false);
         this.plotDatabaseButton.setEnabled(false);
+        this.matchingAlgorithmPreferencesButton.setEnabled(false);
+        this.matchingButton.setEnabled(false);
     }
 
     /**
@@ -298,6 +300,8 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                 this.saveDBButton.setEnabled(true);
                 this.plotRandomGraphButton.setEnabled(true);
                 this.plotDatabaseButton.setEnabled(true);
+                this.matchingAlgorithmPreferencesButton.setEnabled(true);
+                this.matchingButton.setEnabled(true);
             } catch (IOException ex) {
                 System.err.println(ex);
             }
@@ -355,6 +359,8 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             this.saveDBButton.setEnabled(true);
             this.plotRandomGraphButton.setEnabled(true);
             this.plotDatabaseButton.setEnabled(true);
+            this.matchingAlgorithmPreferencesButton.setEnabled(true);
+            this.matchingButton.setEnabled(true);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
             Logger.getLogger(ImageFuzzyGraphFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
