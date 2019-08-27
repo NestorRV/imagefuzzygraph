@@ -205,7 +205,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         dbToolBar.add(plotRandomGraphButton);
 
         plotDatabaseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draw.png"))); // NOI18N
-        plotDatabaseButton.setToolTipText("Plot all the dgraphs in the database");
+        plotDatabaseButton.setToolTipText("Plot all the graphs in the database");
         plotDatabaseButton.setFocusable(false);
         plotDatabaseButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         plotDatabaseButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
