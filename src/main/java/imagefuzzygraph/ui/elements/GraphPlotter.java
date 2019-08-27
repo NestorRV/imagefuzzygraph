@@ -32,7 +32,7 @@ public class GraphPlotter extends JComponent {
         super();
         this.graph = graph;
         this.setSize(w, h);
-        this.imageGraph = new BufferedImage(w, h, BufferedImage.TYPE_4BYTE_ABGR);
+        this.imageGraph = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = (Graphics2D) this.imageGraph.getGraphics();
         try {
             for (Node node : this.graph.getNodes()) {
@@ -69,5 +69,14 @@ public class GraphPlotter extends JComponent {
      */
     public Graph getGraph() {
         return graph;
+    }
+
+    /**
+     * Return the image representation of the graph contained in the GraphPlotter object.
+     *
+     * @return the image representation of the graph contained in the GraphPlotter object.
+     */
+    public BufferedImage getImageGraph() {
+        return imageGraph;
     }
 }
