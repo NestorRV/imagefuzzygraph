@@ -74,7 +74,6 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         return graph;
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

@@ -26,7 +26,6 @@ public class ImageListInternalFrame extends javax.swing.JInternalFrame {
         imageListPanel.add(image);
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
