@@ -265,7 +265,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private void showPanelInfoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPanelInfoMousePressed
         float dividerLocation = (float) splitPanelCentral.getDividerLocation() / splitPanelCentral.getMaximumDividerLocation();
-        if (dividerLocation >= 1) {//Está colapsada
+        if (dividerLocation >= 1) {
             splitPanelCentral.setDividerLocation(0.8);
         } else {
             splitPanelCentral.setDividerLocation(1.0);
