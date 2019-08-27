@@ -9,7 +9,6 @@ import imagefuzzygraph.ui.elements.MatchingAlgorithmPreferencesDialog;
 import imagefuzzygraph.ui.elements.GraphPlotter;
 import imagefuzzygraph.ui.elements.ImageListInternalFrame;
 import java.awt.Color;
-import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -103,11 +102,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         splitPanelCentral.setDividerSize(3);
         splitPanelCentral.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         splitPanelCentral.setPreferredSize(new java.awt.Dimension(0, 0));
-        splitPanelCentral.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                splitPanelCentralPropertyChange(evt);
-            }
-        });
+        splitPanelCentral.addPropertyChangeListener(this::splitPanelCentralPropertyChange);
 
         desktop.setBackground(java.awt.Color.lightGray);
         desktop.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -161,11 +156,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         createDBButton.setFocusable(false);
         createDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         createDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        createDBButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createDBButtonActionPerformed(evt);
-            }
-        });
+        createDBButton.addActionListener(this::createDBButtonActionPerformed);
         dbToolBar.add(createDBButton);
 
         openDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/load-database.png"))); // NOI18N
@@ -173,11 +164,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         openDBButton.setFocusable(false);
         openDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         openDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        openDBButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openDBButtonActionPerformed(evt);
-            }
-        });
+        openDBButton.addActionListener(this::openDBButtonActionPerformed);
         dbToolBar.add(openDBButton);
 
         saveDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save-database.png"))); // NOI18N
@@ -185,11 +172,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         saveDBButton.setFocusable(false);
         saveDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         saveDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        saveDBButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveDBButtonActionPerformed(evt);
-            }
-        });
+        saveDBButton.addActionListener(this::saveDBButtonActionPerformed);
         dbToolBar.add(saveDBButton);
 
         plotRandomGraphButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/random.png"))); // NOI18N
@@ -197,11 +180,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         plotRandomGraphButton.setFocusable(false);
         plotRandomGraphButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         plotRandomGraphButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        plotRandomGraphButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                plotRandomGraphButtonActionPerformed(evt);
-            }
-        });
+        plotRandomGraphButton.addActionListener(this::plotRandomGraphButtonActionPerformed);
         dbToolBar.add(plotRandomGraphButton);
 
         plotDatabaseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draw.png"))); // NOI18N
@@ -209,11 +188,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         plotDatabaseButton.setFocusable(false);
         plotDatabaseButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         plotDatabaseButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        plotDatabaseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                plotDatabaseButtonActionPerformed(evt);
-            }
-        });
+        plotDatabaseButton.addActionListener(this::plotDatabaseButtonActionPerformed);
         dbToolBar.add(plotDatabaseButton);
 
         toolsPanel.add(dbToolBar);
@@ -225,11 +200,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         matchingAlgorithmPreferencesButton.setFocusable(false);
         matchingAlgorithmPreferencesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         matchingAlgorithmPreferencesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        matchingAlgorithmPreferencesButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                matchingAlgorithmPreferencesButtonActionPerformed(evt);
-            }
-        });
+        matchingAlgorithmPreferencesButton.addActionListener(this::matchingAlgorithmPreferencesButtonActionPerformed);
         queryParametersToolBar.add(matchingAlgorithmPreferencesButton);
 
         matchingButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/compare.png"))); // NOI18N
@@ -237,11 +208,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         matchingButton.setFocusable(false);
         matchingButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         matchingButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        matchingButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                matchingButtonActionPerformed(evt);
-            }
-        });
+        matchingButton.addActionListener(this::matchingButtonActionPerformed);
         queryParametersToolBar.add(matchingButton);
 
         toolsPanel.add(queryParametersToolBar);

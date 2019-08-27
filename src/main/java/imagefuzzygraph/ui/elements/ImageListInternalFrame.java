@@ -20,7 +20,7 @@ public class ImageListInternalFrame extends javax.swing.JInternalFrame {
     /**
      * Add an image to the list of images.
      *
-     * @param image
+     * @param image image to be added to the list of images.
      */
     public void add(BufferedImage image) {
         imageListPanel.add(image);

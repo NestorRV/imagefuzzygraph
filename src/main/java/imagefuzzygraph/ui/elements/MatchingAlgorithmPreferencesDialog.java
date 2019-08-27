@@ -93,11 +93,7 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
         aggregationOperatorLabel.setToolTipText("Aggregation Operator to be used");
 
         aggregationOperatorList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "all", "atLeast" }));
-        aggregationOperatorList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aggregationOperatorListActionPerformed(evt);
-            }
-        });
+        aggregationOperatorList.addActionListener(this::aggregationOperatorListActionPerformed);
 
         aggregationOperatorPercentageSpinner.setModel(new javax.swing.SpinnerNumberModel(0.8d, 0.0d, 1.0d, 0.05d));
         aggregationOperatorPercentageSpinner.setToolTipText("Percentage of nodes to match");
@@ -143,19 +139,11 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
         buttonsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         acceptButton.setText("OK");
-        acceptButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acceptButtonActionPerformed(evt);
-            }
-        });
+        acceptButton.addActionListener(this::acceptButtonActionPerformed);
         buttonsPanel.add(acceptButton);
 
         cancelButton.setText("Cancel");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
+        cancelButton.addActionListener(this::cancelButtonActionPerformed);
         buttonsPanel.add(cancelButton);
 
         getContentPane().add(buttonsPanel, java.awt.BorderLayout.SOUTH);
