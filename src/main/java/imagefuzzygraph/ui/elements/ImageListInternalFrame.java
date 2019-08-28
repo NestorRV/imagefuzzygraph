@@ -25,6 +25,16 @@ public class ImageListInternalFrame extends javax.swing.JInternalFrame {
     public void add(BufferedImage image) {
         imageListPanel.add(image);
     }
+    
+    /**
+     * Add an image to the list of images.
+     *
+     * @param image image to be added to the list of images.
+     * @param label label of the image to be added to the list of images.
+     */
+    public void add(BufferedImage image, String label) {
+        imageListPanel.add(image, label);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
