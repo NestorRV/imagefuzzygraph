@@ -29,6 +29,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private final GraphDatabase graphDatabase;
     private String databasePath = "";
+    private Graph queryGraph;
 
     /**
      * Create main window.
@@ -36,8 +37,8 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     public ImageFuzzyGraphFrame() {
         initComponents();
         setIconImage((new ImageIcon(getClass().getResource("/icons/unfold.png"))).getImage());
+        this.queryGraph = null;
         this.graphDatabase = new GraphDatabase();
-
         this.saveDBButton.setEnabled(false);
         this.plotRandomGraphButton.setEnabled(false);
         this.plotDatabaseButton.setEnabled(false);
@@ -288,8 +289,8 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private void matchingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matchingButtonActionPerformed
         FuzzyGraphMatching fuzzyGraphMatching = new FuzzyGraphMatching();
-        Graph queryGraph = this.getSelectedGraph();
-        if (queryGraph != null) {
+        this.queryGraph = this.getSelectedGraph();
+        if (this.queryGraph != null) {
             double threshold = MatchingAlgorithmPreferences.getThreshold();
             AggregationOperator aggregationOperator;
             if (MatchingAlgorithmPreferences.getAggregationOperator().equals("atLeast")) {
@@ -301,7 +302,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             double bestSimilarity = Double.NEGATIVE_INFINITY;
             int bestGraph = -1;
             for (int i = 0; i < this.graphDatabase.size(); i++) {
-                double inclusionDegree = fuzzyGraphMatching.greedyInclusion(this.graphDatabase.get(i), queryGraph, threshold, aggregationOperator);
+                double inclusionDegree = fuzzyGraphMatching.greedyInclusion(this.graphDatabase.get(i), this.queryGraph, threshold, aggregationOperator);
                 if (inclusionDegree > bestSimilarity && inclusionDegree != 1.0) {
                     bestSimilarity = inclusionDegree;
                     bestGraph = i;
