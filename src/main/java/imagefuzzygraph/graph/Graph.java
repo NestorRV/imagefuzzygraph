@@ -14,6 +14,11 @@ import java.util.LinkedHashSet;
  * @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
 public class Graph implements Iterable<Node> {
+    
+    /**
+     * Id of the graph.
+     */
+    private final String id;
 
     /**
      * Nodes of the graph.
@@ -33,10 +38,12 @@ public class Graph implements Iterable<Node> {
     /**
      * Construct a graph.
      *
+     * @param id    id of the graph.
      * @param nodes list of nodes.
      * @param edges list of edges.
      */
-    public Graph(Collection<Node> nodes, Collection<Edge> edges) {
+    public Graph(String id, Collection<Node> nodes, Collection<Edge> edges) {
+        this.id = id;
         this.adjacencyList = new LinkedHashMap<>();
         this.nodes.addAll(nodes);
         edges.forEach(this::addEdge);
@@ -48,6 +55,7 @@ public class Graph implements Iterable<Node> {
      * @param graph graph to copy.
      */
     public Graph(Graph graph) {
+        this.id = graph.getId();
         this.adjacencyList = new LinkedHashMap<>();
         this.nodes.addAll(graph.getNodes());
         graph.getEdges().forEach(this::addEdge);
@@ -101,6 +109,15 @@ public class Graph implements Iterable<Node> {
      */
     public ArrayList<Node> getNodes() {
         return nodes;
+    }
+    
+    /**
+     * Return the id of the graph.
+     *
+     * @return the id of the graph.
+     */
+    public String getId() {
+        return id;
     }
 
     /**
