@@ -28,8 +28,10 @@ import javax.swing.JOptionPane;
 class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private final GraphDatabase graphDatabase;
-    private String databasePath = "";
     private Graph queryGraph;
+    private double bestSimilarity;
+    private int bestGraph;
+    private String databasePath = "";
 
     /**
      * Create main window.
@@ -38,6 +40,8 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         initComponents();
         setIconImage((new ImageIcon(getClass().getResource("/icons/unfold.png"))).getImage());
         this.queryGraph = null;
+        this.bestSimilarity = Double.NEGATIVE_INFINITY;
+        this.bestGraph = -1;
         this.graphDatabase = new GraphDatabase();
         this.saveDBButton.setEnabled(false);
         this.plotRandomGraphButton.setEnabled(false);
@@ -299,20 +303,23 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                 aggregationOperator = AggregationOperators.all();
             }
 
-            double bestSimilarity = Double.NEGATIVE_INFINITY;
-            int bestGraph = -1;
+            double bestSimilarityLocal = Double.NEGATIVE_INFINITY;
+            int bestGraphLocal = -1;
             for (int i = 0; i < this.graphDatabase.size(); i++) {
                 double inclusionDegree = fuzzyGraphMatching.greedyInclusion(this.graphDatabase.get(i), this.queryGraph, threshold, aggregationOperator);
-                if (inclusionDegree > bestSimilarity && inclusionDegree != 1.0) {
-                    bestSimilarity = inclusionDegree;
-                    bestGraph = i;
+                if (inclusionDegree > bestSimilarityLocal && inclusionDegree != 1.0) {
+                    bestSimilarityLocal = inclusionDegree;
+                    bestGraphLocal = i;
                 }
             }
+            
+            this.bestSimilarity = bestSimilarityLocal;
+            this.bestGraph = bestGraphLocal;
 
-            JInternalFrame internalFrame = new JInternalFrame("Graph " + bestGraph + ". Inclusion degree: " + bestSimilarity, true, true, true);
+            JInternalFrame internalFrame = new JInternalFrame("Graph " + this.bestGraph + ". Inclusion degree: " + this.bestSimilarity, true, true, true);
             internalFrame.setSize(500, 500);
             internalFrame.setBackground(Color.WHITE);
-            GraphPlotter gp = new GraphPlotter(this.graphDatabase.get(bestGraph), internalFrame.getWidth(), internalFrame.getHeight());
+            GraphPlotter gp = new GraphPlotter(this.graphDatabase.get(this.bestGraph), internalFrame.getWidth(), internalFrame.getHeight());
             internalFrame.add(gp);
             this.desktop.add(internalFrame);
             internalFrame.setVisible(true);
