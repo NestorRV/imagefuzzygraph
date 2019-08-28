@@ -444,7 +444,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         listFrame.setTitle("Sorted matchings.");
         for(Tuple<Integer, Double> match: this.inclusionDegrees) {
             Graph graph = this.sourceGraphDatabase.get(match.getFirst());
-            listFrame.add(new GraphPlotter(graph, 400, 400).getImageGraph(), "Graph: " + graph.getId() + " .Inclussion degree: " + match.getSecond());
+            listFrame.add(new GraphPlotter(graph, 400, 400).getImageGraph(), "Graph: " + graph.getId() + ". Inclussion degree: " + match.getSecond());
         }
 
         this.desktop.add(listFrame);
