@@ -34,8 +34,6 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private final GraphDatabase sourceGraphDatabase;
     private Graph queryGraph;
-    private double bestSimilarity;
-    private int bestGraph;
     private String sourceDatabasePath;
     private ArrayList<Tuple<Integer, Double>> inclusionDegrees;
     private final Comparator<Tuple<Integer, Double>> tupleComparator = (Tuple<Integer, Double> a, Tuple<Integer, Double> b) -> a.getSecond().compareTo(b.getSecond());
@@ -49,8 +47,6 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         this.sourceGraphDatabase = new GraphDatabase();
         this.sourceDatabasePath = "";
         this.queryGraph = null;
-        this.bestSimilarity = Double.NEGATIVE_INFINITY;
-        this.bestGraph = -1;
         this.inclusionDegrees = new ArrayList<>();
         this.changeDBButtonsVisibility(false);
     }
@@ -339,8 +335,9 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private void plotRandomGraphSourceDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plotRandomGraphSourceDBButtonActionPerformed
         if (this.sourceGraphDatabase.size() > 0) {
-            int selectedGraph = new Random().nextInt(this.sourceGraphDatabase.size());
-            this.plotGraphInInternalFrame(this.sourceGraphDatabase.get(selectedGraph), "Graph " + selectedGraph);
+            int selectedGraphIdx = new Random().nextInt(this.sourceGraphDatabase.size());
+            Graph selectedGraph = this.sourceGraphDatabase.get(selectedGraphIdx);
+            this.plotGraphInInternalFrame(selectedGraph, selectedGraph.getId());
         }
     }//GEN-LAST:event_plotRandomGraphSourceDBButtonActionPerformed
 
@@ -393,10 +390,8 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             }
             
             Collections.sort(this.inclusionDegrees, Collections.reverseOrder(this.tupleComparator));
-            
-            this.bestGraph = this.inclusionDegrees.get(0).getFirst();
-            this.bestSimilarity = this.inclusionDegrees.get(0).getSecond();
-            this.plotGraphInInternalFrame(this.sourceGraphDatabase.get(this.bestGraph), "Graph " + this.bestGraph + ". Inclusion degree: " + this.bestSimilarity);
+            Graph graph = this.sourceGraphDatabase.get(this.inclusionDegrees.get(0).getFirst());
+            this.plotGraphInInternalFrame(graph, "Graph: " + graph.getId() + ". Inclusion degree: " + this.inclusionDegrees.get(0).getSecond());
         }
     }//GEN-LAST:event_matchingButtonActionPerformed
 
@@ -429,13 +424,14 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private void viewMatchesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMatchesButtonActionPerformed
         FuzzyGraphMatching fuzzyGraphMatching = new FuzzyGraphMatching();
-        if (this.queryGraph != null && this.bestGraph != -1) {
+        if (this.queryGraph != null && !this.inclusionDegrees.isEmpty()) {
             double threshold = MatchingAlgorithmPreferences.getThreshold();
-            Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.greedyMatching(this.queryGraph, this.sourceGraphDatabase.get(this.bestGraph), threshold);
+            int bestGraphIdx = this.inclusionDegrees.get(0).getFirst();
+            Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.greedyMatching(this.queryGraph, this.sourceGraphDatabase.get(bestGraphIdx), threshold);
             JInternalFrame internalFrame = new JInternalFrame("Matchings found.", true, true, true);
             internalFrame.setSize(800, 400);
             internalFrame.setBackground(Color.WHITE);
-            GraphPlotter gp = new GraphPlotter(this.queryGraph, this.sourceGraphDatabase.get(this.bestGraph), matches, internalFrame.getWidth(), internalFrame.getHeight());
+            GraphPlotter gp = new GraphPlotter(this.queryGraph, this.sourceGraphDatabase.get(bestGraphIdx), matches, internalFrame.getWidth(), internalFrame.getHeight());
             internalFrame.add(gp);
             this.desktop.add(internalFrame);
             internalFrame.setVisible(true);
@@ -447,7 +443,8 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         listFrame.setSize(800, 430);
         listFrame.setTitle("Sorted matchings.");
         for(Tuple<Integer, Double> match: this.inclusionDegrees) {
-            listFrame.add(new GraphPlotter(this.sourceGraphDatabase.get(match.getFirst()), 400, 400).getImageGraph(), "Inclussion degree: " + match.getSecond());
+            Graph graph = this.sourceGraphDatabase.get(match.getFirst());
+            listFrame.add(new GraphPlotter(graph, 400, 400).getImageGraph(), "Graph: " + graph.getId() + " .Inclussion degree: " + match.getSecond());
         }
 
         this.desktop.add(listFrame);
