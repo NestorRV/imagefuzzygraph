@@ -286,7 +286,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         queryParametersToolBar.add(matchingButton);
 
         drawSortedMatchingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draw-sorted-matchings.png"))); // NOI18N
-        drawSortedMatchingsButton.setToolTipText("Perform the matching algorithm");
+        drawSortedMatchingsButton.setToolTipText("Plot the graphs in the database sorted by the inclussion degree with the query graph.");
         drawSortedMatchingsButton.setFocusable(false);
         drawSortedMatchingsButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         drawSortedMatchingsButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

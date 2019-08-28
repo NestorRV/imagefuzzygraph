@@ -272,7 +272,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/draw-sorted-matchings.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Perform the matching algorithm"/>
+                <Property name="toolTipText" type="java.lang.String" value="Plot the graphs in the database sorted by the inclussion degree with the query graph."/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
