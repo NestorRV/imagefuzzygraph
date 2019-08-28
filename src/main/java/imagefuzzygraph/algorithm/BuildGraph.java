@@ -157,11 +157,12 @@ public class BuildGraph {
     /**
      * Build a graph for a list regions and information about labels of those regions.
      *
+     * @param graphId    id of the graph.
      * @param regions    regions of an image.
      * @param labelsInfo information about the labels.
      * @return graph for a list regions and information about labels of those regions.
      */
-    public Graph buildGraph(ArrayList<Region> regions, ArrayList<String> labelsInfo) throws IOException {
+    public Graph buildGraph(String graphId, ArrayList<Region> regions, ArrayList<String> labelsInfo) throws IOException {
         ArrayList<Node> nodes = new ArrayList<>();
         ArrayList<Edge> edges = new ArrayList<>();
 
@@ -186,6 +187,6 @@ public class BuildGraph {
             }
         }
 
-        return new Graph(nodes, edges);
+        return new Graph(graphId, nodes, edges);
     }
 }
