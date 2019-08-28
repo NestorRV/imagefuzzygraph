@@ -28,17 +28,18 @@ public class GraphDatabase extends ArrayList<Graph> {
     /**
      * Build a DataBase querying all the methods in {@link GraphExamples}.
      *
+     * @param sourceOrQuery string representing if we want to build the source or the query database.
      * @throws NoSuchMethodException     exception thrown if a method is not found.
      * @throws InvocationTargetException exception thrown if a method throws an exception.
      * @throws IllegalAccessException    exception thrown if a method is not accessible.
      */
-    public void buildDatabase() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void buildDatabase(String sourceOrQuery) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         this.clear();
         GraphExamples graphExamples = new GraphExamples();
         List<Method> methods = Arrays.asList(graphExamples.getClass().getDeclaredMethods());
-        long nGraphsExamples = methods.stream().filter(m -> m.getName().startsWith("example")).count();
+        long nGraphsExamples = methods.stream().filter(m -> m.getName().startsWith(sourceOrQuery + "_example")).count();
         for (int i = 1; i <= nGraphsExamples; i++) {
-            Method method = graphExamples.getClass().getMethod("example" + i);
+            Method method = graphExamples.getClass().getMethod(sourceOrQuery + "_example" + i);
             this.add((Graph) method.invoke(graphExamples));
         }
     }

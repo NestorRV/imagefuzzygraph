@@ -20,7 +20,7 @@ public class GraphExamples {
         return new Region(filename, new Tuple<>(x, y));
     }
 
-    public Graph example1() throws IOException {
+    public Graph source_example1() throws IOException {
         BuildGraph bg = new BuildGraph();
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("triangle_1.0", "square_0.8", "cross_1.0", "heart_1.0", "star_1.0", "circle_1.0"));
         ArrayList<Region> regions = new ArrayList<>();
@@ -33,7 +33,7 @@ public class GraphExamples {
         return bg.buildGraph("Graph_1", regions, labels);
     }
 
-        public Graph example2() throws IOException {
+    public Graph source_example2() throws IOException {
         BuildGraph bg = new BuildGraph();
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("triangle_1.0", "square_0.8", "cross_1.0", "heart_1.0", "star_1.0"));
         ArrayList<Region> regions = new ArrayList<>();
@@ -45,7 +45,7 @@ public class GraphExamples {
         return bg.buildGraph("Graph_2", regions, labels);
     }
 
-    public Graph example3() throws IOException {
+    public Graph query_example1() throws IOException {
         BuildGraph bg = new BuildGraph();
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("triangle_1.0", "square_0.8", "cross_1.0", "heart_1.0", "star_1.0", "circle_1.0"));
         ArrayList<Region> regions = new ArrayList<>();

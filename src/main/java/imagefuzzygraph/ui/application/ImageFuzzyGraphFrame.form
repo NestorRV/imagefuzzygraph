@@ -160,74 +160,74 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="createDBButton">
+            <Component class="javax.swing.JButton" name="createSourceDBButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/create-database.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Generate database"/>
+                <Property name="toolTipText" type="java.lang.String" value="Generate source database"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createDBButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createSourceDBButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="openDBButton">
+            <Component class="javax.swing.JButton" name="openSourceDBButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/load-database.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Open a database"/>
+                <Property name="toolTipText" type="java.lang.String" value="Open a source database"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openDBButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openSourceDBButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="saveDBButton">
+            <Component class="javax.swing.JButton" name="saveSourceDBButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/save-database.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Save the database"/>
+                <Property name="toolTipText" type="java.lang.String" value="Save the source database"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveDBButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveSourceDBButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="plotRandomGraphButton">
+            <Component class="javax.swing.JButton" name="plotRandomGraphSourceDBButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/random.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Plot random graph from database"/>
+                <Property name="toolTipText" type="java.lang.String" value="Plot random graph from source database"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plotRandomGraphButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plotRandomGraphSourceDBButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="plotDatabaseButton">
+            <Component class="javax.swing.JButton" name="plotSourceDatabaseButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/draw.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Plot all the graphs in the database"/>
+                <Property name="toolTipText" type="java.lang.String" value="Plot all the graphs in the source database"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plotDatabaseButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plotSourceDatabaseButtonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
