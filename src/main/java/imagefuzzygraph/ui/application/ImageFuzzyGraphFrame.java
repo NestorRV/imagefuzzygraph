@@ -14,6 +14,9 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +36,9 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     private Graph queryGraph;
     private double bestSimilarity;
     private int bestGraph;
-    private String databasePath = "";
+    private String databasePath;
+    private ArrayList<Tuple<Integer, Double>> inclusionDegrees;
+    private final Comparator<Tuple<Integer, Double>> tupleComparator = (Tuple<Integer, Double> a, Tuple<Integer, Double> b) -> a.getSecond().compareTo(b.getSecond());
 
     /**
      * Create main window.
@@ -41,10 +46,12 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     public ImageFuzzyGraphFrame() {
         initComponents();
         setIconImage((new ImageIcon(getClass().getResource("/icons/unfold.png"))).getImage());
+        this.graphDatabase = new GraphDatabase();
+        this.databasePath = "";
         this.queryGraph = null;
         this.bestSimilarity = Double.NEGATIVE_INFINITY;
         this.bestGraph = -1;
-        this.graphDatabase = new GraphDatabase();
+        this.inclusionDegrees = new ArrayList<>();
         this.changeDBButtonsVisibility(false);
     }
 
@@ -365,18 +372,16 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                 aggregationOperator = AggregationOperators.all();
             }
 
-            double bestSimilarityLocal = Double.NEGATIVE_INFINITY;
-            int bestGraphLocal = -1;
+            this.inclusionDegrees = new ArrayList<>();
             for (int i = 0; i < this.graphDatabase.size(); i++) {
                 double inclusionDegree = fuzzyGraphMatching.greedyInclusion(this.graphDatabase.get(i), this.queryGraph, threshold, aggregationOperator);
-                if (inclusionDegree > bestSimilarityLocal && inclusionDegree != 1.0) {
-                    bestSimilarityLocal = inclusionDegree;
-                    bestGraphLocal = i;
-                }
+                inclusionDegrees.add(new Tuple<>(i, inclusionDegree));
             }
             
-            this.bestSimilarity = bestSimilarityLocal;
-            this.bestGraph = bestGraphLocal;
+            Collections.sort(this.inclusionDegrees, Collections.reverseOrder(this.tupleComparator));
+            
+            this.bestGraph = this.inclusionDegrees.get(0).getFirst();
+            this.bestSimilarity = this.inclusionDegrees.get(0).getSecond();
             this.plotGraphInInternalFrame(this.graphDatabase.get(this.bestGraph), "Graph " + this.bestGraph + ". Inclusion degree: " + this.bestSimilarity);
         }
     }//GEN-LAST:event_matchingButtonActionPerformed
@@ -401,7 +406,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         listFrame.setSize(800, 430);
         listFrame.setTitle("Database graphs.");
         for (Graph graph : this.graphDatabase) {
-            listFrame.add(new GraphPlotter(graph, 400, 400).getImageGraph());
+            listFrame.add(new GraphPlotter(graph, 400, 400).getImageGraph(), graph.getId());
         }
 
         this.desktop.add(listFrame);
