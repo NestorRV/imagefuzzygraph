@@ -27,7 +27,7 @@
   <SubComponents>
     <Component class="jmr.iu.ImageListPanel" name="imageListPanel">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new jmr.iu.ImageListPanel(new Dimension(400, 400));"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new jmr.iu.ImageListPanel(new Dimension(350, 350));"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">

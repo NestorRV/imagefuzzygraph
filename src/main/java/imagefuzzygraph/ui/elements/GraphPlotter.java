@@ -24,7 +24,7 @@ public class GraphPlotter extends JComponent {
 
     private final Graph graph;
     private final BufferedImage imageGraph;
-    private final int resizeFactor = 3;
+    private final int resizeFactor = 4;
 
     /**
      * Construct a GraphPlotter

@@ -77,6 +77,11 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         return graph;
     }
     
+    /**
+     * Method to change the visibility of the DataBase section buttons. 
+     * 
+     * @param visibility new visibility of those buttons.
+     */
     private void changeDBButtonsVisibility(boolean visibility){
         this.saveDBButton.setEnabled(visibility);
         this.plotRandomGraphButton.setEnabled(visibility);
@@ -84,6 +89,22 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         this.matchingAlgorithmPreferencesButton.setEnabled(visibility);
         this.matchingButton.setEnabled(visibility);
         this.viewMatchesButton.setEnabled(visibility);
+    }
+    
+    /**
+     * Method to plot a graph in an JInternalFrame.
+     * 
+     * @param graph              graph to be plotted.
+     * @param internalFrameTitle title of the JInternalFrame.
+     */
+    private void plotGraphInInternalFrame(Graph graph, String internalFrameTitle){
+        JInternalFrame internalFrame = new JInternalFrame(internalFrameTitle, true, true, true);
+        internalFrame.setSize(400, 400);
+        internalFrame.setBackground(Color.WHITE);
+        GraphPlotter gp = new GraphPlotter(graph, internalFrame.getWidth(), internalFrame.getHeight());
+        internalFrame.add(gp);
+        this.desktop.add(internalFrame);
+        internalFrame.setVisible(true);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -298,14 +319,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     private void plotRandomGraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plotRandomGraphButtonActionPerformed
         if (this.graphDatabase.size() > 0) {
             int selectedGraph = new Random().nextInt(this.graphDatabase.size());
-            JInternalFrame internalFrame = new JInternalFrame("Graph " + selectedGraph, true, true, true);
-            internalFrame.setSize(500, 500);
-            internalFrame.setBackground(Color.WHITE);
-            GraphPlotter gp = new GraphPlotter(this.graphDatabase.get(selectedGraph), internalFrame.getWidth(), internalFrame.getHeight());
-
-            internalFrame.add(gp);
-            this.desktop.add(internalFrame);
-            internalFrame.setVisible(true);
+            this.plotGraphInInternalFrame(this.graphDatabase.get(selectedGraph), "Graph " + selectedGraph);
         }
     }//GEN-LAST:event_plotRandomGraphButtonActionPerformed
 
@@ -363,14 +377,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             
             this.bestSimilarity = bestSimilarityLocal;
             this.bestGraph = bestGraphLocal;
-
-            JInternalFrame internalFrame = new JInternalFrame("Graph " + this.bestGraph + ". Inclusion degree: " + this.bestSimilarity, true, true, true);
-            internalFrame.setSize(500, 500);
-            internalFrame.setBackground(Color.WHITE);
-            GraphPlotter gp = new GraphPlotter(this.graphDatabase.get(this.bestGraph), internalFrame.getWidth(), internalFrame.getHeight());
-            internalFrame.add(gp);
-            this.desktop.add(internalFrame);
-            internalFrame.setVisible(true);
+            this.plotGraphInInternalFrame(this.graphDatabase.get(this.bestGraph), "Graph " + this.bestGraph + ". Inclusion degree: " + this.bestSimilarity);
         }
     }//GEN-LAST:event_matchingButtonActionPerformed
 
@@ -391,10 +398,10 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private void plotDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plotDatabaseButtonActionPerformed
         ImageListInternalFrame listFrame = new ImageListInternalFrame();
-        listFrame.setSize(800, 480);
+        listFrame.setSize(800, 430);
         listFrame.setTitle("Database graphs.");
         for (Graph graph : this.graphDatabase) {
-            listFrame.add(new GraphPlotter(graph, 500, 500).getImageGraph());
+            listFrame.add(new GraphPlotter(graph, 400, 400).getImageGraph());
         }
 
         this.desktop.add(listFrame);
@@ -408,7 +415,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             double threshold = MatchingAlgorithmPreferences.getThreshold();
             Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.greedyMatching(this.queryGraph, this.graphDatabase.get(this.bestGraph), threshold);
             JInternalFrame internalFrame = new JInternalFrame("Matchings found.", true, true, true);
-            internalFrame.setSize(1000, 500);
+            internalFrame.setSize(800, 400);
             internalFrame.setBackground(Color.WHITE);
             GraphPlotter gp = new GraphPlotter(this.queryGraph, this.graphDatabase.get(this.bestGraph), matches, internalFrame.getWidth(), internalFrame.getHeight());
             internalFrame.add(gp);

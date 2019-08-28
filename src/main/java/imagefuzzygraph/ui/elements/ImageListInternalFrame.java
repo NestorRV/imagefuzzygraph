@@ -29,7 +29,7 @@ public class ImageListInternalFrame extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        imageListPanel = new jmr.iu.ImageListPanel(new Dimension(400, 400));
+        imageListPanel = new jmr.iu.ImageListPanel(new Dimension(350, 350));
 
         setClosable(true);
         setIconifiable(true);
