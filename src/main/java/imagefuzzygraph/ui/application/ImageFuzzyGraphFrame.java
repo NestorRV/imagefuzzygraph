@@ -120,7 +120,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         tabbedPaneInfo = new javax.swing.JTabbedPane();
         panelOutput = new javax.swing.JPanel();
         toolsPanel = new javax.swing.JPanel();
-        dbToolBar = new javax.swing.JToolBar();
+        sourceDBToolBar = new javax.swing.JToolBar();
         createSourceDBButton = new javax.swing.JButton();
         openSourceDBButton = new javax.swing.JButton();
         saveSourceDBButton = new javax.swing.JButton();
@@ -191,7 +191,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         toolsPanel.setAlignmentY(0.0F);
         toolsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        dbToolBar.setRollover(true);
+        sourceDBToolBar.setRollover(true);
 
         createSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/create-database.png"))); // NOI18N
         createSourceDBButton.setToolTipText("Generate source database");
@@ -203,7 +203,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                 createSourceDBButtonActionPerformed(evt);
             }
         });
-        dbToolBar.add(createSourceDBButton);
+        sourceDBToolBar.add(createSourceDBButton);
 
         openSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/load-database.png"))); // NOI18N
         openSourceDBButton.setToolTipText("Open a source database");
@@ -215,7 +215,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                 openSourceDBButtonActionPerformed(evt);
             }
         });
-        dbToolBar.add(openSourceDBButton);
+        sourceDBToolBar.add(openSourceDBButton);
 
         saveSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save-database.png"))); // NOI18N
         saveSourceDBButton.setToolTipText("Save the source database");
@@ -227,7 +227,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                 saveSourceDBButtonActionPerformed(evt);
             }
         });
-        dbToolBar.add(saveSourceDBButton);
+        sourceDBToolBar.add(saveSourceDBButton);
 
         plotRandomGraphSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/random.png"))); // NOI18N
         plotRandomGraphSourceDBButton.setToolTipText("Plot random graph from source database");
@@ -239,7 +239,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                 plotRandomGraphSourceDBButtonActionPerformed(evt);
             }
         });
-        dbToolBar.add(plotRandomGraphSourceDBButton);
+        sourceDBToolBar.add(plotRandomGraphSourceDBButton);
 
         plotSourceDatabaseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draw.png"))); // NOI18N
         plotSourceDatabaseButton.setToolTipText("Plot all the graphs in the source database");
@@ -251,9 +251,9 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                 plotSourceDatabaseButtonActionPerformed(evt);
             }
         });
-        dbToolBar.add(plotSourceDatabaseButton);
+        sourceDBToolBar.add(plotSourceDatabaseButton);
 
-        toolsPanel.add(dbToolBar);
+        toolsPanel.add(sourceDBToolBar);
 
         queryParametersToolBar.setRollover(true);
 
@@ -453,7 +453,6 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createSourceDBButton;
-    private javax.swing.JToolBar dbToolBar;
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JButton drawSortedMatchingsButton;
     private javax.swing.JButton matchingAlgorithmPreferencesButton;
@@ -465,6 +464,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     private javax.swing.JToolBar queryParametersToolBar;
     private javax.swing.JButton saveSourceDBButton;
     private javax.swing.JLabel showPanelInfo;
+    private javax.swing.JToolBar sourceDBToolBar;
     public javax.swing.JSplitPane splitPanelCentral;
     private javax.swing.JTabbedPane tabbedPaneInfo;
     private javax.swing.JPanel toolsPanel;
