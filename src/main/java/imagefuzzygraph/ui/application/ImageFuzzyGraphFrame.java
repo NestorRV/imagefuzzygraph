@@ -33,8 +33,8 @@ import javax.swing.JOptionPane;
 class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private final GraphDatabase sourceGraphDatabase;
+    private final GraphDatabase queryGraphDatabase;
     private Graph queryGraph;
-    private String sourceDatabasePath;
     private ArrayList<Tuple<Integer, Double>> inclusionDegrees;
     private final Comparator<Tuple<Integer, Double>> tupleComparator = (Tuple<Integer, Double> a, Tuple<Integer, Double> b) -> a.getSecond().compareTo(b.getSecond());
 
@@ -45,10 +45,13 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         initComponents();
         setIconImage((new ImageIcon(getClass().getResource("/icons/unfold.png"))).getImage());
         this.sourceGraphDatabase = new GraphDatabase();
-        this.sourceDatabasePath = "";
+        this.queryGraphDatabase = new GraphDatabase();
         this.queryGraph = null;
         this.inclusionDegrees = new ArrayList<>();
-        this.changeDBButtonsVisibility(false);
+        this.changeSourceDBButtonsVisibility(false);
+        this.changeQueryDBButtonsVisibility(false);
+        this.viewMatchesButton.setEnabled(false);
+        this.drawSortedMatchingsButton.setEnabled(false);
     }
 
     /**
@@ -81,18 +84,27 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     }
     
     /**
-     * Method to change the visibility of the DataBase section buttons. 
+     * Method to change the visibility of the Source DataBase section buttons. 
      * 
      * @param visibility new visibility of those buttons.
      */
-    private void changeDBButtonsVisibility(boolean visibility){
-        this.saveSourceDBButton.setEnabled(visibility);
+    private void changeSourceDBButtonsVisibility(boolean visibility){
         this.plotRandomGraphSourceDBButton.setEnabled(visibility);
         this.plotSourceDatabaseButton.setEnabled(visibility);
         this.matchingAlgorithmPreferencesButton.setEnabled(visibility);
         this.matchingButton.setEnabled(visibility);
-        this.viewMatchesButton.setEnabled(visibility);
-        this.drawSortedMatchingsButton.setEnabled(visibility);
+    }
+    
+    /**
+     * Method to change the visibility of the Query DataBase section buttons. 
+     * 
+     * @param visibility new visibility of those buttons.
+     */
+    private void changeQueryDBButtonsVisibility(boolean visibility){
+        this.plotRandomGraphQueryDBButton.setEnabled(visibility);
+        this.plotQueryDatabaseButton.setEnabled(visibility);
+        this.matchingAlgorithmPreferencesButton.setEnabled(visibility);
+        this.matchingButton.setEnabled(visibility);
     }
     
     /**
@@ -101,7 +113,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
      * @param graph              graph to be plotted.
      * @param internalFrameTitle title of the JInternalFrame.
      */
-    private void plotGraphInInternalFrame(Graph graph, String internalFrameTitle){
+    private void plotGraphInInternalFrame(Graph graph, String internalFrameTitle) {
         JInternalFrame internalFrame = new JInternalFrame(internalFrameTitle, true, true, true);
         internalFrame.setSize(400, 400);
         internalFrame.setBackground(Color.WHITE);
@@ -109,6 +121,100 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         internalFrame.add(gp);
         this.desktop.add(internalFrame);
         internalFrame.setVisible(true);
+    }
+    
+    /**
+     * Create a graph database.
+     * 
+     * @param sourceOrQuery string representing if we want to build the source or the query database.
+     */
+    private void createDatabase(String sourceOrQuery) {
+        try {
+            if (sourceOrQuery.equals("source")) {
+                this.sourceGraphDatabase.buildDatabase(sourceOrQuery);
+                this.changeSourceDBButtonsVisibility(true);
+            } else if (sourceOrQuery.equals("query")) {
+                this.queryGraphDatabase.buildDatabase(sourceOrQuery);
+                this.changeQueryDBButtonsVisibility(true);
+            }
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
+            Logger.getLogger(ImageFuzzyGraphFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    /**
+     * Load a graph database.
+     * 
+     * @param sourceOrQuery string representing if we want to build the source or the query database.
+     */
+    private void loadDatabase(String sourceOrQuery) {
+        JFileChooser dlg = new JFileChooser(new File(System.getProperty("user.dir")));
+        dlg.setMultiSelectionEnabled(true);
+        int resp = dlg.showOpenDialog(this);
+        if (resp == JFileChooser.APPROVE_OPTION) {
+            java.awt.Cursor cursor = this.getCursor();
+            setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+            File file = dlg.getSelectedFile();
+            try {
+                if (sourceOrQuery.equals("source")) {
+                    this.sourceGraphDatabase.readDatabase(file.getAbsolutePath());
+                    this.changeSourceDBButtonsVisibility(true);
+                } else if (sourceOrQuery.equals("query")) {
+                    this.queryGraphDatabase.readDatabase(file.getAbsolutePath());
+                    this.changeQueryDBButtonsVisibility(true);
+                }
+                
+            } catch (IOException ex) {
+                System.err.println(ex);
+            }
+            setCursor(cursor);
+        }
+    }
+    
+    /**
+     * Plot a random graph from a graph database.
+     * 
+     * @param sourceOrQuery string representing if we want to build the source or the query database.
+     */
+    private void plotRandomGraph(String sourceOrQuery){
+        if (sourceOrQuery.equals("source")) {
+            if (this.sourceGraphDatabase.size() > 0) {
+                int selectedGraphIdx = new Random().nextInt(this.sourceGraphDatabase.size());
+                Graph selectedGraph = this.sourceGraphDatabase.get(selectedGraphIdx);
+                this.plotGraphInInternalFrame(selectedGraph, selectedGraph.getId());
+            }
+        } else if (sourceOrQuery.equals("query")) {
+            if (this.queryGraphDatabase.size() > 0) {
+                int selectedGraphIdx = new Random().nextInt(this.queryGraphDatabase.size());
+                Graph selectedGraph = this.queryGraphDatabase.get(selectedGraphIdx);
+                this.plotGraphInInternalFrame(selectedGraph, selectedGraph.getId());
+            }
+        }
+    }
+    
+    /**
+     * Plot all the graphs from a graph database.
+     * 
+     * @param sourceOrQuery string representing if we want to build the source or the query database.
+     */
+    private void plotDatabase(String sourceOrQuery) {
+        ImageListInternalFrame listFrame = new ImageListInternalFrame();
+        listFrame.setSize(800, 430);
+  
+        if (sourceOrQuery.equals("source")) {
+            listFrame.setTitle("Source database graphs.");
+            for (Graph graph : this.sourceGraphDatabase) {
+                listFrame.add(new GraphPlotter(graph, 400, 400).getImageGraph(), graph.getId());
+            }
+        } else if (sourceOrQuery.equals("query")) {
+            listFrame.setTitle("Query database graphs.");
+            for (Graph graph : this.queryGraphDatabase) {
+                listFrame.add(new GraphPlotter(graph, 400, 400).getImageGraph(), graph.getId());
+            }
+        }
+        
+        this.desktop.add(listFrame);
+        listFrame.setVisible(true);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -123,10 +229,14 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         sourceDBToolBar = new javax.swing.JToolBar();
         createSourceDBButton = new javax.swing.JButton();
         openSourceDBButton = new javax.swing.JButton();
-        saveSourceDBButton = new javax.swing.JButton();
         plotRandomGraphSourceDBButton = new javax.swing.JButton();
         plotSourceDatabaseButton = new javax.swing.JButton();
-        queryParametersToolBar = new javax.swing.JToolBar();
+        queryDBToolBar = new javax.swing.JToolBar();
+        createQueryDBButton = new javax.swing.JButton();
+        openQueryDBButton = new javax.swing.JButton();
+        plotRandomGraphQueryDBButton = new javax.swing.JButton();
+        plotQueryDatabaseButton = new javax.swing.JButton();
+        matchingAlgorithmToolBar = new javax.swing.JToolBar();
         matchingAlgorithmPreferencesButton = new javax.swing.JButton();
         matchingButton = new javax.swing.JButton();
         drawSortedMatchingsButton = new javax.swing.JButton();
@@ -217,18 +327,6 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         });
         sourceDBToolBar.add(openSourceDBButton);
 
-        saveSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save-database.png"))); // NOI18N
-        saveSourceDBButton.setToolTipText("Save the source database");
-        saveSourceDBButton.setFocusable(false);
-        saveSourceDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        saveSourceDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        saveSourceDBButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveSourceDBButtonActionPerformed(evt);
-            }
-        });
-        sourceDBToolBar.add(saveSourceDBButton);
-
         plotRandomGraphSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/random.png"))); // NOI18N
         plotRandomGraphSourceDBButton.setToolTipText("Plot random graph from source database");
         plotRandomGraphSourceDBButton.setFocusable(false);
@@ -255,7 +353,59 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
         toolsPanel.add(sourceDBToolBar);
 
-        queryParametersToolBar.setRollover(true);
+        queryDBToolBar.setRollover(true);
+
+        createQueryDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/create-database.png"))); // NOI18N
+        createQueryDBButton.setToolTipText("Generate source database");
+        createQueryDBButton.setFocusable(false);
+        createQueryDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        createQueryDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        createQueryDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createQueryDBButtonActionPerformed(evt);
+            }
+        });
+        queryDBToolBar.add(createQueryDBButton);
+
+        openQueryDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/load-database.png"))); // NOI18N
+        openQueryDBButton.setToolTipText("Open a source database");
+        openQueryDBButton.setFocusable(false);
+        openQueryDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        openQueryDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        openQueryDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openQueryDBButtonActionPerformed(evt);
+            }
+        });
+        queryDBToolBar.add(openQueryDBButton);
+
+        plotRandomGraphQueryDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/random.png"))); // NOI18N
+        plotRandomGraphQueryDBButton.setToolTipText("Plot random graph from source database");
+        plotRandomGraphQueryDBButton.setFocusable(false);
+        plotRandomGraphQueryDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        plotRandomGraphQueryDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        plotRandomGraphQueryDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plotRandomGraphQueryDBButtonActionPerformed(evt);
+            }
+        });
+        queryDBToolBar.add(plotRandomGraphQueryDBButton);
+
+        plotQueryDatabaseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draw.png"))); // NOI18N
+        plotQueryDatabaseButton.setToolTipText("Plot all the graphs in the source database");
+        plotQueryDatabaseButton.setFocusable(false);
+        plotQueryDatabaseButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        plotQueryDatabaseButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        plotQueryDatabaseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plotQueryDatabaseButtonActionPerformed(evt);
+            }
+        });
+        queryDBToolBar.add(plotQueryDatabaseButton);
+
+        toolsPanel.add(queryDBToolBar);
+
+        matchingAlgorithmToolBar.setRollover(true);
 
         matchingAlgorithmPreferencesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/settings.png"))); // NOI18N
         matchingAlgorithmPreferencesButton.setToolTipText("Set matching algorithm preferences");
@@ -267,7 +417,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                 matchingAlgorithmPreferencesButtonActionPerformed(evt);
             }
         });
-        queryParametersToolBar.add(matchingAlgorithmPreferencesButton);
+        matchingAlgorithmToolBar.add(matchingAlgorithmPreferencesButton);
 
         matchingButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/compare.png"))); // NOI18N
         matchingButton.setToolTipText("Perform the matching algorithm");
@@ -279,7 +429,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                 matchingButtonActionPerformed(evt);
             }
         });
-        queryParametersToolBar.add(matchingButton);
+        matchingAlgorithmToolBar.add(matchingButton);
 
         drawSortedMatchingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draw-sorted-matchings.png"))); // NOI18N
         drawSortedMatchingsButton.setToolTipText("Plot the graphs in the database sorted by the inclussion degree with the query graph.");
@@ -291,7 +441,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                 drawSortedMatchingsButtonActionPerformed(evt);
             }
         });
-        queryParametersToolBar.add(drawSortedMatchingsButton);
+        matchingAlgorithmToolBar.add(drawSortedMatchingsButton);
 
         viewMatchesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/view-matches.png"))); // NOI18N
         viewMatchesButton.setToolTipText("Draw the matching between the queryGraph and the best matching one");
@@ -303,9 +453,9 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                 viewMatchesButtonActionPerformed(evt);
             }
         });
-        queryParametersToolBar.add(viewMatchesButton);
+        matchingAlgorithmToolBar.add(viewMatchesButton);
 
-        toolsPanel.add(queryParametersToolBar);
+        toolsPanel.add(matchingAlgorithmToolBar);
 
         getContentPane().add(toolsPanel, java.awt.BorderLayout.PAGE_START);
 
@@ -334,42 +484,12 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_showPanelInfoMousePressed
 
     private void plotRandomGraphSourceDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plotRandomGraphSourceDBButtonActionPerformed
-        if (this.sourceGraphDatabase.size() > 0) {
-            int selectedGraphIdx = new Random().nextInt(this.sourceGraphDatabase.size());
-            Graph selectedGraph = this.sourceGraphDatabase.get(selectedGraphIdx);
-            this.plotGraphInInternalFrame(selectedGraph, selectedGraph.getId());
-        }
+        this.plotRandomGraph("source");
     }//GEN-LAST:event_plotRandomGraphSourceDBButtonActionPerformed
 
     private void openSourceDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openSourceDBButtonActionPerformed
-        JFileChooser dlg = new JFileChooser(new File(System.getProperty("user.dir")));
-        dlg.setMultiSelectionEnabled(true);
-        int resp = dlg.showOpenDialog(this);
-        if (resp == JFileChooser.APPROVE_OPTION) {
-            java.awt.Cursor cursor = this.getCursor();
-            setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-            File file = dlg.getSelectedFile();
-            try {
-                this.sourceDatabasePath = file.getAbsolutePath();
-                this.sourceGraphDatabase.readDatabase(this.sourceDatabasePath);
-                this.changeDBButtonsVisibility(true);
-            } catch (IOException ex) {
-                System.err.println(ex);
-            }
-            setCursor(cursor);
-        }
+        this.loadDatabase("source");
     }//GEN-LAST:event_openSourceDBButtonActionPerformed
-
-    private void saveSourceDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSourceDBButtonActionPerformed
-        try {
-            java.awt.Cursor cursor = this.getCursor();
-            setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
-            this.sourceGraphDatabase.saveDatabase(this.sourceDatabasePath);
-            setCursor(cursor);
-        } catch (IOException ex) {
-            System.err.println(ex.getLocalizedMessage());
-        }
-    }//GEN-LAST:event_saveSourceDBButtonActionPerformed
 
     private void matchingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matchingButtonActionPerformed
         FuzzyGraphMatching fuzzyGraphMatching = new FuzzyGraphMatching();
@@ -392,17 +512,14 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             Collections.sort(this.inclusionDegrees, Collections.reverseOrder(this.tupleComparator));
             Graph graph = this.sourceGraphDatabase.get(this.inclusionDegrees.get(0).getFirst());
             this.plotGraphInInternalFrame(graph, "Graph: " + graph.getId() + ". Inclusion degree: " + this.inclusionDegrees.get(0).getSecond());
+            
+            this.viewMatchesButton.setEnabled(true);
+            this.drawSortedMatchingsButton.setEnabled(true);
         }
     }//GEN-LAST:event_matchingButtonActionPerformed
 
     private void createSourceDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createSourceDBButtonActionPerformed
-        try {
-            this.sourceGraphDatabase.buildDatabase("source");
-            this.sourceDatabasePath = System.getProperty("user.dir") + "/database.json";
-            this.changeDBButtonsVisibility(true);
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
-            Logger.getLogger(ImageFuzzyGraphFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.createDatabase("source");
     }//GEN-LAST:event_createSourceDBButtonActionPerformed
 
     private void matchingAlgorithmPreferencesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matchingAlgorithmPreferencesButtonActionPerformed
@@ -411,15 +528,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_matchingAlgorithmPreferencesButtonActionPerformed
 
     private void plotSourceDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plotSourceDatabaseButtonActionPerformed
-        ImageListInternalFrame listFrame = new ImageListInternalFrame();
-        listFrame.setSize(800, 430);
-        listFrame.setTitle("Database graphs.");
-        for (Graph graph : this.sourceGraphDatabase) {
-            listFrame.add(new GraphPlotter(graph, 400, 400).getImageGraph(), graph.getId());
-        }
-
-        this.desktop.add(listFrame);
-        listFrame.setVisible(true);
+        this.plotDatabase("source");
     }//GEN-LAST:event_plotSourceDatabaseButtonActionPerformed
 
     private void viewMatchesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMatchesButtonActionPerformed
@@ -451,18 +560,38 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         listFrame.setVisible(true);
     }//GEN-LAST:event_drawSortedMatchingsButtonActionPerformed
 
+    private void createQueryDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createQueryDBButtonActionPerformed
+        this.createDatabase("query");
+    }//GEN-LAST:event_createQueryDBButtonActionPerformed
+
+    private void openQueryDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openQueryDBButtonActionPerformed
+        this.loadDatabase("query");
+    }//GEN-LAST:event_openQueryDBButtonActionPerformed
+
+    private void plotRandomGraphQueryDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plotRandomGraphQueryDBButtonActionPerformed
+        this.plotRandomGraph("query");
+    }//GEN-LAST:event_plotRandomGraphQueryDBButtonActionPerformed
+
+    private void plotQueryDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plotQueryDatabaseButtonActionPerformed
+        this.plotDatabase("query");
+    }//GEN-LAST:event_plotQueryDatabaseButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton createQueryDBButton;
     private javax.swing.JButton createSourceDBButton;
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JButton drawSortedMatchingsButton;
     private javax.swing.JButton matchingAlgorithmPreferencesButton;
+    private javax.swing.JToolBar matchingAlgorithmToolBar;
     private javax.swing.JButton matchingButton;
+    private javax.swing.JButton openQueryDBButton;
     private javax.swing.JButton openSourceDBButton;
     private javax.swing.JPanel panelOutput;
+    private javax.swing.JButton plotQueryDatabaseButton;
+    private javax.swing.JButton plotRandomGraphQueryDBButton;
     private javax.swing.JButton plotRandomGraphSourceDBButton;
     private javax.swing.JButton plotSourceDatabaseButton;
-    private javax.swing.JToolBar queryParametersToolBar;
-    private javax.swing.JButton saveSourceDBButton;
+    private javax.swing.JToolBar queryDBToolBar;
     private javax.swing.JLabel showPanelInfo;
     private javax.swing.JToolBar sourceDBToolBar;
     public javax.swing.JSplitPane splitPanelCentral;
