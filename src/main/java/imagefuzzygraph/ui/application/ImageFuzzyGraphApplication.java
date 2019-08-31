@@ -1,5 +1,7 @@
 package imagefuzzygraph.ui.application;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.*;
 
 /**
@@ -19,10 +21,10 @@ public class ImageFuzzyGraphApplication {
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ignored) {
         }
 
+        Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
         ImageFuzzyGraphFrame window = new ImageFuzzyGraphFrame();
-        window.setSize(1300, 800);
+        window.setSize(screenDimension.width, screenDimension.height);
         window.setLocationRelativeTo(null);
-        window.splitPanelCentral.setDividerLocation(1.0);
         window.setVisible(true);
     }
 }

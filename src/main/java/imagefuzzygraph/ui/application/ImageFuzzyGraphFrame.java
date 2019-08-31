@@ -45,7 +45,6 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
      */
     public ImageFuzzyGraphFrame() {
         initComponents();
-        setIconImage((new ImageIcon(getClass().getResource("/icons/unfold.png"))).getImage());
         this.sourceGraphDatabase = new GraphDatabase();
         this.queryGraphDatabase = new GraphDatabase();
         this.queryGraph = null;
@@ -223,11 +222,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        splitPanelCentral = new javax.swing.JSplitPane();
         desktop = new javax.swing.JDesktopPane();
-        showPanelInfo = new javax.swing.JLabel();
-        tabbedPaneInfo = new javax.swing.JTabbedPane();
-        panelOutput = new javax.swing.JPanel();
         toolsPanel = new javax.swing.JPanel();
         sourceDBToolBar = new javax.swing.JToolBar();
         createSourceDBButton = new javax.swing.JButton();
@@ -249,56 +244,21 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         setTitle("ImageFuzzyGraph");
         setName("PrincipalWindow"); // NOI18N
 
-        splitPanelCentral.setDividerLocation(1.0);
-        splitPanelCentral.setDividerSize(3);
-        splitPanelCentral.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        splitPanelCentral.setPreferredSize(new java.awt.Dimension(0, 0));
-        splitPanelCentral.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                splitPanelCentralPropertyChange(evt);
-            }
-        });
-
         desktop.setBackground(java.awt.Color.lightGray);
         desktop.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        showPanelInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/unfold.png"))); // NOI18N
-        showPanelInfo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                showPanelInfoMousePressed(evt);
-            }
-        });
-
-        desktop.setLayer(showPanelInfo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout desktopLayout = new javax.swing.GroupLayout(desktop);
         desktop.setLayout(desktopLayout);
         desktopLayout.setHorizontalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopLayout.createSequentialGroup()
-                .addGap(0, 1094, Short.MAX_VALUE)
-                .addComponent(showPanelInfo))
+            .addGap(0, 1118, Short.MAX_VALUE)
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(showPanelInfo))
+            .addGap(0, 464, Short.MAX_VALUE)
         );
 
-        splitPanelCentral.setTopComponent(desktop);
-
-        tabbedPaneInfo.setMinimumSize(new java.awt.Dimension(0, 0));
-        tabbedPaneInfo.setPreferredSize(new java.awt.Dimension(0, 0));
-
-        panelOutput.setMinimumSize(new java.awt.Dimension(0, 0));
-        panelOutput.setPreferredSize(new java.awt.Dimension(0, 0));
-        panelOutput.setLayout(new java.awt.BorderLayout());
-        tabbedPaneInfo.addTab("Output", panelOutput);
-
-        splitPanelCentral.setBottomComponent(tabbedPaneInfo);
-
-        getContentPane().add(splitPanelCentral, java.awt.BorderLayout.CENTER);
+        getContentPane().add(desktop, java.awt.BorderLayout.CENTER);
 
         toolsPanel.setAlignmentX(0.0F);
         toolsPanel.setAlignmentY(0.0F);
@@ -466,26 +426,6 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void splitPanelCentralPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_splitPanelCentralPropertyChange
-        if (evt.getPropertyName().equals("dividerLocation")) {
-            float dividerLocation = (float) splitPanelCentral.getDividerLocation() / splitPanelCentral.getMaximumDividerLocation();
-            if (dividerLocation >= 1) {
-                showPanelInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/unfold.png")));
-            } else {
-                showPanelInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/fold.png")));
-            }
-        }
-    }//GEN-LAST:event_splitPanelCentralPropertyChange
-
-    private void showPanelInfoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPanelInfoMousePressed
-        float dividerLocation = (float) splitPanelCentral.getDividerLocation() / splitPanelCentral.getMaximumDividerLocation();
-        if (dividerLocation >= 1) {
-            splitPanelCentral.setDividerLocation(0.8);
-        } else {
-            splitPanelCentral.setDividerLocation(1.0);
-        }
-    }//GEN-LAST:event_showPanelInfoMousePressed
-
     private void plotRandomGraphSourceDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plotRandomGraphSourceDBButtonActionPerformed
         this.plotRandomGraph("source");
     }//GEN-LAST:event_plotRandomGraphSourceDBButtonActionPerformed
@@ -590,16 +530,12 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     private javax.swing.JButton matchingButton;
     private javax.swing.JButton openQueryDBButton;
     private javax.swing.JButton openSourceDBButton;
-    private javax.swing.JPanel panelOutput;
     private javax.swing.JButton plotQueryDatabaseButton;
     private javax.swing.JButton plotRandomGraphQueryDBButton;
     private javax.swing.JButton plotRandomGraphSourceDBButton;
     private javax.swing.JButton plotSourceDatabaseButton;
     private javax.swing.JToolBar queryDBToolBar;
-    private javax.swing.JLabel showPanelInfo;
     private javax.swing.JToolBar sourceDBToolBar;
-    public javax.swing.JSplitPane splitPanelCentral;
-    private javax.swing.JTabbedPane tabbedPaneInfo;
     private javax.swing.JPanel toolsPanel;
     private javax.swing.JButton viewMatchesButton;
     // End of variables declaration//GEN-END:variables
