@@ -514,7 +514,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             
             Collections.sort(this.inclusionDegrees, Collections.reverseOrder(this.tupleComparator));
             Graph graph = this.sourceGraphDatabase.get(this.inclusionDegrees.get(0).getFirst());
-            this.plotGraphInInternalFrame(graph, "Graph: " + graph.getId() + ". Inclusion degree: " + this.inclusionDegrees.get(0).getSecond());
+            this.plotGraphInInternalFrame(graph, graph.getId() + ": " + this.inclusionDegrees.get(0).getSecond());
             
             this.viewMatchesButton.setEnabled(true);
             this.drawSortedMatchingsButton.setEnabled(true);
@@ -552,15 +552,16 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private void drawSortedMatchingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawSortedMatchingsButtonActionPerformed
         ImageListInternalFrame listFrame = new ImageListInternalFrame();
-        listFrame.setSize(ImageFuzzyGraphFrame.gpSize * 2, ImageFuzzyGraphFrame.gpSize);
         listFrame.setTitle("Sorted matchings.");
         for(Tuple<Integer, Double> match: this.inclusionDegrees) {
             Graph graph = this.sourceGraphDatabase.get(match.getFirst());
-            listFrame.add(new GraphPlotter(graph, ImageFuzzyGraphFrame.gpSize, ImageFuzzyGraphFrame.gpSize).getImageGraph(), "Graph: " + graph.getId() + ". Inclussion degree: " + match.getSecond());
+            listFrame.add(new GraphPlotter(graph, ImageFuzzyGraphFrame.gpSize, ImageFuzzyGraphFrame.gpSize).getImageGraph(), graph.getId() + ": " + match.getSecond());
         }
 
         this.desktop.add(listFrame);
         listFrame.setVisible(true);
+        Dimension listFrameSize = listFrame.getSize();
+        listFrame.setSize(listFrameSize.height * 3, listFrameSize.height);
     }//GEN-LAST:event_drawSortedMatchingsButtonActionPerformed
 
     private void createQueryDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createQueryDBButtonActionPerformed
