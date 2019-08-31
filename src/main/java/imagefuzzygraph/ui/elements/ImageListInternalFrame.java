@@ -40,7 +40,7 @@ public class ImageListInternalFrame extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        imageListPanel = new jmr.iu.ImageListPanel(new Dimension(ImageFuzzyGraphFrame.gpSize, ImageFuzzyGraphFrame.gpSize));
+        imageListPanel = new jmr.iu.ImageListPanel(new Dimension(ImageFuzzyGraphFrame.GP_SIZE, ImageFuzzyGraphFrame.GP_SIZE));
 
         setClosable(true);
         setIconifiable(true);
