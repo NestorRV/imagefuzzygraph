@@ -2,6 +2,7 @@ package imagefuzzygraph.ui.elements;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+import imagefuzzygraph.ui.application.ImageFuzzyGraphFrame;
 
 /**
  * Class to represent a list of images.
@@ -39,7 +40,7 @@ public class ImageListInternalFrame extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        imageListPanel = new jmr.iu.ImageListPanel(new Dimension(350, 350));
+        imageListPanel = new jmr.iu.ImageListPanel(new Dimension(ImageFuzzyGraphFrame.gpSize, ImageFuzzyGraphFrame.gpSize));
 
         setClosable(true);
         setIconifiable(true);

@@ -11,6 +11,7 @@ import imagefuzzygraph.ui.elements.MatchingAlgorithmPreferencesDialog;
 import imagefuzzygraph.ui.elements.GraphPlotter;
 import imagefuzzygraph.ui.elements.ImageListInternalFrame;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -30,13 +31,14 @@ import javax.swing.JOptionPane;
  *
  * @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
-class ImageFuzzyGraphFrame extends javax.swing.JFrame {
+public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private final GraphDatabase sourceGraphDatabase;
     private final GraphDatabase queryGraphDatabase;
     private Graph queryGraph;
     private ArrayList<Tuple<Integer, Double>> inclusionDegrees;
     private final Comparator<Tuple<Integer, Double>> tupleComparator = (Tuple<Integer, Double> a, Tuple<Integer, Double> b) -> a.getSecond().compareTo(b.getSecond());
+    public static int gpSize = 300;
 
     /**
      * Create main window.
@@ -115,7 +117,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
      */
     private void plotGraphInInternalFrame(Graph graph, String internalFrameTitle) {
         JInternalFrame internalFrame = new JInternalFrame(internalFrameTitle, true, true, true);
-        internalFrame.setSize(400, 400);
+        internalFrame.setSize(ImageFuzzyGraphFrame.gpSize, ImageFuzzyGraphFrame.gpSize);
         internalFrame.setBackground(Color.WHITE);
         GraphPlotter gp = new GraphPlotter(graph, internalFrame.getWidth(), internalFrame.getHeight());
         internalFrame.add(gp);
@@ -199,22 +201,23 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
      */
     private void plotDatabase(String sourceOrQuery) {
         ImageListInternalFrame listFrame = new ImageListInternalFrame();
-        listFrame.setSize(800, 430);
   
         if (sourceOrQuery.equals("source")) {
             listFrame.setTitle("Source database graphs.");
             for (Graph graph : this.sourceGraphDatabase) {
-                listFrame.add(new GraphPlotter(graph, 400, 400).getImageGraph(), graph.getId());
+                listFrame.add(new GraphPlotter(graph, ImageFuzzyGraphFrame.gpSize, ImageFuzzyGraphFrame.gpSize).getImageGraph(), graph.getId());
             }
         } else if (sourceOrQuery.equals("query")) {
             listFrame.setTitle("Query database graphs.");
             for (Graph graph : this.queryGraphDatabase) {
-                listFrame.add(new GraphPlotter(graph, 400, 400).getImageGraph(), graph.getId());
+                listFrame.add(new GraphPlotter(graph, ImageFuzzyGraphFrame.gpSize, ImageFuzzyGraphFrame.gpSize).getImageGraph(), graph.getId());
             }
         }
         
         this.desktop.add(listFrame);
         listFrame.setVisible(true);
+        Dimension listFrameSize = listFrame.getSize();
+        listFrame.setSize(listFrameSize.height * 3, listFrameSize.height);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -538,7 +541,7 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             int bestGraphIdx = this.inclusionDegrees.get(0).getFirst();
             Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.greedyMatching(this.queryGraph, this.sourceGraphDatabase.get(bestGraphIdx), threshold);
             JInternalFrame internalFrame = new JInternalFrame("Matchings found.", true, true, true);
-            internalFrame.setSize(800, 400);
+            internalFrame.setSize(ImageFuzzyGraphFrame.gpSize * 2, ImageFuzzyGraphFrame.gpSize);
             internalFrame.setBackground(Color.WHITE);
             GraphPlotter gp = new GraphPlotter(this.queryGraph, this.sourceGraphDatabase.get(bestGraphIdx), matches, internalFrame.getWidth(), internalFrame.getHeight());
             internalFrame.add(gp);
@@ -549,11 +552,11 @@ class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private void drawSortedMatchingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawSortedMatchingsButtonActionPerformed
         ImageListInternalFrame listFrame = new ImageListInternalFrame();
-        listFrame.setSize(800, 430);
+        listFrame.setSize(ImageFuzzyGraphFrame.gpSize * 2, ImageFuzzyGraphFrame.gpSize);
         listFrame.setTitle("Sorted matchings.");
         for(Tuple<Integer, Double> match: this.inclusionDegrees) {
             Graph graph = this.sourceGraphDatabase.get(match.getFirst());
-            listFrame.add(new GraphPlotter(graph, 400, 400).getImageGraph(), "Graph: " + graph.getId() + ". Inclussion degree: " + match.getSecond());
+            listFrame.add(new GraphPlotter(graph, ImageFuzzyGraphFrame.gpSize, ImageFuzzyGraphFrame.gpSize).getImageGraph(), "Graph: " + graph.getId() + ". Inclussion degree: " + match.getSecond());
         }
 
         this.desktop.add(listFrame);
