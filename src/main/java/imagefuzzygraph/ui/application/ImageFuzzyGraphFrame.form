@@ -119,7 +119,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plotRandomGraphSourceDBButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="plotSourceDatabaseButton">
+            <Component class="javax.swing.JButton" name="plotSourceDBButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/draw.png"/>
@@ -130,7 +130,7 @@
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plotSourceDatabaseButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plotSourceDBButtonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -184,7 +184,21 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plotRandomGraphQueryDBButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="plotQueryDatabaseButton">
+            <Component class="javax.swing.JButton" name="plotNextGraphQueryDBButton">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/next.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Plot random graph from source database"/>
+                <Property name="focusable" type="boolean" value="false"/>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="verticalTextPosition" type="int" value="3"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plotNextGraphQueryDBButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="plotQueryDBButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/draw.png"/>
@@ -195,7 +209,7 @@
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plotQueryDatabaseButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plotQueryDBButtonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
