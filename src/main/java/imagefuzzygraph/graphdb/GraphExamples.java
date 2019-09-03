@@ -26,7 +26,7 @@ public class GraphExamples {
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("triangle_1.0", "square_0.8", "cross_1.0", "heart_1.0", "star_1.0", "circle_1.0"));
         ArrayList<Region> regions = new ArrayList<>();
         regions.add(this.buildRegion(labels.get(0), "red1", 300.0, 120.0));
-        regions.add(this.buildRegion(labels.get(1), "purple2", 0.0, 0.0));
+        regions.add(this.buildRegion(labels.get(1), "purple2", 0.0, 50.0));
         regions.add(this.buildRegion(labels.get(2), "blue3", 800.0, 760.0));
         regions.add(this.buildRegion(labels.get(3), "red3", 500.0, 500.0));
         regions.add(this.buildRegion(labels.get(4), "blue1", 0.0, 400.0));
@@ -38,7 +38,7 @@ public class GraphExamples {
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("triangle_1.0", "square_0.8", "cross_1.0", "heart_1.0", "star_1.0", "circle_1.0"));
         ArrayList<Region> regions = new ArrayList<>();
         regions.add(this.buildRegion(labels.get(0), "red2", 300.0, 120.0));
-        regions.add(this.buildRegion(labels.get(1), "purple3", 0.0, 0.0));
+        regions.add(this.buildRegion(labels.get(1), "purple3", 0.0, 50.0));
         regions.add(this.buildRegion(labels.get(2), "blue1", 800.0, 760.0));
         regions.add(this.buildRegion(labels.get(3), "orange3", 500.0, 500.0));
         regions.add(this.buildRegion(labels.get(4), "green2", 0.0, 400.0));
@@ -54,7 +54,7 @@ public class GraphExamples {
         regions.add(this.buildRegion(labels.get(2), "pink1", 600.0, 270.0));
         regions.add(this.buildRegion(labels.get(3), "yellow2", 200.0, 550.0));
         regions.add(this.buildRegion(labels.get(4), "red3", 800.0, 370.0));
-        regions.add(this.buildRegion(labels.get(5), "green2", 0.0, 0.0));
+        regions.add(this.buildRegion(labels.get(5), "green2", 0.0, 50.0));
         return this.bg.buildGraph("Graph_3", regions, labels);
     }
     
@@ -72,18 +72,18 @@ public class GraphExamples {
                 "square_1.0", "square_0.8", "square_1.0", "square_0.8", "square_1.0", 
                 "square_0.8", "square_1.0", "square_0.8", "square_1.0", "square_0.8"));
         ArrayList<Region> regions = new ArrayList<>();
-        regions.add(this.buildRegion(labels.get(0), "red3", 0.0, 0.0));
-        regions.add(this.buildRegion(labels.get(1), "yellow2", 0.0, 200.0));
-        regions.add(this.buildRegion(labels.get(2), "orange3", 200.0, 0.0));
-        regions.add(this.buildRegion(labels.get(3), "green2", 200.0, 200.0));
-        regions.add(this.buildRegion(labels.get(4), "pink3", 0.0, 400.0));
-        regions.add(this.buildRegion(labels.get(5), "purple2", 0.0, 600.0));
-        regions.add(this.buildRegion(labels.get(6), "brown3", 200.0, 400.0));
-        regions.add(this.buildRegion(labels.get(7), "blue2", 200.0, 600.0));
-        regions.add(this.buildRegion(labels.get(8), "brown2", 400.0, 0.0));
-        regions.add(this.buildRegion(labels.get(9), "purple3", 400.0, 200.0));
-        regions.add(this.buildRegion(labels.get(10), "purple1", 400.0, 400.0));
-        regions.add(this.buildRegion(labels.get(11), "orange1", 400.0, 600.0));
+        regions.add(this.buildRegion(labels.get(0), "red3", 0.0, 50.0));
+        regions.add(this.buildRegion(labels.get(1), "yellow2", 0.0, 250.0));
+        regions.add(this.buildRegion(labels.get(2), "orange3", 200.0, 50.0));
+        regions.add(this.buildRegion(labels.get(3), "green2", 200.0, 250.0));
+        regions.add(this.buildRegion(labels.get(4), "pink3", 0.0, 450.0));
+        regions.add(this.buildRegion(labels.get(5), "purple2", 0.0, 650.0));
+        regions.add(this.buildRegion(labels.get(6), "brown3", 200.0, 450.0));
+        regions.add(this.buildRegion(labels.get(7), "blue2", 200.0, 650.0));
+        regions.add(this.buildRegion(labels.get(8), "brown2", 400.0, 50.0));
+        regions.add(this.buildRegion(labels.get(9), "purple3", 400.0, 250.0));
+        regions.add(this.buildRegion(labels.get(10), "purple1", 400.0, 450.0));
+        regions.add(this.buildRegion(labels.get(11), "orange1", 400.0, 650.0));
         return this.bg.buildGraph("Graph_5", regions, labels);
     }
 
@@ -91,7 +91,7 @@ public class GraphExamples {
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("triangle_1.0", "square_0.8", "cross_1.0", "heart_1.0", "star_1.0", "circle_1.0"));
         ArrayList<Region> regions = new ArrayList<>();
         regions.add(this.buildRegion(labels.get(0), "red2", 350.0, 120.0));
-        regions.add(this.buildRegion(labels.get(1), "purple3", 0.0, 0.0));
+        regions.add(this.buildRegion(labels.get(1), "purple3", 0.0, 50.0));
         regions.add(this.buildRegion(labels.get(2), "blue1", 750.0, 760.0));
         regions.add(this.buildRegion(labels.get(3), "red2", 500.0, 450.0));
         regions.add(this.buildRegion(labels.get(4), "green2", 0.0, 300.0));
@@ -115,7 +115,6 @@ public class GraphExamples {
         regions.add(this.buildRegion(labels.get(1), "yellow3", 50.0, 400.0));
         regions.add(this.buildRegion(labels.get(2), "orange2", 450.0, 210.0));
         regions.add(this.buildRegion(labels.get(3), "green1", 470.0, 460.0));
-        
         return this.bg.buildGraph("Graph_3", regions, labels);
     }
 }

@@ -100,10 +100,20 @@ public class GraphPlotter extends JComponent {
             for (Node node : graph.getNodes()) {
                 Tuple<Double, Double> location = node.getLocation();
                 BufferedImage img = ImageIO.read(new File(node.getImagePath()));
-                g2d.drawImage(img, location.getFirst().intValue() / this.resizeFactor + offset,
-                        location.getSecond().intValue() / this.resizeFactor,
-                        img.getWidth() / this.resizeFactor,
-                        img.getHeight() / this.resizeFactor, null);
+                int x = location.getFirst().intValue() / this.resizeFactor + offset;
+                int y = location.getSecond().intValue() / this.resizeFactor;
+                g2d.drawImage(img, x, y, img.getWidth() / this.resizeFactor, img.getHeight() / this.resizeFactor, null);
+            }
+            
+            g2d.setColor(Color.BLACK);
+            g2d.setFont(g2d.getFont().deriveFont(12f));
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            for (Node node : graph.getNodes()) {
+                Tuple<Double, Double> location = node.getLocation();
+                BufferedImage img = ImageIO.read(new File(node.getImagePath()));
+                int x = location.getFirst().intValue() / this.resizeFactor + offset;
+                int y = location.getSecond().intValue() / this.resizeFactor;
+                g2d.drawString(node.getId(), x, y);
             }
         } catch (IOException ignored) {
         }
