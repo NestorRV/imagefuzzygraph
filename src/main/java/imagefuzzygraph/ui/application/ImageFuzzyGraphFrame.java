@@ -453,7 +453,6 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         FuzzyGraphMatching fuzzyGraphMatching = new FuzzyGraphMatching();
         this.queryGraph = this.getSelectedGraph();
         if (this.queryGraph != null) {
-            double threshold = MatchingAlgorithmPreferences.getThreshold();
             AggregationOperator aggregationOperator;
             if (MatchingAlgorithmPreferences.getAggregationOperator().equals("atLeast")) {
                 aggregationOperator = AggregationOperators.atLeast(MatchingAlgorithmPreferences.getAggregationOperatorPercentage());
@@ -463,7 +462,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
             this.inclusionDegrees = new ArrayList<>();
             for (int i = 0; i < this.sourceGraphDatabase.size(); i++) {
-                double inclusionDegree = fuzzyGraphMatching.greedyInclusion(this.sourceGraphDatabase.get(i), this.queryGraph, threshold, aggregationOperator);
+                double inclusionDegree = fuzzyGraphMatching.greedyInclusion(this.sourceGraphDatabase.get(i), this.queryGraph, aggregationOperator);
                 inclusionDegrees.add(new Tuple<>(i, inclusionDegree));
             }
             
@@ -492,9 +491,8 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     private void viewMatchesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewMatchesButtonActionPerformed
         FuzzyGraphMatching fuzzyGraphMatching = new FuzzyGraphMatching();
         if (this.queryGraph != null && !this.inclusionDegrees.isEmpty()) {
-            double threshold = MatchingAlgorithmPreferences.getThreshold();
             int bestGraphIdx = this.inclusionDegrees.get(0).getFirst();
-            Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.greedyMatching(this.queryGraph, this.sourceGraphDatabase.get(bestGraphIdx), threshold);
+            Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.greedyMatching(this.queryGraph, this.sourceGraphDatabase.get(bestGraphIdx));
             JInternalFrame internalFrame = new JInternalFrame("Matchings found.", true, true, true);
             internalFrame.setSize(ImageFuzzyGraphFrame.GP_SIZE * 2, ImageFuzzyGraphFrame.GP_SIZE);
             internalFrame.setBackground(Color.WHITE);

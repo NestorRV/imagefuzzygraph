@@ -191,7 +191,7 @@ public class FuzzyGraphMatching {
      * @return the inclusion degree of the graph query in the graph source.
      */
     public double greedyInclusion(Graph source, Graph query) {
-        return this.greedyInclusion(source, query, 0.0, Collections::min);
+        return this.greedyInclusion(source, query, Collections::min);
     }
 
     /**
@@ -203,21 +203,8 @@ public class FuzzyGraphMatching {
      * @return the inclusion degree of the graph query in the graph source.
      */
     public double greedyInclusion(Graph source, Graph query, AggregationOperator aggregationOperator) {
-        return this.greedyInclusion(source, query, 0.0, aggregationOperator);
-    }
-
-    /**
-     * Compute the inclusion degree of the graph query in the graph source.
-     *
-     * @param source              source graph.
-     * @param query               query graph.
-     * @param threshold           stop the algorithm if the similarity degree obtained in an iteration is lower than the threshold.
-     * @param aggregationOperator an {@link AggregationOperator}.
-     * @return the inclusion degree of the graph query in the graph source.
-     */
-    public double greedyInclusion(Graph source, Graph query, double threshold, AggregationOperator aggregationOperator) {
         Map<String, Map<String, Double>> similarities = this.computeSimilarities(source.getNodes(), query.getNodes());
-        Tuple<ListOfMatches, ListOfMatches> matches = this.greedyMatching(new Graph(source), new Graph(query), threshold, similarities);
+        Tuple<ListOfMatches, ListOfMatches> matches = this.greedyMatching(new Graph(source), new Graph(query), similarities);
         ListOfMatches nodesMatches = matches.getFirst();
         ListOfMatches edgesMatches = matches.getSecond();
 
@@ -242,12 +229,11 @@ public class FuzzyGraphMatching {
      *
      * @param source    source graph.
      * @param query     query graph.
-     * @param threshold stop the algorithm if the similarity degree obtained in an iteration is lower than the threshold.
      * @return tuple containing nodes matches and edge matches.
      */
-    public Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query, double threshold) {
+    public Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query) {
         Map<String, Map<String, Double>> similarities = this.computeSimilarities(source.getNodes(), query.getNodes());
-        return this.greedyMatching(new Graph(source), new Graph(query), threshold, similarities);
+        return this.greedyMatching(new Graph(source), new Graph(query), similarities);
     }
 
     /**
@@ -255,12 +241,10 @@ public class FuzzyGraphMatching {
      *
      * @param source       source graph.
      * @param query        query graph.
-     * @param threshold    stop the algorithm if the similarity degree obtained in an iteration is lower than the threshold.
      * @param similarities similarities of the nodes.
      * @return tuple containing nodes matches and edge matches.
      */
-    private Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query, double threshold,
-                                                               Map<String, Map<String, Double>> similarities) {
+    private Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query, Map<String, Map<String, Double>> similarities) {
         ListOfMatches nodesMatches = new ListOfMatches();
         ListOfMatches edgesMatches = new ListOfMatches();
         Tuple<String, String> bestPair = this.getBestPairOfNodes(similarities);
@@ -271,7 +255,7 @@ public class FuzzyGraphMatching {
             Collection<Edge> queryAdjacentEdges = query.getAdjacentEdges(bestPair.getSecond());
             double iterationSimilarity = similarities.get(bestPair.getFirst()).get(bestPair.getSecond());
 
-            while (!queryAdjacentEdges.isEmpty() && !sourceAdjacentEdges.isEmpty() && (iterationSimilarity >= threshold)) {
+            while (!queryAdjacentEdges.isEmpty() && !sourceAdjacentEdges.isEmpty()) {
                 Tuple<Tuple<Edge, Edge>, Double> bestTriplet = this.getBestPairOfEdges(sourceAdjacentEdges, queryAdjacentEdges, similarities);
                 Tuple<Edge, Edge> pairOfEdges = bestTriplet.getFirst();
 

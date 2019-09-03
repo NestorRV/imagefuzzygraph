@@ -7,27 +7,8 @@ package imagefuzzygraph.ui.application;
  */
 public class MatchingAlgorithmPreferences {
 
-    static private double threshold = 0.0;
     static private String aggregationOperator = "all";
     static private double aggregationOperatorPercentage = 1.0;
-
-    /**
-     * Return the threshold of the algorithm.
-     *
-     * @return the threshold of the algorithm.
-     */
-    static public double getThreshold() {
-        return threshold;
-    }
-
-    /**
-     * Set the threshold of the algorithm.
-     *
-     * @param threshold threshold of the algorithm.
-     */
-    static public void setThreshold(double threshold) {
-        MatchingAlgorithmPreferences.threshold = threshold;
-    }
 
     /**
      * Return the aggregation operator of the algorithm.

@@ -22,7 +22,6 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
         super(parent, true);
         initComponents();
         setLocationRelativeTo(parent);
-        MatchingAlgorithmPreferences.setThreshold(0.0);
         MatchingAlgorithmPreferences.setAggregationOperator("all");
         MatchingAlgorithmPreferences.setAggregationOperatorPercentage(1.0);
         this.aggregationOperatorPercentageSpinner.setVisible(false);
@@ -32,7 +31,6 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
      * Update MatchingAlgorithmPreferences.
      */
     private void updateMatchingAlgorithmPreferences() {
-        MatchingAlgorithmPreferences.setThreshold((double) this.thresholdSpinner.getValue());
         int aggregationOperatorSelectedIndex = this.aggregationOperatorList.getSelectedIndex();
         String aggregationOperatorSelected = this.aggregationOperatorList.getItemAt(aggregationOperatorSelectedIndex);
         MatchingAlgorithmPreferences.setAggregationOperator(aggregationOperatorSelected);
@@ -64,8 +62,6 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         panelShape = new javax.swing.JPanel();
-        thresholdLabel = new javax.swing.JLabel();
-        thresholdSpinner = new javax.swing.JSpinner();
         aggregationOperatorLabel = new javax.swing.JLabel();
         aggregationOperatorList = new javax.swing.JComboBox<>();
         aggregationOperatorPercentageSpinner = new javax.swing.JSpinner();
@@ -79,20 +75,16 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
         panelShape.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Matching Algorithms Preferences", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         panelShape.setPreferredSize(new java.awt.Dimension(150, 150));
 
-        thresholdLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        thresholdLabel.setText("Threshold");
-        thresholdLabel.setToolTipText("Threshold of the matching algorithm");
-
-        thresholdSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0d, 0.01d));
-        thresholdSpinner.setToolTipText("");
-        thresholdSpinner.setPreferredSize(new java.awt.Dimension(50, 15));
-
         aggregationOperatorLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         aggregationOperatorLabel.setText("Aggregation Operator");
         aggregationOperatorLabel.setToolTipText("Aggregation Operator to be used");
 
         aggregationOperatorList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "all", "atLeast" }));
-        aggregationOperatorList.addActionListener(this::aggregationOperatorListActionPerformed);
+        aggregationOperatorList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aggregationOperatorListActionPerformed(evt);
+            }
+        });
 
         aggregationOperatorPercentageSpinner.setModel(new javax.swing.SpinnerNumberModel(0.8d, 0.0d, 1.0d, 0.05d));
         aggregationOperatorPercentageSpinner.setToolTipText("Percentage of nodes to match");
@@ -103,13 +95,9 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
             panelShapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelShapeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelShapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(thresholdLabel)
-                    .addComponent(aggregationOperatorLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(aggregationOperatorLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelShapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(aggregationOperatorList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(thresholdSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(aggregationOperatorList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(aggregationOperatorPercentageSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -117,19 +105,13 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
         panelShapeLayout.setVerticalGroup(
             panelShapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelShapeLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(panelShapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(thresholdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(thresholdSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(panelShapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aggregationOperatorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(aggregationOperatorList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(aggregationOperatorPercentageSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
-
-        thresholdSpinner.getAccessibleContext().setAccessibleDescription("Threshold");
 
         getContentPane().add(panelShape, java.awt.BorderLayout.CENTER);
         panelShape.getAccessibleContext().setAccessibleName("Matching algorithm preferences");
@@ -138,11 +120,19 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
         buttonsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         acceptButton.setText("OK");
-        acceptButton.addActionListener(this::acceptButtonActionPerformed);
+        acceptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acceptButtonActionPerformed(evt);
+            }
+        });
         buttonsPanel.add(acceptButton);
 
         cancelButton.setText("Cancel");
-        cancelButton.addActionListener(this::cancelButtonActionPerformed);
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
         buttonsPanel.add(cancelButton);
 
         getContentPane().add(buttonsPanel, java.awt.BorderLayout.SOUTH);
@@ -172,7 +162,5 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
     private javax.swing.JPanel buttonsPanel;
     private javax.swing.JButton cancelButton;
     private javax.swing.JPanel panelShape;
-    private javax.swing.JLabel thresholdLabel;
-    private javax.swing.JSpinner thresholdSpinner;
     // End of variables declaration//GEN-END:variables
 }

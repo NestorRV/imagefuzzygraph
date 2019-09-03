@@ -52,15 +52,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="thresholdLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="aggregationOperatorLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="aggregationOperatorLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="aggregationOperatorList" min="-2" max="-2" attributes="0"/>
-                      <Component id="thresholdSpinner" min="-2" pref="63" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="aggregationOperatorList" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="aggregationOperatorPercentageSpinner" min="-2" pref="62" max="-2" attributes="0"/>
                   <EmptySpace pref="12" max="32767" attributes="0"/>
@@ -70,46 +64,18 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="thresholdLabel" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="thresholdSpinner" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="aggregationOperatorLabel" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="aggregationOperatorList" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="aggregationOperatorPercentageSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace pref="57" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="thresholdLabel">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Threshold"/>
-            <Property name="toolTipText" type="java.lang.String" value="Threshold of the matching algorithm"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JSpinner" name="thresholdSpinner">
-          <Properties>
-            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-              <SpinnerModel initial="0.0" maximum="1.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.01" type="number"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[50, 15]"/>
-            </Property>
-          </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Threshold"/>
-          </AccessibilityProperties>
-        </Component>
         <Component class="javax.swing.JLabel" name="aggregationOperatorLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
