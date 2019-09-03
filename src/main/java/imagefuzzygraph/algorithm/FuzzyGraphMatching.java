@@ -32,7 +32,7 @@ public class FuzzyGraphMatching {
      * @return matrix where, for row i and column j we have the similarity between sourceNodes[i] and queryNodes[j]. To
      * handle deletion of nodes, a nested HashMap indexed by node identifiers is used instead of a matrix.
      */
-    private Map<String, Map<String, Double>> computeSimilarities(ArrayList<Node> sourceNodes, ArrayList<Node> queryNodes) {
+    public Map<String, Map<String, Double>> computeSimilarities(ArrayList<Node> sourceNodes, ArrayList<Node> queryNodes) {
         Map<String, Map<String, Double>> similarities = new HashMap<>();
         for (Node sourceNode : sourceNodes) {
             Map<String, Double> queryNodeSimilarities = new HashMap<>();
@@ -104,7 +104,7 @@ public class FuzzyGraphMatching {
      * @param similarities similarities of the nodes.
      * @return the inclusion degree of the source edge in the query edge.
      */
-    private double fuzzyEdgeInclusionConsideringNodes(Edge source, Edge query, Map<String, Map<String, Double>> similarities) {
+    public double fuzzyEdgeInclusionConsideringNodes(Edge source, Edge query, Map<String, Map<String, Double>> similarities) {
         double startNodesSimilarity = similarities.get(source.getStartNodeId()).get(query.getStartNodeId());
         double endNodesSimilarity = similarities.get(source.getEndNodeId()).get(query.getEndNodeId());
         double edgesSimilarity = this.fuzzyEdgeInclusion(source, query);
@@ -204,7 +204,7 @@ public class FuzzyGraphMatching {
      */
     public double greedyInclusion(Graph source, Graph query, AggregationOperator aggregationOperator) {
         Map<String, Map<String, Double>> similarities = this.computeSimilarities(source.getNodes(), query.getNodes());
-        Tuple<ListOfMatches, ListOfMatches> matches = this.greedyMatching(new Graph(source), new Graph(query), similarities);
+        Tuple<ListOfMatches, ListOfMatches> matches = this.greedyMatching(source, query, similarities);
         ListOfMatches nodesMatches = matches.getFirst();
         ListOfMatches edgesMatches = matches.getSecond();
 
@@ -233,7 +233,7 @@ public class FuzzyGraphMatching {
      */
     public Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query) {
         Map<String, Map<String, Double>> similarities = this.computeSimilarities(source.getNodes(), query.getNodes());
-        return this.greedyMatching(new Graph(source), new Graph(query), similarities);
+        return this.greedyMatching(source, query, similarities);
     }
 
     /**
@@ -244,26 +244,28 @@ public class FuzzyGraphMatching {
      * @param similarities similarities of the nodes.
      * @return tuple containing nodes matches and edge matches.
      */
-    private Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query, Map<String, Map<String, Double>> similarities) {
+    public Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query, Map<String, Map<String, Double>> similarities) {
         ListOfMatches nodesMatches = new ListOfMatches();
         ListOfMatches edgesMatches = new ListOfMatches();
         Tuple<String, String> bestPair = this.getBestPairOfNodes(similarities);
+        Graph mySource = new Graph(source);
+        Graph myQuery = new Graph(query);
 
         if (bestPair != null) {
             nodesMatches.add(new Tuple<>(bestPair.getFirst(), bestPair.getSecond()));
-            Collection<Edge> sourceAdjacentEdges = source.getAdjacentEdges(bestPair.getFirst());
-            Collection<Edge> queryAdjacentEdges = query.getAdjacentEdges(bestPair.getSecond());
+            Collection<Edge> sourceAdjacentEdges = mySource.getAdjacentEdges(bestPair.getFirst());
+            Collection<Edge> queryAdjacentEdges = myQuery.getAdjacentEdges(bestPair.getSecond());
             double iterationSimilarity = similarities.get(bestPair.getFirst()).get(bestPair.getSecond());
 
             while (!queryAdjacentEdges.isEmpty() && !sourceAdjacentEdges.isEmpty()) {
                 Tuple<Tuple<Edge, Edge>, Double> bestTriplet = this.getBestPairOfEdges(sourceAdjacentEdges, queryAdjacentEdges, similarities);
                 Tuple<Edge, Edge> pairOfEdges = bestTriplet.getFirst();
 
-                source.deleteNode(pairOfEdges.getFirst().getStartNodeId());
-                query.deleteNode(pairOfEdges.getSecond().getStartNodeId());
+                mySource.deleteNode(pairOfEdges.getFirst().getStartNodeId());
+                myQuery.deleteNode(pairOfEdges.getSecond().getStartNodeId());
 
-                sourceAdjacentEdges = source.getAdjacentEdges(pairOfEdges.getFirst().getEndNodeId());
-                queryAdjacentEdges = query.getAdjacentEdges(pairOfEdges.getSecond().getEndNodeId());
+                sourceAdjacentEdges = mySource.getAdjacentEdges(pairOfEdges.getFirst().getEndNodeId());
+                queryAdjacentEdges = myQuery.getAdjacentEdges(pairOfEdges.getSecond().getEndNodeId());
 
                 nodesMatches.add(new Tuple<>(pairOfEdges.getFirst().getEndNodeId(), pairOfEdges.getSecond().getEndNodeId()));
                 edgesMatches.add(new Tuple<>(pairOfEdges.getFirst().getId(), pairOfEdges.getSecond().getId()));
