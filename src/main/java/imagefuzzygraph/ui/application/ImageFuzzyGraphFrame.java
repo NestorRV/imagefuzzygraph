@@ -5,7 +5,9 @@ import imagefuzzygraph.data.AggregationOperator;
 import imagefuzzygraph.data.AggregationOperators;
 import imagefuzzygraph.data.ListOfMatches;
 import imagefuzzygraph.data.Tuple;
+import imagefuzzygraph.graph.Edge;
 import imagefuzzygraph.graph.Graph;
+import imagefuzzygraph.graph.Node;
 import imagefuzzygraph.graphdb.GraphDatabase;
 import imagefuzzygraph.ui.elements.MatchingAlgorithmPreferencesDialog;
 import imagefuzzygraph.ui.elements.GraphPlotter;
@@ -18,12 +20,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 /**
  * Class representing the main JFrame of the application.
@@ -53,7 +58,8 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         this.changeSourceDBButtonsVisibility(false);
         this.changeQueryDBButtonsVisibility(false);
         this.viewMatchesButton.setEnabled(false);
-        this.drawSortedMatchingsButton.setEnabled(false);
+        this.drawSortedMatchesButton.setEnabled(false);
+        this.explainMatchesButton.setEnabled(false);
     }
 
     /**
@@ -120,7 +126,8 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         JInternalFrame internalFrame = new JInternalFrame(internalFrameTitle, true, true, true);
         internalFrame.setSize(ImageFuzzyGraphFrame.GP_SIZE, ImageFuzzyGraphFrame.GP_SIZE);
         internalFrame.setBackground(Color.WHITE);
-        GraphPlotter gp = new GraphPlotter(graph, internalFrame.getWidth(), internalFrame.getHeight());
+        GraphPlotter gp = new GraphPlotter();
+        gp.plotGraph(graph, internalFrame.getWidth(), internalFrame.getHeight());
         internalFrame.add(gp);
         this.desktop.add(internalFrame);
         internalFrame.setVisible(true);
@@ -202,16 +209,17 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
      */
     private void plotDatabase(String sourceOrQuery) {
         ImageListInternalFrame listFrame = new ImageListInternalFrame();
+        GraphPlotter gp = new GraphPlotter();
   
         if (sourceOrQuery.equals("source")) {
             listFrame.setTitle("Source database graphs.");
             for (Graph graph : this.sourceGraphDatabase) {
-                listFrame.add(new GraphPlotter(graph, ImageFuzzyGraphFrame.GP_SIZE, ImageFuzzyGraphFrame.GP_SIZE).getImageGraph(), graph.getId());
+                listFrame.add(gp.plotGraph(graph, ImageFuzzyGraphFrame.GP_SIZE, ImageFuzzyGraphFrame.GP_SIZE), graph.getId());
             }
         } else if (sourceOrQuery.equals("query")) {
             listFrame.setTitle("Query database graphs.");
             for (Graph graph : this.queryGraphDatabase) {
-                listFrame.add(new GraphPlotter(graph, ImageFuzzyGraphFrame.GP_SIZE, ImageFuzzyGraphFrame.GP_SIZE).getImageGraph(), graph.getId());
+                listFrame.add(gp.plotGraph(graph, ImageFuzzyGraphFrame.GP_SIZE, ImageFuzzyGraphFrame.GP_SIZE), graph.getId());
             }
         }
         
@@ -240,7 +248,8 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         matchingAlgorithmToolBar = new javax.swing.JToolBar();
         matchingAlgorithmPreferencesButton = new javax.swing.JButton();
         matchingButton = new javax.swing.JButton();
-        drawSortedMatchingsButton = new javax.swing.JButton();
+        explainMatchesButton = new javax.swing.JButton();
+        drawSortedMatchesButton = new javax.swing.JButton();
         viewMatchesButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -409,17 +418,29 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         });
         matchingAlgorithmToolBar.add(matchingButton);
 
-        drawSortedMatchingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draw-sorted-matchings.png"))); // NOI18N
-        drawSortedMatchingsButton.setToolTipText("Plot the graphs in the database sorted by the inclussion degree with the query graph.");
-        drawSortedMatchingsButton.setFocusable(false);
-        drawSortedMatchingsButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        drawSortedMatchingsButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        drawSortedMatchingsButton.addActionListener(new java.awt.event.ActionListener() {
+        explainMatchesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/question.png"))); // NOI18N
+        explainMatchesButton.setToolTipText("Perform the matching algorithm");
+        explainMatchesButton.setFocusable(false);
+        explainMatchesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        explainMatchesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        explainMatchesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                drawSortedMatchingsButtonActionPerformed(evt);
+                explainMatchesButtonActionPerformed(evt);
             }
         });
-        matchingAlgorithmToolBar.add(drawSortedMatchingsButton);
+        matchingAlgorithmToolBar.add(explainMatchesButton);
+
+        drawSortedMatchesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draw-sorted-matches.png"))); // NOI18N
+        drawSortedMatchesButton.setToolTipText("Plot the graphs in the database sorted by the inclussion degree with the query graph.");
+        drawSortedMatchesButton.setFocusable(false);
+        drawSortedMatchesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        drawSortedMatchesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        drawSortedMatchesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drawSortedMatchesButtonActionPerformed(evt);
+            }
+        });
+        matchingAlgorithmToolBar.add(drawSortedMatchesButton);
 
         viewMatchesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/view-matches.png"))); // NOI18N
         viewMatchesButton.setToolTipText("Draw the matching between the queryGraph and the best matching one");
@@ -471,7 +492,8 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             this.plotGraphInInternalFrame(graph, graph.getId() + ": " + this.inclusionDegrees.get(0).getSecond());
             
             this.viewMatchesButton.setEnabled(true);
-            this.drawSortedMatchingsButton.setEnabled(true);
+            this.drawSortedMatchesButton.setEnabled(true);
+            this.explainMatchesButton.setEnabled(true);
         }
     }//GEN-LAST:event_matchingButtonActionPerformed
 
@@ -493,29 +515,31 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         if (this.queryGraph != null && !this.inclusionDegrees.isEmpty()) {
             int bestGraphIdx = this.inclusionDegrees.get(0).getFirst();
             Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.greedyMatching(this.queryGraph, this.sourceGraphDatabase.get(bestGraphIdx));
-            JInternalFrame internalFrame = new JInternalFrame("Matchings found.", true, true, true);
+            JInternalFrame internalFrame = new JInternalFrame("Matches found.", true, true, true);
             internalFrame.setSize(ImageFuzzyGraphFrame.GP_SIZE * 2, ImageFuzzyGraphFrame.GP_SIZE);
             internalFrame.setBackground(Color.WHITE);
-            GraphPlotter gp = new GraphPlotter(this.queryGraph, this.sourceGraphDatabase.get(bestGraphIdx), matches, internalFrame.getWidth(), internalFrame.getHeight());
+            GraphPlotter gp = new GraphPlotter();
+            gp.plotMatches(this.queryGraph, this.sourceGraphDatabase.get(bestGraphIdx), matches, internalFrame.getWidth(), internalFrame.getHeight());
             internalFrame.add(gp);
             this.desktop.add(internalFrame);
             internalFrame.setVisible(true);
         }
     }//GEN-LAST:event_viewMatchesButtonActionPerformed
 
-    private void drawSortedMatchingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawSortedMatchingsButtonActionPerformed
+    private void drawSortedMatchesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawSortedMatchesButtonActionPerformed
         ImageListInternalFrame listFrame = new ImageListInternalFrame();
-        listFrame.setTitle("Sorted matchings.");
+        listFrame.setTitle("Sorted matches.");
+        GraphPlotter gp = new GraphPlotter();
         for(Tuple<Integer, Double> match: this.inclusionDegrees) {
             Graph graph = this.sourceGraphDatabase.get(match.getFirst());
-            listFrame.add(new GraphPlotter(graph, ImageFuzzyGraphFrame.GP_SIZE, ImageFuzzyGraphFrame.GP_SIZE).getImageGraph(), graph.getId() + ": " + match.getSecond());
+            listFrame.add(gp.plotGraph(graph, ImageFuzzyGraphFrame.GP_SIZE, ImageFuzzyGraphFrame.GP_SIZE), graph.getId() + ": " + match.getSecond());
         }
 
         this.desktop.add(listFrame);
         listFrame.setVisible(true);
         Dimension listFrameSize = listFrame.getSize();
         listFrame.setSize(listFrameSize.height * 3, listFrameSize.height);
-    }//GEN-LAST:event_drawSortedMatchingsButtonActionPerformed
+    }//GEN-LAST:event_drawSortedMatchesButtonActionPerformed
 
     private void createQueryDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createQueryDBButtonActionPerformed
         this.createDatabase("query");
@@ -539,11 +563,54 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         this.lastGraphPlotted = (this.lastGraphPlotted + 1) % this.queryGraphDatabase.size();
     }//GEN-LAST:event_plotNextGraphQueryDBButtonActionPerformed
 
+    private void explainMatchesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_explainMatchesButtonActionPerformed
+        FuzzyGraphMatching fuzzyGraphMatching = new FuzzyGraphMatching();
+        if (this.queryGraph != null && !this.inclusionDegrees.isEmpty()) {
+            int bestGraphIdx = this.inclusionDegrees.get(0).getFirst();
+            Graph sourceGraph = this.sourceGraphDatabase.get(bestGraphIdx);
+            Map<String, Map<String, Double>> similarities = fuzzyGraphMatching.computeSimilarities(sourceGraph.getNodes(), this.queryGraph.getNodes());
+            Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.greedyMatching(this.sourceGraphDatabase.get(bestGraphIdx), this.queryGraph, similarities);
+            
+            JInternalFrame internalFrame = new JInternalFrame("Matches explanation.", true, true, true);
+            internalFrame.setSize(ImageFuzzyGraphFrame.GP_SIZE, ImageFuzzyGraphFrame.GP_SIZE);
+            internalFrame.setVisible(true);
+            
+            StringBuilder areaText = new StringBuilder();
+            areaText.append("Query -> Source\n");
+            
+            ListOfMatches edgesMatches = matches.getSecond();
+            if (edgesMatches.size() > 0) {
+                Map<String, Edge> sourceEdges = this.sourceGraphDatabase.get(bestGraphIdx).getEdges().stream().collect(Collectors.toMap(Edge::getId, s -> s));
+                Map<String, Edge> queryEdges = this.queryGraph.getEdges().stream().collect(Collectors.toMap(Edge::getId, s -> s));
+                for (Tuple<String, String> edgesMatch : edgesMatches) {
+                    Edge sourceEdge = sourceEdges.get(edgesMatch.getFirst());
+                    Edge queryEdge = queryEdges.get(edgesMatch.getSecond());
+                    double inclusionDegree = fuzzyGraphMatching.fuzzyEdgeInclusionConsideringNodes(sourceEdge, queryEdge, similarities);
+                    areaText.append(sourceEdge.getStartNodeId()).append(" -> ").append(queryEdge.getStartNodeId()).append(": ").append(inclusionDegree).append("\n");
+                }
+            } else {
+                for (Tuple<String, String> nodesMatch : matches.getFirst()) {
+                    double inclusionDegree = similarities.get(nodesMatch.getFirst()).get(nodesMatch.getSecond());
+                    areaText.append(nodesMatch.getFirst()).append(" -> ").append(nodesMatch.getSecond()).append(": ").append(inclusionDegree).append("\n");
+                }
+            }
+            
+            JTextArea textArea = new JTextArea(1, 1);
+            textArea.setText(areaText.toString());
+            textArea.setEditable(false);
+            textArea.setVisible(true);
+            
+            internalFrame.add(textArea);
+            this.desktop.add(internalFrame);
+        }
+    }//GEN-LAST:event_explainMatchesButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createQueryDBButton;
     private javax.swing.JButton createSourceDBButton;
     private javax.swing.JDesktopPane desktop;
-    private javax.swing.JButton drawSortedMatchingsButton;
+    private javax.swing.JButton drawSortedMatchesButton;
+    private javax.swing.JButton explainMatchesButton;
     private javax.swing.JButton matchingAlgorithmPreferencesButton;
     private javax.swing.JToolBar matchingAlgorithmToolBar;
     private javax.swing.JButton matchingButton;

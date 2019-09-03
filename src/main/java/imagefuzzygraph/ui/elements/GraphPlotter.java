@@ -22,19 +22,26 @@ import java.util.stream.Collectors;
  */
 public class GraphPlotter extends JComponent {
 
-    private final Graph graph;
-    private final BufferedImage imageGraph;
+    private Graph graph;
+    private BufferedImage imageGraph;
     private final int resizeFactor = 4;
 
     /**
      * Construct a GraphPlotter
+     */
+    public GraphPlotter() {
+        super();
+    }
+    
+    /**
+     * Plot a graph.
      *
      * @param graph graph to be plotted.
      * @param w     width of the JComponent.
      * @param h     height of the JComponent.
+     * @return image of the graph.
      */
-    public GraphPlotter(Graph graph, int w, int h) {
-        super();
+    public BufferedImage plotGraph(Graph graph, int w, int h) {
         this.graph = new Graph(graph);
         this.setSize(w, h);
         this.imageGraph = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -43,19 +50,42 @@ public class GraphPlotter extends JComponent {
         g2d.fillRect(0, 0, this.imageGraph.getWidth(), this.imageGraph.getHeight());
         this.addGraphToImage(g2d, this.graph, 0);
         g2d.dispose();
+        return this.imageGraph;
+    }
+    
+    /**
+     * Plot two graphs side by side.
+     *
+     * @param g1 g1 to be plotted.
+     * @param g2 g2 to be plotted.
+     * @param w  width of the JComponent.
+     * @param h  height of the JComponent.
+     * @return image of the graph.
+     */
+    public BufferedImage plotTwoGraphs(Graph g1, Graph g2, int w, int h) {
+        this.graph = new Graph(g2);
+        this.setSize(w, h);
+        this.imageGraph = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = (Graphics2D) this.imageGraph.getGraphics();
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, this.imageGraph.getWidth(), this.imageGraph.getHeight());
+        this.addGraphToImage(g2d, g1, 0);
+        this.addGraphToImage(g2d, g2, w / 2);
+        g2d.dispose();
+        return this.imageGraph;
     }
 
     /**
-     * Construct a GraphPlotter
+     * Plot matches between two graphs.
      *
      * @param queryGraph queryGraph to be plotted.
      * @param bestGraph  bestGraph to be plotted.
      * @param matches    matched between queryGraph and bestGraph.
      * @param w          width of the JComponent.
      * @param h          height of the JComponent.
+     * @return image of the graph.
      */
-    public GraphPlotter(Graph queryGraph, Graph bestGraph, Tuple<ListOfMatches, ListOfMatches> matches, int w, int h) {
-        super();
+    public BufferedImage plotMatches(Graph queryGraph, Graph bestGraph, Tuple<ListOfMatches, ListOfMatches> matches, int w, int h) {
         this.graph = new Graph(bestGraph);
         this.setSize(w, h);
         this.imageGraph = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -86,8 +116,9 @@ public class GraphPlotter extends JComponent {
         }
 
         g2d.dispose();
+        return this.imageGraph;
     }
-
+    
     /**
      * Add a graph to a Graphics2D.
      *
