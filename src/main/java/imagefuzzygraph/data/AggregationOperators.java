@@ -32,6 +32,8 @@ public class AggregationOperators {
      * @return operator representing the <i>All elements should match the condition</i> semantic.
      */
     public static AggregationOperator all() {
-        return atLeast(1.0);
+        return collection -> {
+            return Collections.min(collection);
+        };
     }
 }
