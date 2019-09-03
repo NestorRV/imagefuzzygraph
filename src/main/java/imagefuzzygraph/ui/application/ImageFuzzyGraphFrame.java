@@ -475,11 +475,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         if (this.queryGraph != null) {
             AggregationOperator aggregationOperator;
             if (MatchingAlgorithmPreferences.getAggregationOperator().equals("atLeast")) {
-                aggregationOperator = AggregationOperators.atLeast(MatchingAlgorithmPreferences.getAggregationOperatorPercentage());
+                aggregationOperator = AggregationOperators.atLeast(MatchingAlgorithmPreferences.getAlpha(), MatchingAlgorithmPreferences.getBeta());
             } else {
                 aggregationOperator = AggregationOperators.all();
             }
-
+            
             this.inclusionDegrees = new ArrayList<>();
             for (int i = 0; i < this.sourceGraphDatabase.size(); i++) {
                 double inclusionDegree = fuzzyGraphMatching.greedyInclusion(this.sourceGraphDatabase.get(i), this.queryGraph, aggregationOperator);
@@ -574,8 +574,8 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             internalFrame.setSize(ImageFuzzyGraphFrame.GP_SIZE, ImageFuzzyGraphFrame.GP_SIZE);
             internalFrame.setVisible(true);
             
-            StringBuilder areaText = new StringBuilder();
-            areaText.append("Query -> Source\n");
+            StringBuilder areaTextBuilder = new StringBuilder();
+            areaTextBuilder.append("Query edge -> Source edge\n");
             
             ListOfMatches edgesMatches = matches.getSecond();
             if (edgesMatches.size() > 0) {
@@ -585,21 +585,23 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                     Edge sourceEdge = sourceEdges.get(edgesMatch.getFirst());
                     Edge queryEdge = queryEdges.get(edgesMatch.getSecond());
                     double inclusionDegree = fuzzyGraphMatching.fuzzyEdgeInclusionConsideringNodes(sourceEdge, queryEdge, similarities);
-                    areaText.append(sourceEdge.getStartNodeId()).append(" -> ").append(queryEdge.getStartNodeId()).append(": ").append(inclusionDegree).append("\n");
+                    areaTextBuilder.append(sourceEdge.getStartNodeId()).append("-").append(sourceEdge.getEndNodeId()).append(" -> ");
+                    areaTextBuilder.append(queryEdge.getStartNodeId()).append("-").append(queryEdge.getEndNodeId()).append(": ").append(inclusionDegree).append("\n");
                 }
             } else {
                 for (Tuple<String, String> nodesMatch : matches.getFirst()) {
                     double inclusionDegree = similarities.get(nodesMatch.getFirst()).get(nodesMatch.getSecond());
-                    areaText.append(nodesMatch.getFirst()).append(" -> ").append(nodesMatch.getSecond()).append(": ").append(inclusionDegree).append("\n");
+                    areaTextBuilder.append(nodesMatch.getFirst()).append(" -> ").append(nodesMatch.getSecond()).append(": ").append(inclusionDegree).append("\n");
                 }
             }
             
             JTextArea textArea = new JTextArea(1, 1);
-            textArea.setText(areaText.toString());
+            textArea.setText(areaTextBuilder.toString());
             textArea.setEditable(false);
             textArea.setVisible(true);
             
             internalFrame.add(textArea);
+            internalFrame.pack();
             this.desktop.add(internalFrame);
             internalFrame.moveToFront();
         }

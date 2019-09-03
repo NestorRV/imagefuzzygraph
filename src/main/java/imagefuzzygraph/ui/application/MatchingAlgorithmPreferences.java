@@ -8,7 +8,8 @@ package imagefuzzygraph.ui.application;
 public class MatchingAlgorithmPreferences {
 
     static private String aggregationOperator = "all";
-    static private double aggregationOperatorPercentage = 1.0;
+    static private double alpha = 0.0;
+    static private double beta = 1.0;
 
     /**
      * Return the aggregation operator of the algorithm.
@@ -29,21 +30,38 @@ public class MatchingAlgorithmPreferences {
     }
 
     /**
-     * Return the aggregation operator percentage of the algorithm.
+     * Return the alpha for the atLeast quantifier.
      *
-     * @return the aggregation operator percentage of the algorithm.
+     * @return the alpha for the atLeast quantifier.
      */
-    public static double getAggregationOperatorPercentage() {
-        return aggregationOperatorPercentage;
+    public static double getAlpha() {
+        return alpha;
     }
 
     /**
-     * Set the aggregation operator percentage of the algorithm.
+     * Set the alpha for the atLeast quantifier.
      *
-     * @param aggregationOperatorPercentage aggregation operator percentage of
-     *                                      the algorithm.
+     * @param alpha alpha for the atLeast quantifier.
      */
-    public static void setAggregationOperatorPercentage(double aggregationOperatorPercentage) {
-        MatchingAlgorithmPreferences.aggregationOperatorPercentage = aggregationOperatorPercentage;
+    public static void setAlpha(double alpha) {
+        MatchingAlgorithmPreferences.alpha = alpha;
+    }
+    
+    /**
+     * Return the beta for the atLeast quantifier.
+     *
+     * @return the beta for the atLeast quantifier.
+     */
+    public static double getBeta() {
+        return beta;
+    }
+
+    /**
+     * Set the beta for the atLeast quantifier.
+     *
+     * @param beta beta for the atLeast quantifier.
+     */
+    public static void setBeta(double beta) {
+        MatchingAlgorithmPreferences.beta = beta;
     }
 }

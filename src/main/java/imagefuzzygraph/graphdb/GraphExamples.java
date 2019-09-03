@@ -16,7 +16,7 @@ import java.util.Arrays;
  */
 public class GraphExamples {
     private final BuildGraph bg = new BuildGraph();
-    
+
     private Region buildRegion(String folder, String file, double x, double y) {
         String filename = String.format("db/%s/%s.png", folder, file);
         return new Region(filename, new Tuple<>(x, y));
@@ -33,7 +33,7 @@ public class GraphExamples {
         regions.add(this.buildRegion(labels.get(5), "blue3", 0.0, 700.0));
         return this.bg.buildGraph("Graph_1", regions, labels);
     }
-    
+
     public Graph source_example2() throws IOException {
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("triangle_1.0", "square_0.8", "cross_1.0", "heart_1.0", "star_1.0", "circle_1.0"));
         ArrayList<Region> regions = new ArrayList<>();
@@ -45,7 +45,7 @@ public class GraphExamples {
         regions.add(this.buildRegion(labels.get(5), "pink3", 0.0, 700.0));
         return this.bg.buildGraph("Graph_2", regions, labels);
     }
-    
+
     public Graph source_example3() throws IOException {
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("star_1.0", "heart_1.0", "circle_1.0", "cross_1.0", "square_1.0", "square_0.8"));
         ArrayList<Region> regions = new ArrayList<>();
@@ -57,7 +57,7 @@ public class GraphExamples {
         regions.add(this.buildRegion(labels.get(5), "green2", 0.0, 50.0));
         return this.bg.buildGraph("Graph_3", regions, labels);
     }
-    
+
     public Graph source_example4() throws IOException {
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("star_1.0", "heart_1.0", "circle_1.0"));
         ArrayList<Region> regions = new ArrayList<>();
@@ -66,7 +66,7 @@ public class GraphExamples {
         regions.add(this.buildRegion(labels.get(2), "pink1", 400.0, 100.0));
         return this.bg.buildGraph("Graph_4", regions, labels);
     }
-    
+
     public Graph source_example5() throws IOException {
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("square_1.0", "square_0.8", "square_1.0", "square_0.8"));
         ArrayList<Region> regions = new ArrayList<>();
@@ -88,7 +88,7 @@ public class GraphExamples {
         regions.add(this.buildRegion(labels.get(5), "blue1", 0.0, 700.0));
         return this.bg.buildGraph("Graph_1", regions, labels);
     }
-    
+
     public Graph query_example2() throws IOException {
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("star_1.0", "heart_1.0", "circle_1.0"));
         ArrayList<Region> regions = new ArrayList<>();
@@ -97,7 +97,7 @@ public class GraphExamples {
         regions.add(this.buildRegion(labels.get(2), "pink1", 400.0, 100.0));
         return this.bg.buildGraph("Graph_2", regions, labels);
     }
-    
+
     public Graph query_example3() throws IOException {
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("square_1.0", "square_0.8", "square_1.0", "square_0.8"));
         ArrayList<Region> regions = new ArrayList<>();

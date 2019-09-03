@@ -23,8 +23,11 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(parent);
         MatchingAlgorithmPreferences.setAggregationOperator("all");
-        MatchingAlgorithmPreferences.setAggregationOperatorPercentage(1.0);
-        this.aggregationOperatorPercentageSpinner.setVisible(false);
+        MatchingAlgorithmPreferences.setAlpha(1.0);
+        this.alphaSpinner.setVisible(false);
+        this.betaSpinner.setVisible(false);
+        this.alphaLabel.setVisible(false);
+        this.betaLabel.setVisible(false);
     }
 
     /**
@@ -34,7 +37,8 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
         int aggregationOperatorSelectedIndex = this.aggregationOperatorList.getSelectedIndex();
         String aggregationOperatorSelected = this.aggregationOperatorList.getItemAt(aggregationOperatorSelectedIndex);
         MatchingAlgorithmPreferences.setAggregationOperator(aggregationOperatorSelected);
-        MatchingAlgorithmPreferences.setAggregationOperatorPercentage((double) this.aggregationOperatorPercentageSpinner.getValue());
+        MatchingAlgorithmPreferences.setAlpha((double) this.alphaSpinner.getValue());
+        MatchingAlgorithmPreferences.setBeta((double) this.betaSpinner.getValue());
     }
 
     /**
@@ -64,7 +68,10 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
         panelShape = new javax.swing.JPanel();
         aggregationOperatorLabel = new javax.swing.JLabel();
         aggregationOperatorList = new javax.swing.JComboBox<>();
-        aggregationOperatorPercentageSpinner = new javax.swing.JSpinner();
+        alphaSpinner = new javax.swing.JSpinner();
+        alphaLabel = new javax.swing.JLabel();
+        betaLabel = new javax.swing.JLabel();
+        betaSpinner = new javax.swing.JSpinner();
         buttonsPanel = new javax.swing.JPanel();
         acceptButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
@@ -86,8 +93,19 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
             }
         });
 
-        aggregationOperatorPercentageSpinner.setModel(new javax.swing.SpinnerNumberModel(0.8d, 0.0d, 1.0d, 0.05d));
-        aggregationOperatorPercentageSpinner.setToolTipText("Percentage of nodes to match");
+        alphaSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0d, 0.05d));
+        alphaSpinner.setToolTipText("");
+
+        alphaLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        alphaLabel.setText("alpha");
+        alphaLabel.setToolTipText("");
+
+        betaLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        betaLabel.setText("beta");
+        betaLabel.setToolTipText("");
+
+        betaSpinner.setModel(new javax.swing.SpinnerNumberModel(1.0d, 0.0d, 1.0d, 0.05d));
+        betaSpinner.setToolTipText("");
 
         javax.swing.GroupLayout panelShapeLayout = new javax.swing.GroupLayout(panelShape);
         panelShape.setLayout(panelShapeLayout);
@@ -95,12 +113,20 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
             panelShapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelShapeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(aggregationOperatorLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(aggregationOperatorList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(aggregationOperatorPercentageSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGroup(panelShapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelShapeLayout.createSequentialGroup()
+                        .addComponent(aggregationOperatorLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(aggregationOperatorList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelShapeLayout.createSequentialGroup()
+                        .addComponent(alphaLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(alphaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelShapeLayout.createSequentialGroup()
+                        .addComponent(betaLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(betaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         panelShapeLayout.setVerticalGroup(
             panelShapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,9 +134,16 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(panelShapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aggregationOperatorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(aggregationOperatorList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(aggregationOperatorPercentageSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                    .addComponent(aggregationOperatorList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelShapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(alphaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(alphaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(panelShapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(betaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(betaSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         getContentPane().add(panelShape, java.awt.BorderLayout.CENTER);
@@ -137,7 +170,7 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
 
         getContentPane().add(buttonsPanel, java.awt.BorderLayout.SOUTH);
 
-        setSize(new java.awt.Dimension(329, 168));
+        setSize(new java.awt.Dimension(256, 183));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -151,14 +184,20 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void aggregationOperatorListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aggregationOperatorListActionPerformed
-        this.aggregationOperatorPercentageSpinner.setVisible(this.aggregationOperatorList.getSelectedIndex() == 1);
+        this.alphaSpinner.setVisible(this.aggregationOperatorList.getSelectedIndex() == 1);
+        this.betaSpinner.setVisible(this.aggregationOperatorList.getSelectedIndex() == 1);
+        this.alphaLabel.setVisible(this.aggregationOperatorList.getSelectedIndex() == 1);
+        this.betaLabel.setVisible(this.aggregationOperatorList.getSelectedIndex() == 1);
     }//GEN-LAST:event_aggregationOperatorListActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton acceptButton;
     private javax.swing.JLabel aggregationOperatorLabel;
     private javax.swing.JComboBox<String> aggregationOperatorList;
-    private javax.swing.JSpinner aggregationOperatorPercentageSpinner;
+    private javax.swing.JLabel alphaLabel;
+    private javax.swing.JSpinner alphaSpinner;
+    private javax.swing.JLabel betaLabel;
+    private javax.swing.JSpinner betaSpinner;
     private javax.swing.JPanel buttonsPanel;
     private javax.swing.JButton cancelButton;
     private javax.swing.JPanel panelShape;

@@ -227,8 +227,8 @@ public class FuzzyGraphMatching {
     /**
      * Find a matching between the source graph and the query graph.
      *
-     * @param source    source graph.
-     * @param query     query graph.
+     * @param source source graph.
+     * @param query  query graph.
      * @return tuple containing nodes matches and edge matches.
      */
     public Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query) {

@@ -14,7 +14,7 @@ import java.util.LinkedHashSet;
  * @author Néstor Rodríguez Vico (nrv23@correo.ugr.es).
  */
 public class Graph implements Iterable<Node> {
-    
+
     /**
      * Id of the graph.
      */
@@ -110,7 +110,7 @@ public class Graph implements Iterable<Node> {
     public ArrayList<Node> getNodes() {
         return nodes;
     }
-    
+
     /**
      * Return the id of the graph.
      *
