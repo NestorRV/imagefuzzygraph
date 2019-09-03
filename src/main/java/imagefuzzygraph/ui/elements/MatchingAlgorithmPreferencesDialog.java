@@ -93,7 +93,7 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
             }
         });
 
-        alphaSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0d, 0.05d));
+        alphaSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 1.0d, 0.005d));
         alphaSpinner.setToolTipText("");
 
         alphaLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -104,7 +104,7 @@ public class MatchingAlgorithmPreferencesDialog extends javax.swing.JDialog {
         betaLabel.setText("beta");
         betaLabel.setToolTipText("");
 
-        betaSpinner.setModel(new javax.swing.SpinnerNumberModel(1.0d, 0.0d, 1.0d, 0.05d));
+        betaSpinner.setModel(new javax.swing.SpinnerNumberModel(1.0d, 0.0d, 1.0d, 0.005d));
         betaSpinner.setToolTipText("");
 
         javax.swing.GroupLayout panelShapeLayout = new javax.swing.GroupLayout(panelShape);
