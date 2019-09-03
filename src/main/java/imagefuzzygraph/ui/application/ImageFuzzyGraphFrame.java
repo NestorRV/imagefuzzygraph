@@ -601,6 +601,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             
             internalFrame.add(textArea);
             this.desktop.add(internalFrame);
+            internalFrame.moveToFront();
         }
     }//GEN-LAST:event_explainMatchesButtonActionPerformed
 
