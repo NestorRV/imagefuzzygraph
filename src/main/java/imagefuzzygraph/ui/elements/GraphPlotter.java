@@ -107,7 +107,7 @@ public class GraphPlotter extends JComponent {
             
             g2d.setColor(Color.BLACK);
             g2d.setFont(g2d.getFont().deriveFont(12f));
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
             for (Node node : graph.getNodes()) {
                 Tuple<Double, Double> location = node.getLocation();
                 BufferedImage img = ImageIO.read(new File(node.getImagePath()));
