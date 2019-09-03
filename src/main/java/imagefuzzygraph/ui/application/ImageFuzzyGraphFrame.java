@@ -7,7 +7,6 @@ import imagefuzzygraph.data.ListOfMatches;
 import imagefuzzygraph.data.Tuple;
 import imagefuzzygraph.graph.Edge;
 import imagefuzzygraph.graph.Graph;
-import imagefuzzygraph.graph.Node;
 import imagefuzzygraph.graphdb.GraphDatabase;
 import imagefuzzygraph.ui.elements.MatchingAlgorithmPreferencesDialog;
 import imagefuzzygraph.ui.elements.GraphPlotter;
@@ -514,7 +513,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         FuzzyGraphMatching fuzzyGraphMatching = new FuzzyGraphMatching();
         if (this.queryGraph != null && !this.inclusionDegrees.isEmpty()) {
             int bestGraphIdx = this.inclusionDegrees.get(0).getFirst();
-            Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.greedyMatching(this.queryGraph, this.sourceGraphDatabase.get(bestGraphIdx));
+            Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.greedyMatching(this.sourceGraphDatabase.get(bestGraphIdx), this.queryGraph);
             JInternalFrame internalFrame = new JInternalFrame("Matches found.", true, true, true);
             internalFrame.setSize(ImageFuzzyGraphFrame.GP_SIZE * 2, ImageFuzzyGraphFrame.GP_SIZE);
             internalFrame.setBackground(Color.WHITE);
