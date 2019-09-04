@@ -82,7 +82,7 @@ public class TextSearchDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Preferences");
 
-        panelShape.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "TextSearch", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        panelShape.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Text Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         panelShape.setPreferredSize(new java.awt.Dimension(150, 150));
 
         firstObjectLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N

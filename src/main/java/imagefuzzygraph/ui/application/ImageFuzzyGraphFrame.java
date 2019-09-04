@@ -562,6 +562,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private void matchingAlgorithmPreferencesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matchingAlgorithmPreferencesButtonActionPerformed
         MatchingAlgorithmPreferencesDialog mapd = new MatchingAlgorithmPreferencesDialog(this);
+        mapd.setTitle("Matching Algorithms Preferences");
         mapd.showDialog();
     }//GEN-LAST:event_matchingAlgorithmPreferencesButtonActionPerformed
 
@@ -679,6 +680,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private void textSearchPreferencesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textSearchPreferencesButtonActionPerformed
         TextSearchDialog tsd = new TextSearchDialog(this);
+        tsd.setTitle("Text Search");
         tsd.showDialog();
         this.textSearchButton.setEnabled(true);
     }//GEN-LAST:event_textSearchPreferencesButtonActionPerformed
