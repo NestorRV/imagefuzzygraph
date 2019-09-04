@@ -234,6 +234,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         desktop = new javax.swing.JDesktopPane();
         toolsPanel = new javax.swing.JPanel();
         sourceDBToolBar = new javax.swing.JToolBar();
+        generateRandomGraphSourceDBButton = new javax.swing.JButton();
         createSourceDBButton = new javax.swing.JButton();
         openSourceDBButton = new javax.swing.JButton();
         plotRandomGraphSourceDBButton = new javax.swing.JButton();
@@ -276,6 +277,18 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         toolsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         sourceDBToolBar.setRollover(true);
+
+        generateRandomGraphSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/random.png"))); // NOI18N
+        generateRandomGraphSourceDBButton.setToolTipText("Plot random graph from source database");
+        generateRandomGraphSourceDBButton.setFocusable(false);
+        generateRandomGraphSourceDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        generateRandomGraphSourceDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        generateRandomGraphSourceDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateRandomGraphSourceDBButtonActionPerformed(evt);
+            }
+        });
+        sourceDBToolBar.add(generateRandomGraphSourceDBButton);
 
         createSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/create-database.png"))); // NOI18N
         createSourceDBButton.setToolTipText("Generate source database");
@@ -607,12 +620,22 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_explainMatchesButtonActionPerformed
 
+    private void generateRandomGraphSourceDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateRandomGraphSourceDBButtonActionPerformed
+        try {
+            this.sourceGraphDatabase.buildRandomDatabase(100);
+            this.changeSourceDBButtonsVisibility(true);
+        } catch (IOException ex) {
+            Logger.getLogger(ImageFuzzyGraphFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_generateRandomGraphSourceDBButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createQueryDBButton;
     private javax.swing.JButton createSourceDBButton;
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JButton drawSortedMatchesButton;
     private javax.swing.JButton explainMatchesButton;
+    private javax.swing.JButton generateRandomGraphSourceDBButton;
     private javax.swing.JButton matchingAlgorithmPreferencesButton;
     private javax.swing.JToolBar matchingAlgorithmToolBar;
     private javax.swing.JButton matchingButton;
