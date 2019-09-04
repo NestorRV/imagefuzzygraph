@@ -103,10 +103,10 @@ public class GraphPlotter extends JComponent {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         try {
             for (Tuple<String, String> match : matches.getFirst()) {
-                Node fromQuery = queryNodesMap.get(match.getFirst());
-                Node fromBest = bestNodesMap.get(match.getSecond());
-                BufferedImage fromQueryImg = ImageIO.read(new File(fromBest.getImagePath()));
+                Node fromBest = bestNodesMap.get(match.getFirst());
+                Node fromQuery = queryNodesMap.get(match.getSecond());
                 BufferedImage fromBestImg = ImageIO.read(new File(fromQuery.getImagePath()));
+                BufferedImage fromQueryImg = ImageIO.read(new File(fromBest.getImagePath()));
                 g2d.draw(new Line2D.Double((fromQuery.getLocation().getFirst() + fromQueryImg.getWidth() / 2) / this.resizeFactor,
                         (fromQuery.getLocation().getSecond() + fromQueryImg.getHeight() / 2) / this.resizeFactor,
                         (fromBest.getLocation().getFirst() + fromBestImg.getWidth() / 2) / this.resizeFactor + (w / 2),

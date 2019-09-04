@@ -1,22 +1,27 @@
 package imagefuzzygraph.ui.application;
 
+import imagefuzzygraph.algorithm.BuildGraph;
 import imagefuzzygraph.algorithm.FuzzyGraphMatching;
 import imagefuzzygraph.data.AggregationOperator;
 import imagefuzzygraph.data.AggregationOperators;
 import imagefuzzygraph.data.ListOfMatches;
+import imagefuzzygraph.data.Region;
 import imagefuzzygraph.data.Tuple;
 import imagefuzzygraph.graph.Edge;
 import imagefuzzygraph.graph.Graph;
 import imagefuzzygraph.graphdb.GraphDatabase;
+import imagefuzzygraph.graphdb.GraphExamples;
 import imagefuzzygraph.ui.elements.MatchingAlgorithmPreferencesDialog;
 import imagefuzzygraph.ui.elements.GraphPlotter;
 import imagefuzzygraph.ui.elements.ImageListInternalFrame;
+import imagefuzzygraph.ui.elements.TextSearchDialog;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
@@ -59,6 +64,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         this.viewMatchesButton.setEnabled(false);
         this.drawSortedMatchesButton.setEnabled(false);
         this.explainMatchesButton.setEnabled(false);
+        this.textSearchButton.setEnabled(false);
     }
 
     /**
@@ -71,10 +77,10 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     }
 
     /**
-     * Get the graph of the current selected image frame (ImageInternalFrame).
+     * Get the textSearchGraph of the current selected image frame (ImageInternalFrame).
      *
-     * @return Get the graph of the current selected image frame
-     * (ImageInternalFrame).
+     * @return Get the textSearchGraph of the current selected image frame
+ (ImageInternalFrame).
      */
     private Graph getSelectedGraph() {
         Graph graph = null;
@@ -100,6 +106,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         this.plotSourceDBButton.setEnabled(visibility);
         this.matchingAlgorithmPreferencesButton.setEnabled(visibility);
         this.matchingButton.setEnabled(visibility);
+        this.textSearchPreferencesButton.setEnabled(visibility);
     }
     
     /**
@@ -116,9 +123,9 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     }
     
     /**
-     * Method to plot a graph in an JInternalFrame.
+     * Method to plot a textSearchGraph in an JInternalFrame.
      * 
-     * @param graph              graph to be plotted.
+     * @param graph              textSearchGraph to be plotted.
      * @param internalFrameTitle title of the JInternalFrame.
      */
     private void plotGraphInInternalFrame(Graph graph, String internalFrameTitle) {
@@ -133,7 +140,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     }
     
     /**
-     * Create a graph database.
+     * Create a textSearchGraph database.
      * 
      * @param sourceOrQuery string representing if we want to build the source or the query database.
      */
@@ -152,7 +159,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     }
     
     /**
-     * Load a graph database.
+     * Load a textSearchGraph database.
      * 
      * @param sourceOrQuery string representing if we want to build the source or the query database.
      */
@@ -181,7 +188,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     }
     
     /**
-     * Plot a random graph from a graph database.
+     * Plot a random textSearchGraph from a textSearchGraph database.
      * 
      * @param sourceOrQuery string representing if we want to build the source or the query database.
      */
@@ -202,7 +209,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     }
     
     /**
-     * Plot all the graphs from a graph database.
+     * Plot all the graphs from a textSearchGraph database.
      * 
      * @param sourceOrQuery string representing if we want to build the source or the query database.
      */
@@ -251,6 +258,9 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         explainMatchesButton = new javax.swing.JButton();
         drawSortedMatchesButton = new javax.swing.JButton();
         viewMatchesButton = new javax.swing.JButton();
+        matchingAlgorithmToolBar1 = new javax.swing.JToolBar();
+        textSearchPreferencesButton = new javax.swing.JButton();
+        textSearchButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ImageFuzzyGraph");
@@ -267,7 +277,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 464, Short.MAX_VALUE)
+            .addGap(0, 460, Short.MAX_VALUE)
         );
 
         getContentPane().add(desktop, java.awt.BorderLayout.CENTER);
@@ -466,6 +476,34 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         });
         matchingAlgorithmToolBar.add(viewMatchesButton);
 
+        matchingAlgorithmToolBar1.setRollover(true);
+
+        textSearchPreferencesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/text-search-preferences.png"))); // NOI18N
+        textSearchPreferencesButton.setToolTipText("");
+        textSearchPreferencesButton.setFocusable(false);
+        textSearchPreferencesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        textSearchPreferencesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        textSearchPreferencesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textSearchPreferencesButtonActionPerformed(evt);
+            }
+        });
+        matchingAlgorithmToolBar1.add(textSearchPreferencesButton);
+
+        textSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/text-search.png"))); // NOI18N
+        textSearchButton.setToolTipText("");
+        textSearchButton.setFocusable(false);
+        textSearchButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        textSearchButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        textSearchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textSearchButtonActionPerformed(evt);
+            }
+        });
+        matchingAlgorithmToolBar1.add(textSearchButton);
+
+        matchingAlgorithmToolBar.add(matchingAlgorithmToolBar1);
+
         toolsPanel.add(matchingAlgorithmToolBar);
 
         getContentPane().add(toolsPanel, java.awt.BorderLayout.PAGE_START);
@@ -482,27 +520,36 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         this.loadDatabase("source");
     }//GEN-LAST:event_openSourceDBButtonActionPerformed
 
-    private void matchingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matchingButtonActionPerformed
+    /**
+     * Query database to compare textSearchGraph with all the graphs in the database.
+     * 
+     * @param graph textSearchGraph to be compared with all the graphs in the database.
+     */
+    private void queryDatabase(Graph graph) {
         FuzzyGraphMatching fuzzyGraphMatching = new FuzzyGraphMatching();
+        AggregationOperator aggregationOperator;
+        if (MatchingAlgorithmPreferences.getAggregationOperator().equals("atLeast")) {
+            aggregationOperator = AggregationOperators.atLeast(MatchingAlgorithmPreferences.getAlpha(), MatchingAlgorithmPreferences.getBeta());
+        } else {
+            aggregationOperator = AggregationOperators.all();
+        }
+            
+        this.inclusionDegrees = new ArrayList<>();
+        for (int i = 0; i < this.sourceGraphDatabase.size(); i++) {
+            double inclusionDegree = fuzzyGraphMatching.greedyInclusion(this.sourceGraphDatabase.get(i), graph, aggregationOperator);
+            inclusionDegrees.add(new Tuple<>(i, inclusionDegree));
+        }
+
+        Collections.sort(this.inclusionDegrees, Collections.reverseOrder(this.tupleComparator));
+    }
+    
+    private void matchingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matchingButtonActionPerformed
         this.queryGraph = this.getSelectedGraph();
         if (this.queryGraph != null) {
-            AggregationOperator aggregationOperator;
-            if (MatchingAlgorithmPreferences.getAggregationOperator().equals("atLeast")) {
-                aggregationOperator = AggregationOperators.atLeast(MatchingAlgorithmPreferences.getAlpha(), MatchingAlgorithmPreferences.getBeta());
-            } else {
-                aggregationOperator = AggregationOperators.all();
-            }
+            this.queryDatabase(queryGraph);
             
-            this.inclusionDegrees = new ArrayList<>();
-            for (int i = 0; i < this.sourceGraphDatabase.size(); i++) {
-                double inclusionDegree = fuzzyGraphMatching.greedyInclusion(this.sourceGraphDatabase.get(i), this.queryGraph, aggregationOperator);
-                inclusionDegrees.add(new Tuple<>(i, inclusionDegree));
-            }
-            
-            Collections.sort(this.inclusionDegrees, Collections.reverseOrder(this.tupleComparator));
             Graph graph = this.sourceGraphDatabase.get(this.inclusionDegrees.get(0).getFirst());
             this.plotGraphInInternalFrame(graph, graph.getId() + ": " + this.inclusionDegrees.get(0).getSecond());
-            
             this.viewMatchesButton.setEnabled(true);
             this.drawSortedMatchesButton.setEnabled(true);
             this.explainMatchesButton.setEnabled(true);
@@ -622,12 +669,62 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private void generateRandomGraphSourceDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateRandomGraphSourceDBButtonActionPerformed
         try {
-            this.sourceGraphDatabase.buildRandomDatabase(100);
+            this.sourceGraphDatabase.buildRandomDatabase(5);
             this.changeSourceDBButtonsVisibility(true);
         } catch (IOException ex) {
             Logger.getLogger(ImageFuzzyGraphFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_generateRandomGraphSourceDBButtonActionPerformed
+
+    private void textSearchPreferencesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textSearchPreferencesButtonActionPerformed
+        TextSearchDialog tsd = new TextSearchDialog(this);
+        tsd.showDialog();
+        this.textSearchButton.setEnabled(true);
+    }//GEN-LAST:event_textSearchPreferencesButtonActionPerformed
+
+    private void textSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textSearchButtonActionPerformed
+        String firstObject = TextSearchPreferences.getFirstObject();
+        String firstObjectColor = TextSearchPreferences.getFirstObjectColor();
+        String secondObject = TextSearchPreferences.getSecondObject();
+        String secondObjectColor = TextSearchPreferences.getSecondObjectColor();
+        String relation = TextSearchPreferences.getRelation();
+        
+        GraphExamples graphExamples = new GraphExamples();
+        BuildGraph bg = new BuildGraph();
+        ArrayList<String> labels = new ArrayList<>(Arrays.asList(firstObject, secondObject));
+        ArrayList<Region> regions = new ArrayList<>();
+        regions.add(graphExamples.buildRegion(firstObject, firstObjectColor, 500.0, 500.0));
+        
+        switch (relation) {
+            case "up":
+                regions.add(graphExamples.buildRegion(secondObject, secondObjectColor, 500.0, 750.0));
+                break;
+            case "right":
+                regions.add(graphExamples.buildRegion(secondObject, secondObjectColor, 250.0, 500.0));
+                break;
+            case "left":
+                regions.add(graphExamples.buildRegion(secondObject, secondObjectColor, 750.0, 500.0));
+                break;
+            case "down":
+                regions.add(graphExamples.buildRegion(secondObject, secondObjectColor, 500.0, 250.0));
+                break;
+            default:
+                break;
+        }
+        
+        try {
+            Graph textSearchGraph = bg.buildGraph("text_search_graph", regions, labels);
+            this.queryDatabase(textSearchGraph);
+            this.queryGraph = textSearchGraph;
+            Graph bestMatchGraph = this.sourceGraphDatabase.get(this.inclusionDegrees.get(0).getFirst());
+            this.plotGraphInInternalFrame(bestMatchGraph, bestMatchGraph.getId() + ": " + this.inclusionDegrees.get(0).getSecond());
+            this.viewMatchesButton.setEnabled(true);
+            this.drawSortedMatchesButton.setEnabled(true);
+            this.explainMatchesButton.setEnabled(true);
+        } catch (IOException ex) {
+            Logger.getLogger(ImageFuzzyGraphFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_textSearchButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createQueryDBButton;
@@ -638,6 +735,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     private javax.swing.JButton generateRandomGraphSourceDBButton;
     private javax.swing.JButton matchingAlgorithmPreferencesButton;
     private javax.swing.JToolBar matchingAlgorithmToolBar;
+    private javax.swing.JToolBar matchingAlgorithmToolBar1;
     private javax.swing.JButton matchingButton;
     private javax.swing.JButton openQueryDBButton;
     private javax.swing.JButton openSourceDBButton;
@@ -648,6 +746,8 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
     private javax.swing.JButton plotSourceDBButton;
     private javax.swing.JToolBar queryDBToolBar;
     private javax.swing.JToolBar sourceDBToolBar;
+    private javax.swing.JButton textSearchButton;
+    private javax.swing.JButton textSearchPreferencesButton;
     private javax.swing.JPanel toolsPanel;
     private javax.swing.JButton viewMatchesButton;
     // End of variables declaration//GEN-END:variables
