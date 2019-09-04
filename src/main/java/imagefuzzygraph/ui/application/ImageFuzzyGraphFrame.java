@@ -671,6 +671,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         try {
             this.sourceGraphDatabase.buildRandomDatabase(5);
             this.changeSourceDBButtonsVisibility(true);
+            this.sourceGraphDatabase.saveDatabase(System.getProperty("user.dir") + "/random_database.json");
         } catch (IOException ex) {
             Logger.getLogger(ImageFuzzyGraphFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
