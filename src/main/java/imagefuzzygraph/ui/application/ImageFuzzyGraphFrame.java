@@ -278,7 +278,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
         sourceDBToolBar.setRollover(true);
 
-        generateRandomGraphSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/random.png"))); // NOI18N
+        generateRandomGraphSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/random-database.png"))); // NOI18N
         generateRandomGraphSourceDBButton.setToolTipText("Plot random graph from source database");
         generateRandomGraphSourceDBButton.setFocusable(false);
         generateRandomGraphSourceDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

@@ -80,7 +80,7 @@
             <Component class="javax.swing.JButton" name="generateRandomGraphSourceDBButton">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/icons/random.png"/>
+                  <Image iconType="3" name="/icons/random-database.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Plot random graph from source database"/>
                 <Property name="focusable" type="boolean" value="false"/>
