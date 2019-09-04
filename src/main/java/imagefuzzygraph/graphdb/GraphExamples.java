@@ -8,6 +8,8 @@ import imagefuzzygraph.graph.Graph;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * Class to build graph examples.
@@ -16,10 +18,41 @@ import java.util.Arrays;
  */
 public class GraphExamples {
     private final BuildGraph bg = new BuildGraph();
+    private final Random random = new Random(1);
+    private final ArrayList<Tuple<Double, Double>> locations = new ArrayList<>(Arrays.asList(
+            new Tuple<>(0.0, 50.0), new Tuple<>(0.0, 250.0), new Tuple<>(0.0, 450.0), new Tuple<>(0.0, 650.0), new Tuple<>(0.0, 850.0),
+            new Tuple<>(200.0, 50.0), new Tuple<>(200.0, 250.0), new Tuple<>(200.0, 450.0), new Tuple<>(200.0, 650.0), new Tuple<>(200.0, 850.0),
+            new Tuple<>(400.0, 50.0), new Tuple<>(400.0, 250.0), new Tuple<>(400.0, 450.0), new Tuple<>(400.0, 650.0), new Tuple<>(400.0, 850.0),
+            new Tuple<>(600.0, 50.0), new Tuple<>(600.0, 250.0), new Tuple<>(600.0, 450.0), new Tuple<>(600.0, 650.0), new Tuple<>(600.0, 850.0),
+            new Tuple<>(800.0, 50.0), new Tuple<>(800.0, 250.0), new Tuple<>(800.0, 450.0), new Tuple<>(800.0, 650.0), new Tuple<>(800.0, 850.0),
+            new Tuple<>(1000.0, 50.0), new Tuple<>(1000.0, 250.0), new Tuple<>(1000.0, 450.0), new Tuple<>(1000.0, 650.0), new Tuple<>(1000.0, 850.0)));
 
     private Region buildRegion(String folder, String file, double x, double y) {
         String filename = String.format("db/%s/%s.png", folder, file);
         return new Region(filename, new Tuple<>(x, y));
+    }
+
+    public Graph randomGraph(int graphId) throws IOException {
+        ArrayList<String> labels = new ArrayList<>();
+        ArrayList<Region> regions = new ArrayList<>();
+
+        Collections.shuffle(this.locations, this.random);
+        ArrayList<String> figures = new ArrayList<>(Arrays.asList("circle_1.0", "cross_1.0", "heart_1.0",
+                "square_0.8", "square_1.0", "star_1.0", "triangle_1.0"));
+        ArrayList<String> colors = new ArrayList<>(Arrays.asList("blue1", "blue2", "blue3", "brown1", "brown2",
+                "brown3", "green1", "green2", "green3", "orange1", "orange2", "orange3", "pink1", "pink2",
+                "pink3", "purple1", "purple2", "purple3", "red1", "red2", "red3", "yellow1", "yellow2", "yellow3"));
+
+        int numberOfFigures = this.random.nextInt(figures.size());
+        for (int i = 0; i <= numberOfFigures; i++) {
+            String randomFigure = figures.get(this.random.nextInt(figures.size()));
+            String randomColor = colors.get(this.random.nextInt(colors.size()));
+            Tuple<Double, Double> l = this.locations.get(i);
+            labels.add(randomFigure);
+            regions.add(this.buildRegion(randomFigure, randomColor, l.getFirst(), l.getSecond()));
+        }
+
+        return this.bg.buildGraph("Graph_" + graphId, regions, labels);
     }
 
     public Graph source_example1() throws IOException {
@@ -74,6 +107,27 @@ public class GraphExamples {
         regions.add(this.buildRegion(labels.get(1), "green2", 200.0, 250.0));
         regions.add(this.buildRegion(labels.get(2), "red3", 0.0, 50.0));
         regions.add(this.buildRegion(labels.get(3), "yellow2", 0.0, 250.0));
+        return this.bg.buildGraph("Graph_5", regions, labels);
+    }
+
+    public Graph source_example6() throws IOException {
+        ArrayList<String> labels = new ArrayList<>(Arrays.asList("square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0"));
+        ArrayList<Region> regions = new ArrayList<>();
+
+        regions.add(this.buildRegion(labels.get(0), "red3", 0.0, 50.0));
+        regions.add(this.buildRegion(labels.get(0), "yellow2", 0.0, 250.0));
+        regions.add(this.buildRegion(labels.get(0), "yellow2", 0.0, 450.0));
+        regions.add(this.buildRegion(labels.get(0), "yellow2", 0.0, 650.0));
+        regions.add(this.buildRegion(labels.get(0), "pink2", 0.0, 850.0));
+        regions.add(this.buildRegion(labels.get(0), "green1", 0.0, 1050.0));
+
+        regions.add(this.buildRegion(labels.get(0), "pink2", 200.0, 50.0));
+        regions.add(this.buildRegion(labels.get(0), "red2", 400.0, 50.0));
+        regions.add(this.buildRegion(labels.get(0), "orange2", 600.0, 50.0));
+        regions.add(this.buildRegion(labels.get(0), "blue2", 800.0, 50.0));
+        regions.add(this.buildRegion(labels.get(0), "brown2", 1000.0, 50.0));
+
+
         return this.bg.buildGraph("Graph_5", regions, labels);
     }
 

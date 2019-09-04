@@ -45,6 +45,20 @@ public class GraphDatabase extends ArrayList<Graph> {
     }
 
     /**
+     * Build a database of random graphs.
+     *
+     * @param numberOfGraphs number of graphs to build.
+     */
+    public void buildRandomDatabase(int numberOfGraphs) throws IOException {
+        this.clear();
+        GraphExamples graphExamples = new GraphExamples();
+        ArrayList<Graph> database = new ArrayList<>();
+        for (int i = 0; i < numberOfGraphs; i++) {
+            this.add(graphExamples.randomGraph(i));
+        }
+    }
+
+    /**
      * Read database from a file.
      *
      * @param fileName file to read from.
