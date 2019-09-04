@@ -645,8 +645,8 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
                     Edge sourceEdge = sourceEdges.get(edgesMatch.getFirst());
                     Edge queryEdge = queryEdges.get(edgesMatch.getSecond());
                     double inclusionDegree = fuzzyGraphMatching.fuzzyEdgeInclusionConsideringNodes(sourceEdge, queryEdge, similarities);
-                    areaTextBuilder.append(sourceEdge.getStartNodeId()).append("-").append(sourceEdge.getEndNodeId()).append(" -> ");
-                    areaTextBuilder.append(queryEdge.getStartNodeId()).append("-").append(queryEdge.getEndNodeId()).append(": ").append(inclusionDegree).append("\n");
+                    areaTextBuilder.append(queryEdge.getStartNodeId()).append("-").append(queryEdge.getEndNodeId()).append(" -> ");
+                    areaTextBuilder.append(sourceEdge.getStartNodeId()).append("-").append(sourceEdge.getEndNodeId()).append(": ").append(inclusionDegree).append("\n");
                 }
             } else {
                 for (Tuple<String, String> nodesMatch : matches.getFirst()) {
