@@ -24,8 +24,7 @@ public class GraphExamples {
             new Tuple<>(200.0, 50.0), new Tuple<>(200.0, 250.0), new Tuple<>(200.0, 450.0), new Tuple<>(200.0, 650.0), new Tuple<>(200.0, 850.0),
             new Tuple<>(400.0, 50.0), new Tuple<>(400.0, 250.0), new Tuple<>(400.0, 450.0), new Tuple<>(400.0, 650.0), new Tuple<>(400.0, 850.0),
             new Tuple<>(600.0, 50.0), new Tuple<>(600.0, 250.0), new Tuple<>(600.0, 450.0), new Tuple<>(600.0, 650.0), new Tuple<>(600.0, 850.0),
-            new Tuple<>(800.0, 50.0), new Tuple<>(800.0, 250.0), new Tuple<>(800.0, 450.0), new Tuple<>(800.0, 650.0), new Tuple<>(800.0, 850.0),
-            new Tuple<>(1000.0, 50.0), new Tuple<>(1000.0, 250.0), new Tuple<>(1000.0, 450.0), new Tuple<>(1000.0, 650.0), new Tuple<>(1000.0, 850.0)));
+            new Tuple<>(800.0, 50.0), new Tuple<>(800.0, 250.0), new Tuple<>(800.0, 450.0), new Tuple<>(800.0, 650.0), new Tuple<>(800.0, 850.0)));
 
     public Region buildRegion(String folder, String file, double x, double y) {
         String filename = String.format("db/%s/%s.png", folder, file);
