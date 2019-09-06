@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"imagefuzzygraph.algorithm"},{"l":"imagefuzzygraph.data"},{"l":"imagefuzzygraph.graph"},{"l":"imagefuzzygraph.graphdb"},{"l":"imagefuzzygraph.ui.application"},{"l":"imagefuzzygraph.ui.elements"}]
