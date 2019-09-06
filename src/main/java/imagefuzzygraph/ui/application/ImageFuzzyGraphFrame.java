@@ -670,7 +670,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
 
     private void generateRandomGraphSourceDBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateRandomGraphSourceDBButtonActionPerformed
         try {
-            this.sourceGraphDatabase.buildRandomDatabase(5);
+            this.sourceGraphDatabase.buildRandomDatabase(1000);
             this.changeSourceDBButtonsVisibility(true);
             this.sourceGraphDatabase.saveDatabase(System.getProperty("user.dir") + "/random_database.json");
         } catch (IOException ex) {

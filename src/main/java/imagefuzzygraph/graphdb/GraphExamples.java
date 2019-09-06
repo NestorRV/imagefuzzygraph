@@ -42,7 +42,8 @@ public class GraphExamples {
                 "brown3", "green1", "green2", "green3", "orange1", "orange2", "orange3", "pink1", "pink2",
                 "pink3", "purple1", "purple2", "purple3", "red1", "red2", "red3", "yellow1", "yellow2", "yellow3"));
 
-        int numberOfFigures = this.random.nextInt(figures.size());
+        // Graphs with 2-10 elements.
+        int numberOfFigures = 2 + this.random.nextInt(9);
         for (int i = 0; i <= numberOfFigures; i++) {
             String randomFigure = figures.get(this.random.nextInt(figures.size()));
             String randomColor = colors.get(this.random.nextInt(colors.size()));
