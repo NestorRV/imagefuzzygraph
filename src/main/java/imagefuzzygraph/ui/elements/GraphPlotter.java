@@ -61,9 +61,8 @@ public class GraphPlotter extends JComponent {
      * @param matches    matched between queryGraph and bestGraph.
      * @param w          width of the JComponent.
      * @param h          height of the JComponent.
-     * @return image of the graph.
      */
-    public BufferedImage plotMatches(Graph queryGraph, Graph bestGraph, Tuple<ListOfMatches, ListOfMatches> matches, int w, int h) {
+    public void plotMatches(Graph queryGraph, Graph bestGraph, Tuple<ListOfMatches, ListOfMatches> matches, int w, int h) {
         this.graph = new Graph(bestGraph);
         this.setSize(w, h);
         this.imageGraph = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -94,7 +93,6 @@ public class GraphPlotter extends JComponent {
         }
 
         g2d.dispose();
-        return this.imageGraph;
     }
 
     /**
