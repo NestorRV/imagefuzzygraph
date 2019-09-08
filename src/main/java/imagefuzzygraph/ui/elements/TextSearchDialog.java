@@ -176,19 +176,11 @@ public class TextSearchDialog extends javax.swing.JDialog {
         buttonsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         acceptButton.setText("OK");
-        acceptButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acceptButtonActionPerformed(evt);
-            }
-        });
+        acceptButton.addActionListener(this::acceptButtonActionPerformed);
         buttonsPanel.add(acceptButton);
 
         cancelButton.setText("Cancel");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
+        cancelButton.addActionListener(this::cancelButtonActionPerformed);
         buttonsPanel.add(cancelButton);
 
         getContentPane().add(buttonsPanel, java.awt.BorderLayout.SOUTH);

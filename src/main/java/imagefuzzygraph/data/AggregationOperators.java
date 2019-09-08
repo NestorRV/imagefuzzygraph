@@ -5,7 +5,6 @@ import jfi.fuzzy.FuzzySetCollection;
 import jfi.fuzzy.membershipfunction.TrapezoidalFunction;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -69,8 +68,6 @@ public class AggregationOperators {
      * @return operator representing the <i>All elements should match the condition</i> semantic.
      */
     public static AggregationOperator all() {
-        return collection -> {
-            return Collections.min(collection);
-        };
+        return Collections::min;
     }
 }
