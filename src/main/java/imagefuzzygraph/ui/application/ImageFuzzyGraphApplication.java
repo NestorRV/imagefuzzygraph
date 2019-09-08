@@ -1,8 +1,7 @@
 package imagefuzzygraph.ui.application;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Class to run the ImageFuzzyGraph application.

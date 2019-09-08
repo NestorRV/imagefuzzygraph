@@ -46,7 +46,7 @@ public class MatchingAlgorithmPreferences {
     public static void setAlpha(double alpha) {
         MatchingAlgorithmPreferences.alpha = alpha;
     }
-    
+
     /**
      * Return the beta for the atLeast quantifier.
      *

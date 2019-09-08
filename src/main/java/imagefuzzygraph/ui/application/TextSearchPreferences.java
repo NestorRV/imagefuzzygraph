@@ -30,7 +30,7 @@ public class TextSearchPreferences {
     public static void setFirstObject(String firstObject) {
         TextSearchPreferences.firstObject = firstObject;
     }
-    
+
     /**
      * Return the firstObjectColor of the text search.
      *
@@ -48,7 +48,7 @@ public class TextSearchPreferences {
     public static void setFirstObjectColor(String firstObjectColor) {
         TextSearchPreferences.firstObjectColor = firstObjectColor;
     }
-    
+
     /**
      * Return the secondObject of the text search.
      *
@@ -66,7 +66,7 @@ public class TextSearchPreferences {
     public static void setSecondObject(String secondObject) {
         TextSearchPreferences.secondObject = secondObject;
     }
-    
+
     /**
      * Return the secondObjectColor of the text search.
      *
@@ -84,8 +84,8 @@ public class TextSearchPreferences {
     public static void setSecondObjectColor(String secondObjectColor) {
         TextSearchPreferences.secondObjectColor = secondObjectColor;
     }
-    
-        /**
+
+    /**
      * Return the relation of the text search.
      *
      * @return the relation of the text search.

@@ -32,7 +32,7 @@ public class GraphPlotter extends JComponent {
     public GraphPlotter() {
         super();
     }
-    
+
     /**
      * Plot a graph.
      *
@@ -52,7 +52,7 @@ public class GraphPlotter extends JComponent {
         g2d.dispose();
         return this.imageGraph;
     }
-    
+
     /**
      * Plot two graphs side by side.
      *
@@ -118,7 +118,7 @@ public class GraphPlotter extends JComponent {
         g2d.dispose();
         return this.imageGraph;
     }
-    
+
     /**
      * Add a graph to a Graphics2D.
      *
@@ -135,7 +135,7 @@ public class GraphPlotter extends JComponent {
                 int y = location.getSecond().intValue() / this.resizeFactor;
                 g2d.drawImage(img, x, y, img.getWidth() / this.resizeFactor, img.getHeight() / this.resizeFactor, null);
             }
-            
+
             g2d.setColor(Color.BLACK);
             g2d.setFont(g2d.getFont().deriveFont(12f));
             g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
