@@ -52,7 +52,6 @@ public class GraphDatabase extends ArrayList<Graph> {
     public void buildRandomDatabase(int numberOfGraphs) throws IOException {
         this.clear();
         GraphExamples graphExamples = new GraphExamples();
-        ArrayList<Graph> database = new ArrayList<>();
         for (int i = 0; i < numberOfGraphs; i++) {
             this.add(graphExamples.randomGraph(i));
         }
