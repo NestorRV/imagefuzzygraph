@@ -190,8 +190,8 @@ public class FuzzyGraphMatching {
      * @param query  query graph.
      * @return the inclusion degree of the graph query in the graph source.
      */
-    public double greedyInclusion(Graph source, Graph query) {
-        return this.greedyInclusion(source, query, Collections::min);
+    public double computeInclusion(Graph source, Graph query) {
+        return this.computeInclusion(source, query, Collections::min);
     }
 
     /**
@@ -202,9 +202,9 @@ public class FuzzyGraphMatching {
      * @param aggregationOperator an {@link AggregationOperator}.
      * @return the inclusion degree of the graph query in the graph source.
      */
-    public double greedyInclusion(Graph source, Graph query, AggregationOperator aggregationOperator) {
+    public double computeInclusion(Graph source, Graph query, AggregationOperator aggregationOperator) {
         Map<String, Map<String, Double>> similarities = this.computeSimilarities(source.getNodes(), query.getNodes());
-        Tuple<ListOfMatches, ListOfMatches> matches = this.greedyMatching(source, query, similarities);
+        Tuple<ListOfMatches, ListOfMatches> matches = this.computeMatching(source, query, similarities);
         ListOfMatches nodesMatches = matches.getFirst();
         ListOfMatches edgesMatches = matches.getSecond();
 
@@ -231,9 +231,9 @@ public class FuzzyGraphMatching {
      * @param query  query graph.
      * @return tuple containing nodes matches and edge matches.
      */
-    public Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query) {
+    public Tuple<ListOfMatches, ListOfMatches> computeMatching(Graph source, Graph query) {
         Map<String, Map<String, Double>> similarities = this.computeSimilarities(source.getNodes(), query.getNodes());
-        return this.greedyMatching(source, query, similarities);
+        return this.computeMatching(source, query, similarities);
     }
 
     /**
@@ -244,7 +244,7 @@ public class FuzzyGraphMatching {
      * @param similarities similarities of the nodes.
      * @return tuple containing nodes matches and edge matches.
      */
-    public Tuple<ListOfMatches, ListOfMatches> greedyMatching(Graph source, Graph query, Map<String, Map<String, Double>> similarities) {
+    public Tuple<ListOfMatches, ListOfMatches> computeMatching(Graph source, Graph query, Map<String, Map<String, Double>> similarities) {
         ListOfMatches nodesMatches = new ListOfMatches();
         ListOfMatches edgesMatches = new ListOfMatches();
         Tuple<String, String> bestPair = this.getBestPairOfNodes(similarities);

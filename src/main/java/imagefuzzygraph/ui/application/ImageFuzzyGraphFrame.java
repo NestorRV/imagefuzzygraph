@@ -536,7 +536,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             
         this.inclusionDegrees = new ArrayList<>();
         for (int i = 0; i < this.sourceGraphDatabase.size(); i++) {
-            double inclusionDegree = fuzzyGraphMatching.greedyInclusion(this.sourceGraphDatabase.get(i), graph, aggregationOperator);
+            double inclusionDegree = fuzzyGraphMatching.computeInclusion(this.sourceGraphDatabase.get(i), graph, aggregationOperator);
             inclusionDegrees.add(new Tuple<>(i, inclusionDegree));
         }
 
@@ -574,7 +574,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         FuzzyGraphMatching fuzzyGraphMatching = new FuzzyGraphMatching();
         if (this.queryGraph != null && !this.inclusionDegrees.isEmpty()) {
             int bestGraphIdx = this.inclusionDegrees.get(0).getFirst();
-            Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.greedyMatching(this.sourceGraphDatabase.get(bestGraphIdx), this.queryGraph);
+            Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.computeMatching(this.sourceGraphDatabase.get(bestGraphIdx), this.queryGraph);
             JInternalFrame internalFrame = new JInternalFrame("Matches found.", true, true, true);
             internalFrame.setSize(ImageFuzzyGraphFrame.GP_SIZE * 2, ImageFuzzyGraphFrame.GP_SIZE);
             internalFrame.setBackground(Color.WHITE);
@@ -629,7 +629,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             int bestGraphIdx = this.inclusionDegrees.get(0).getFirst();
             Graph sourceGraph = this.sourceGraphDatabase.get(bestGraphIdx);
             Map<String, Map<String, Double>> similarities = fuzzyGraphMatching.computeSimilarities(sourceGraph.getNodes(), this.queryGraph.getNodes());
-            Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.greedyMatching(this.sourceGraphDatabase.get(bestGraphIdx), this.queryGraph, similarities);
+            Tuple<ListOfMatches, ListOfMatches> matches = fuzzyGraphMatching.computeMatching(this.sourceGraphDatabase.get(bestGraphIdx), this.queryGraph, similarities);
             
             JInternalFrame internalFrame = new JInternalFrame("Matches explanation.", true, true, true);
             internalFrame.setSize(ImageFuzzyGraphFrame.GP_SIZE, ImageFuzzyGraphFrame.GP_SIZE);
