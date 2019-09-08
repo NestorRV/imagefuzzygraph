@@ -54,28 +54,6 @@ public class GraphPlotter extends JComponent {
     }
 
     /**
-     * Plot two graphs side by side.
-     *
-     * @param g1 g1 to be plotted.
-     * @param g2 g2 to be plotted.
-     * @param w  width of the JComponent.
-     * @param h  height of the JComponent.
-     * @return image of the graph.
-     */
-    public BufferedImage plotTwoGraphs(Graph g1, Graph g2, int w, int h) {
-        this.graph = new Graph(g2);
-        this.setSize(w, h);
-        this.imageGraph = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = (Graphics2D) this.imageGraph.getGraphics();
-        g2d.setColor(Color.WHITE);
-        g2d.fillRect(0, 0, this.imageGraph.getWidth(), this.imageGraph.getHeight());
-        this.addGraphToImage(g2d, g1, 0);
-        this.addGraphToImage(g2d, g2, w / 2);
-        g2d.dispose();
-        return this.imageGraph;
-    }
-
-    /**
      * Plot matches between two graphs.
      *
      * @param queryGraph queryGraph to be plotted.
