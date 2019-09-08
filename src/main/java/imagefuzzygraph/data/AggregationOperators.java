@@ -49,7 +49,7 @@ public class AggregationOperators {
             double sigmaCount = collection.stream().mapToDouble(i -> i).sum() / collection.size();
             FunctionBasedFuzzySet<Double> atLeast = new FunctionBasedFuzzySet<>("atLeast", new TrapezoidalFunction<>(alpha, beta, 1.0, 1.0));
             Descriptor atLeastDescriptor = new Descriptor();
-            FuzzySetCollection<FunctionBasedFuzzySet<Double>, Double> fsc = new FuzzySetCollection<>(Arrays.asList(atLeast));
+            FuzzySetCollection<FunctionBasedFuzzySet<Double>, Double> fsc = new FuzzySetCollection<>(Collections.singletonList(atLeast));
             ArrayList<FuzzySetCollection<FunctionBasedFuzzySet<Double>, Double>.PossibilityDistributionItem> pd = fsc.getPossibilityDistribution(sigmaCount);
             for (FuzzySetCollection<FunctionBasedFuzzySet<Double>, Double>.PossibilityDistributionItem pdItem : pd) {
                 atLeastDescriptor.add(new PropertyWithDegree(pdItem.fuzzySet.getLabel(), pdItem.degree));
