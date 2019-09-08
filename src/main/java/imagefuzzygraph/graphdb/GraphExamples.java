@@ -110,27 +110,6 @@ public class GraphExamples {
         return this.bg.buildGraph("Graph_5", regions, labels);
     }
 
-    public Graph source_example6() throws IOException {
-        ArrayList<String> labels = new ArrayList<>(Arrays.asList("square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0", "square_1.0"));
-        ArrayList<Region> regions = new ArrayList<>();
-
-        regions.add(this.buildRegion(labels.get(0), "red3", 0.0, 50.0));
-        regions.add(this.buildRegion(labels.get(0), "yellow2", 0.0, 250.0));
-        regions.add(this.buildRegion(labels.get(0), "yellow2", 0.0, 450.0));
-        regions.add(this.buildRegion(labels.get(0), "yellow2", 0.0, 650.0));
-        regions.add(this.buildRegion(labels.get(0), "pink2", 0.0, 850.0));
-        regions.add(this.buildRegion(labels.get(0), "green1", 0.0, 1050.0));
-
-        regions.add(this.buildRegion(labels.get(0), "pink2", 200.0, 50.0));
-        regions.add(this.buildRegion(labels.get(0), "red2", 400.0, 50.0));
-        regions.add(this.buildRegion(labels.get(0), "orange2", 600.0, 50.0));
-        regions.add(this.buildRegion(labels.get(0), "blue2", 800.0, 50.0));
-        regions.add(this.buildRegion(labels.get(0), "brown2", 1000.0, 50.0));
-
-
-        return this.bg.buildGraph("Graph_5", regions, labels);
-    }
-
     public Graph query_example1() throws IOException {
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("triangle_1.0", "square_0.8", "cross_1.0", "heart_1.0", "star_1.0", "circle_1.0"));
         ArrayList<Region> regions = new ArrayList<>();
