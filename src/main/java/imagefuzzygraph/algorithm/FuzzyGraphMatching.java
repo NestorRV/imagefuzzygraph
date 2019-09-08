@@ -255,7 +255,6 @@ public class FuzzyGraphMatching {
             nodesMatches.add(new Tuple<>(bestPair.getFirst(), bestPair.getSecond()));
             Collection<Edge> sourceAdjacentEdges = mySource.getAdjacentEdges(bestPair.getFirst());
             Collection<Edge> queryAdjacentEdges = myQuery.getAdjacentEdges(bestPair.getSecond());
-            double iterationSimilarity = similarities.get(bestPair.getFirst()).get(bestPair.getSecond());
 
             while (!queryAdjacentEdges.isEmpty() && !sourceAdjacentEdges.isEmpty()) {
                 Tuple<Tuple<Edge, Edge>, Double> bestTriplet = this.getBestPairOfEdges(sourceAdjacentEdges, queryAdjacentEdges, similarities);
@@ -269,8 +268,6 @@ public class FuzzyGraphMatching {
 
                 nodesMatches.add(new Tuple<>(pairOfEdges.getFirst().getEndNodeId(), pairOfEdges.getSecond().getEndNodeId()));
                 edgesMatches.add(new Tuple<>(pairOfEdges.getFirst().getId(), pairOfEdges.getSecond().getId()));
-
-                iterationSimilarity = bestTriplet.getSecond();
             }
         }
 
