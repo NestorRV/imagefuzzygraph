@@ -250,8 +250,8 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         createQueryDBButton = new javax.swing.JButton();
         openQueryDBButton = new javax.swing.JButton();
         plotRandomGraphQueryDBButton = new javax.swing.JButton();
-        plotNextGraphQueryDBButton = new javax.swing.JButton();
         plotQueryDBButton = new javax.swing.JButton();
+        plotNextGraphQueryDBButton = new javax.swing.JButton();
         matchingAlgorithmToolBar = new javax.swing.JToolBar();
         matchingAlgorithmPreferencesButton = new javax.swing.JButton();
         matchingButton = new javax.swing.JButton();
@@ -293,7 +293,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         generateRandomGraphSourceDBButton.setFocusable(false);
         generateRandomGraphSourceDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         generateRandomGraphSourceDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        generateRandomGraphSourceDBButton.addActionListener(this::generateRandomGraphSourceDBButtonActionPerformed);
+        generateRandomGraphSourceDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateRandomGraphSourceDBButtonActionPerformed(evt);
+            }
+        });
         sourceDBToolBar.add(generateRandomGraphSourceDBButton);
 
         createSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/create-database.png"))); // NOI18N
@@ -301,7 +305,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         createSourceDBButton.setFocusable(false);
         createSourceDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         createSourceDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        createSourceDBButton.addActionListener(this::createSourceDBButtonActionPerformed);
+        createSourceDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createSourceDBButtonActionPerformed(evt);
+            }
+        });
         sourceDBToolBar.add(createSourceDBButton);
 
         openSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/load-database.png"))); // NOI18N
@@ -309,7 +317,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         openSourceDBButton.setFocusable(false);
         openSourceDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         openSourceDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        openSourceDBButton.addActionListener(this::openSourceDBButtonActionPerformed);
+        openSourceDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openSourceDBButtonActionPerformed(evt);
+            }
+        });
         sourceDBToolBar.add(openSourceDBButton);
 
         plotRandomGraphSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/random.png"))); // NOI18N
@@ -317,7 +329,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         plotRandomGraphSourceDBButton.setFocusable(false);
         plotRandomGraphSourceDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         plotRandomGraphSourceDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        plotRandomGraphSourceDBButton.addActionListener(this::plotRandomGraphSourceDBButtonActionPerformed);
+        plotRandomGraphSourceDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plotRandomGraphSourceDBButtonActionPerformed(evt);
+            }
+        });
         sourceDBToolBar.add(plotRandomGraphSourceDBButton);
 
         plotSourceDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draw.png"))); // NOI18N
@@ -325,7 +341,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         plotSourceDBButton.setFocusable(false);
         plotSourceDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         plotSourceDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        plotSourceDBButton.addActionListener(this::plotSourceDBButtonActionPerformed);
+        plotSourceDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plotSourceDBButtonActionPerformed(evt);
+            }
+        });
         sourceDBToolBar.add(plotSourceDBButton);
 
         toolsPanel.add(sourceDBToolBar);
@@ -337,7 +357,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         createQueryDBButton.setFocusable(false);
         createQueryDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         createQueryDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        createQueryDBButton.addActionListener(this::createQueryDBButtonActionPerformed);
+        createQueryDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createQueryDBButtonActionPerformed(evt);
+            }
+        });
         queryDBToolBar.add(createQueryDBButton);
 
         openQueryDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/load-database.png"))); // NOI18N
@@ -345,7 +369,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         openQueryDBButton.setFocusable(false);
         openQueryDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         openQueryDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        openQueryDBButton.addActionListener(this::openQueryDBButtonActionPerformed);
+        openQueryDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openQueryDBButtonActionPerformed(evt);
+            }
+        });
         queryDBToolBar.add(openQueryDBButton);
 
         plotRandomGraphQueryDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/random.png"))); // NOI18N
@@ -353,24 +381,36 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         plotRandomGraphQueryDBButton.setFocusable(false);
         plotRandomGraphQueryDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         plotRandomGraphQueryDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        plotRandomGraphQueryDBButton.addActionListener(this::plotRandomGraphQueryDBButtonActionPerformed);
+        plotRandomGraphQueryDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plotRandomGraphQueryDBButtonActionPerformed(evt);
+            }
+        });
         queryDBToolBar.add(plotRandomGraphQueryDBButton);
-
-        plotNextGraphQueryDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/next.png"))); // NOI18N
-        plotNextGraphQueryDBButton.setToolTipText("Plot random graph from source database");
-        plotNextGraphQueryDBButton.setFocusable(false);
-        plotNextGraphQueryDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        plotNextGraphQueryDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        plotNextGraphQueryDBButton.addActionListener(this::plotNextGraphQueryDBButtonActionPerformed);
-        queryDBToolBar.add(plotNextGraphQueryDBButton);
 
         plotQueryDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draw.png"))); // NOI18N
         plotQueryDBButton.setToolTipText("Plot all the graphs in the source database");
         plotQueryDBButton.setFocusable(false);
         plotQueryDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         plotQueryDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        plotQueryDBButton.addActionListener(this::plotQueryDBButtonActionPerformed);
+        plotQueryDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plotQueryDBButtonActionPerformed(evt);
+            }
+        });
         queryDBToolBar.add(plotQueryDBButton);
+
+        plotNextGraphQueryDBButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/next.png"))); // NOI18N
+        plotNextGraphQueryDBButton.setToolTipText("Plot random graph from source database");
+        plotNextGraphQueryDBButton.setFocusable(false);
+        plotNextGraphQueryDBButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        plotNextGraphQueryDBButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        plotNextGraphQueryDBButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plotNextGraphQueryDBButtonActionPerformed(evt);
+            }
+        });
+        queryDBToolBar.add(plotNextGraphQueryDBButton);
 
         toolsPanel.add(queryDBToolBar);
 
@@ -381,7 +421,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         matchingAlgorithmPreferencesButton.setFocusable(false);
         matchingAlgorithmPreferencesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         matchingAlgorithmPreferencesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        matchingAlgorithmPreferencesButton.addActionListener(this::matchingAlgorithmPreferencesButtonActionPerformed);
+        matchingAlgorithmPreferencesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                matchingAlgorithmPreferencesButtonActionPerformed(evt);
+            }
+        });
         matchingAlgorithmToolBar.add(matchingAlgorithmPreferencesButton);
 
         matchingButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/compare.png"))); // NOI18N
@@ -389,7 +433,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         matchingButton.setFocusable(false);
         matchingButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         matchingButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        matchingButton.addActionListener(this::matchingButtonActionPerformed);
+        matchingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                matchingButtonActionPerformed(evt);
+            }
+        });
         matchingAlgorithmToolBar.add(matchingButton);
 
         explainMatchesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/question.png"))); // NOI18N
@@ -397,7 +445,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         explainMatchesButton.setFocusable(false);
         explainMatchesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         explainMatchesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        explainMatchesButton.addActionListener(this::explainMatchesButtonActionPerformed);
+        explainMatchesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                explainMatchesButtonActionPerformed(evt);
+            }
+        });
         matchingAlgorithmToolBar.add(explainMatchesButton);
 
         drawSortedMatchesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draw-sorted-matches.png"))); // NOI18N
@@ -405,7 +457,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         drawSortedMatchesButton.setFocusable(false);
         drawSortedMatchesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         drawSortedMatchesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        drawSortedMatchesButton.addActionListener(this::drawSortedMatchesButtonActionPerformed);
+        drawSortedMatchesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drawSortedMatchesButtonActionPerformed(evt);
+            }
+        });
         matchingAlgorithmToolBar.add(drawSortedMatchesButton);
 
         viewMatchesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/view-matches.png"))); // NOI18N
@@ -413,7 +469,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         viewMatchesButton.setFocusable(false);
         viewMatchesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         viewMatchesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        viewMatchesButton.addActionListener(this::viewMatchesButtonActionPerformed);
+        viewMatchesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewMatchesButtonActionPerformed(evt);
+            }
+        });
         matchingAlgorithmToolBar.add(viewMatchesButton);
 
         matchingAlgorithmToolBar1.setRollover(true);
@@ -423,7 +483,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         textSearchPreferencesButton.setFocusable(false);
         textSearchPreferencesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         textSearchPreferencesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        textSearchPreferencesButton.addActionListener(this::textSearchPreferencesButtonActionPerformed);
+        textSearchPreferencesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textSearchPreferencesButtonActionPerformed(evt);
+            }
+        });
         matchingAlgorithmToolBar1.add(textSearchPreferencesButton);
 
         textSearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/text-search.png"))); // NOI18N
@@ -431,7 +495,11 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         textSearchButton.setFocusable(false);
         textSearchButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         textSearchButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        textSearchButton.addActionListener(this::textSearchButtonActionPerformed);
+        textSearchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textSearchButtonActionPerformed(evt);
+            }
+        });
         matchingAlgorithmToolBar1.add(textSearchButton);
 
         matchingAlgorithmToolBar.add(matchingAlgorithmToolBar1);
