@@ -636,7 +636,7 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             internalFrame.setVisible(true);
             
             StringBuilder areaTextBuilder = new StringBuilder();
-            areaTextBuilder.append("Query edge -> Source edge\n");
+            areaTextBuilder.append("Query triplet -> Source triplet\n");
             
             ListOfMatches edgesMatches = matches.getSecond();
             if (edgesMatches.size() > 0) {
