@@ -256,8 +256,8 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         matchingAlgorithmPreferencesButton = new javax.swing.JButton();
         matchingButton = new javax.swing.JButton();
         explainMatchesButton = new javax.swing.JButton();
-        drawSortedMatchesButton = new javax.swing.JButton();
         viewMatchesButton = new javax.swing.JButton();
+        drawSortedMatchesButton = new javax.swing.JButton();
         matchingAlgorithmToolBar1 = new javax.swing.JToolBar();
         textSearchPreferencesButton = new javax.swing.JButton();
         textSearchButton = new javax.swing.JButton();
@@ -452,18 +452,6 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
         });
         matchingAlgorithmToolBar.add(explainMatchesButton);
 
-        drawSortedMatchesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draw-sorted-matches.png"))); // NOI18N
-        drawSortedMatchesButton.setToolTipText("Plot the graphs in the database sorted by the inclussion degree with the query graph.");
-        drawSortedMatchesButton.setFocusable(false);
-        drawSortedMatchesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        drawSortedMatchesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        drawSortedMatchesButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                drawSortedMatchesButtonActionPerformed(evt);
-            }
-        });
-        matchingAlgorithmToolBar.add(drawSortedMatchesButton);
-
         viewMatchesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/view-matches.png"))); // NOI18N
         viewMatchesButton.setToolTipText("Draw the matching between the queryGraph and the best matching one");
         viewMatchesButton.setFocusable(false);
@@ -475,6 +463,18 @@ public class ImageFuzzyGraphFrame extends javax.swing.JFrame {
             }
         });
         matchingAlgorithmToolBar.add(viewMatchesButton);
+
+        drawSortedMatchesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/draw-sorted-matches.png"))); // NOI18N
+        drawSortedMatchesButton.setToolTipText("Plot the graphs in the database sorted by the inclussion degree with the query graph.");
+        drawSortedMatchesButton.setFocusable(false);
+        drawSortedMatchesButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        drawSortedMatchesButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        drawSortedMatchesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drawSortedMatchesButtonActionPerformed(evt);
+            }
+        });
+        matchingAlgorithmToolBar.add(drawSortedMatchesButton);
 
         matchingAlgorithmToolBar1.setRollover(true);
 
