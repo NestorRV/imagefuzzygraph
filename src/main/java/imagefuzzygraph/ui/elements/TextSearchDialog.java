@@ -87,31 +87,31 @@ public class TextSearchDialog extends javax.swing.JDialog {
 
         firstObjectLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         firstObjectLabel.setText("First object");
-        firstObjectLabel.setToolTipText("Aggregation Operator to be used");
+        firstObjectLabel.setToolTipText("");
 
         firstObjectList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "circle_1.0", "cross_1.0", "heart_1.0", "square_0.8", "square_1.0", "star_1.0", "triangle_1.0" }));
 
         firstObjectColorLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         firstObjectColorLabel.setText("First object color");
-        firstObjectColorLabel.setToolTipText("Aggregation Operator to be used");
+        firstObjectColorLabel.setToolTipText("");
 
         firstObjectColorList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "blue1", "blue2", "blue3", "brown1", "brown2", "brown3", "green1", "green2", "green3", "orange1", "orange2", "orange3", "pink1", "pink2", "pink3", "purple1", "purple2", "purple3", "red1", "red2", "red3", "yellow1", "yellow2", "yellow3" }));
 
         relationLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         relationLabel.setText("Relation");
-        relationLabel.setToolTipText("Aggregation Operator to be used");
+        relationLabel.setToolTipText("");
 
         relationList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "up", "right", "left", "down" }));
 
         secondObjectLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         secondObjectLabel.setText("Second object");
-        secondObjectLabel.setToolTipText("Aggregation Operator to be used");
+        secondObjectLabel.setToolTipText("");
 
         secondObjectList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "circle_1.0", "cross_1.0", "heart_1.0", "square_0.8", "square_1.0", "star_1.0", "triangle_1.0" }));
 
         seconObjectColorLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         seconObjectColorLabel.setText("Second object color");
-        seconObjectColorLabel.setToolTipText("Aggregation Operator to be used");
+        seconObjectColorLabel.setToolTipText("");
 
         secondObjectColorList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "blue1", "blue2", "blue3", "brown1", "brown2", "brown3", "green1", "green2", "green3", "orange1", "orange2", "orange3", "pink1", "pink2", "pink3", "purple1", "purple2", "purple3", "red1", "red2", "red3", "yellow1", "yellow2", "yellow3" }));
 
@@ -167,7 +167,7 @@ public class TextSearchDialog extends javax.swing.JDialog {
                         .addGroup(panelShapeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(secondObjectLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(secondObjectList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelShape, java.awt.BorderLayout.CENTER);
@@ -176,16 +176,24 @@ public class TextSearchDialog extends javax.swing.JDialog {
         buttonsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         acceptButton.setText("OK");
-        acceptButton.addActionListener(this::acceptButtonActionPerformed);
+        acceptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acceptButtonActionPerformed(evt);
+            }
+        });
         buttonsPanel.add(acceptButton);
 
         cancelButton.setText("Cancel");
-        cancelButton.addActionListener(this::cancelButtonActionPerformed);
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
         buttonsPanel.add(cancelButton);
 
         getContentPane().add(buttonsPanel, java.awt.BorderLayout.SOUTH);
 
-        setSize(new java.awt.Dimension(471, 169));
+        setSize(new java.awt.Dimension(471, 184));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
